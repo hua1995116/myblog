@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/list.css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  ...
+</nav>
+<div class="contain">
+	<div class="main-l pull-left">
+		<ul class="list-group">
+		  <li class="list-group-item">css</li>
+		  <li class="list-group-item">js</li>
+		  <li class="list-group-item">html</li>
+		</ul>
+	</div>
+	<div class="mian-r pull-right">
+	<pre id="code">
+		<div class="mian-r pull-right">
+		</div>
+	</pre>
+	
+	</pre>
+	</div>
+
+</div>
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.htmlcode-1.0.js"></script>
+<script>
+	$("#code").htmlcode($("#code"));
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.contain{
+	width: 1250px;
+	margin: 60px auto 0;
+}
+.main-l{
+	width: 240px;
+}
+.mian-r{
+	width: 960px;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
