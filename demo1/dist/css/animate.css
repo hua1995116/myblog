@@ -24,7 +24,7 @@ Copyright (c) 2013 Daniel Eden
 		transform: translate3d(0,0,0);
 	}
 	100%{
-		transform: translate3d(7,-9rem,0);
+		transform: translate3d(7rem,-9rem,0);
 	}
 }
 @keyframes top{
