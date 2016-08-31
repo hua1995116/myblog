@@ -11,12 +11,12 @@ header h1{
 	margin: 10px auto;
 }
 header #newgamebutton{
+	float: left;
 	display: block;
-	margin: 20px auto;
+	margin: 10px auto;
 	width: 100px;
 	padding: 10px 10px;
 	background: #8f7a66;
-
 	font-family: Arial;
 	color: #fff;
 	border-radius: 10px;
@@ -26,9 +26,19 @@ header #newgamebutton{
 	background-color: #9f8b77;
 }
 header p{
+	/*float: left;
 	font-family: Arial;
+	
+	margin:0 auto;*/
+	float:right;
 	font-size: 25px;
-	margin:0 auto;
+	display: block;
+	margin: 10px auto;
+	width: 100px;
+	padding: 0 5px;
+	font-family: Arial;
+	border-radius: 10px;
+	text-decoration: none;
 }
 #grid-container{
 	width: 460px;
