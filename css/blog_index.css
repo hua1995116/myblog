@@ -1,0 +1,125 @@
+html{
+	height: 100%;
+	width: 100%;
+}
+body{
+	width: 100%;
+	height: 100%;
+	/*overflow: hidden;*/
+	background: url(../images/3.jpg) no-repeat;
+	background-size: 100% 100%;
+	background-attachment:fixed 
+}
+.title{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.title li{
+	font-size: 1.3rem;
+	float: left;
+	font-family: "back";
+	color: #e6dada;
+	margin-left: 20px;
+	padding-bottom: 8px;
+	transition:all 0.375s;
+	border-bottom: 3px solid transparent;
+}
+.title li:hover{
+	color: #fff;
+	cursor: pointer;
+	border-bottom: 3px solid #fff;
+}
+.list{
+	position: relative;
+	padding: 2rem 1rem;
+	width: 80%;
+	margin: 1.5rem auto;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 0px 5px 0px #5d3030;
+    box-shadow: 0px 0px 5px 0px #5d3030;
+}
+.list h1{
+	margin-bottom: 20px;
+	font-size: 1.2rem;
+	color: #c79696;
+}
+.content{
+	color: #ddd;
+	line-height: 1.4;
+	letter-spacing: 1.5px;
+	text-indent: 2em;
+	word-wrap: break-word;
+}
+.content img{
+	width: 100%;
+}
+.type{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.span_button{
+	font-size: 1rem;
+	background: #b39611;
+	color: #EFEFEF;
+    padding: 0.3rem 0.6rem 0.2rem 0.6rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    -webkit-border-radius: 0.3em;
+    border-radius: 0.3em;
+    -webkit-box-shadow: 1px 1px 5px 0px #f3d965;
+    box-shadow: 1px 1px 5px 0px #f3d965;
+    font-family: Consolas,"Courier New",Courier;
+    font-size: 0.9rem;
+    text-shadow: none;
+    -webkit-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    font-weight: bold;
+}
+/*.timer{
+	position: absolute;
+	background: #61b5e4;
+	right: 10px;
+	top:10px;
+	width: 80px;
+	height: 80px;
+	border-radius: 50px;
+	color: #ffeaea;
+	font-weight: bold;
+	text-align: center;
+}
+.timer_top{
+	margin-top: 15px;
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.timer_top span{
+	font-size: 35px;
+    font-weight: 900;
+}*/
+.timer{
+	position: absolute;
+	right: 2rem;
+    bottom: 1rem;
+	color: #ffeaea;
+}
+.view-cnt{
+	margin-top: 5px;
+	font-size: 13px;
+	color: #887a7a;
+}
+.one{
+	background: rgba(39, 29, 29, 0.86);
+}
+.two{
+	background: rgba(136, 0, 0, 0.86);
+}
+@media only screen and (max-width: 641px){
+    .list{
+		position: relative;
+		width: 100%;
+		border-radius: 10px;
+		-webkit-box-shadow: 0px 0px 5px 0px #5d3030;
+	    box-shadow: 0px 0px 5px 0px #5d3030;
+	}
+}

@@ -1,0 +1,61 @@
+*{
+	font-family:'STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; 
+
+}
+html{
+	font-size:62.5%; 
+	width: 100%;
+	height: 100%;
+}
+@media only screen and (min-width: 370px){
+    html {
+        font-size: 75%!important;
+    }
+}
+@media only screen and (min-width: 414px){
+    html {
+        font-size: 81.3%!important;
+    }
+}
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 94%!important;
+    }
+}
+@media only screen and (min-width: 561px){
+    html {
+        font-size: 109%!important;
+    }
+}
+@media only screen and (min-width: 641px){
+    html {
+        font-size: 125%!important;
+    }
+}
+body{
+	widows: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: #1a1d26;
+}
+.title{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.title li{
+	font-size: 1.5rem;
+	float: left;
+	font-family: "back";
+	color: #fff;
+	margin-left: 20px;
+	padding-bottom: 8px;
+	transition:all 0.375s;
+	border-bottom: 3px solid transparent;
+}
+
+#hi-there{
+	position: absolute;
+	left: 50%;
+	margin-left: -62px;
+	top:30%;
+}
