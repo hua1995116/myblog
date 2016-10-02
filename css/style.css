@@ -4,11 +4,6 @@ v1.4.1
 2010-03-01
 Author: Richard Clark - http://richclarkdesign.com
 */
-@font-face {
-    font-family: 'back';
-    src: url('../font/back.ttf'),
-         url('../font/back.eot');
-}
 *{
     font-family:'STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; 
     font-size: 100%;

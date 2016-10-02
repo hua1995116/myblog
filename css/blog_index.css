@@ -6,37 +6,38 @@ body{
 	width: 100%;
 	height: 100%;
 	/*overflow: hidden;*/
-	background: url(../images/3.jpg) no-repeat;
-	background-size: 100% 100%;
-	background-attachment:fixed 
+	background:#fff0f0;
+}
+nav{
+	background: #cf87fb;
+	color: #fff;
+	height: 4rem;
 }
 .title{
-	margin-left: 20px;
-	margin-top: 20px;
+	
 }
 .title li{
+	height: 4rem;
+	line-height: 4rem;
 	font-size: 1.3rem;
 	float: left;
-	font-family: "back";
-	color: #e6dada;
+	color: #fff;
 	margin-left: 20px;
-	padding-bottom: 8px;
 	transition:all 0.375s;
-	border-bottom: 3px solid transparent;
 }
 .title li:hover{
+	transform:rotate(360deg);
 	color: #fff;
 	cursor: pointer;
-	border-bottom: 3px solid #fff;
 }
 .list{
 	position: relative;
+	background: #fff;
 	padding: 2rem 1rem;
 	width: 80%;
-	margin: 1.5rem auto;
-	border-radius: 10px;
-	-webkit-box-shadow: 0px 0px 5px 0px #5d3030;
-    box-shadow: 0px 0px 5px 0px #5d3030;
+	margin: 1rem auto;
+	-webkit-box-shadow: 0px 0px 5px 0px #e8c4c4;
+    box-shadow: 0px 0px 5px 0px #e8c4c4;
 }
 .list h1{
 	margin-bottom: 20px;
@@ -44,8 +45,8 @@ body{
 	color: #c79696;
 }
 .content{
-	color: #ddd;
-	line-height: 1.4;
+	line-height: 1.5rem;
+	color: #333;
 	letter-spacing: 1.5px;
 	text-indent: 2em;
 	word-wrap: break-word;
@@ -59,7 +60,7 @@ body{
 }
 .span_button{
 	font-size: 1rem;
-	background: #b39611;
+	background: #bfb99b;
 	color: #EFEFEF;
     padding: 0.3rem 0.6rem 0.2rem 0.6rem;
     margin-right: 0.5rem;
@@ -67,8 +68,8 @@ body{
     display: inline-block;
     -webkit-border-radius: 0.3em;
     border-radius: 0.3em;
-    -webkit-box-shadow: 1px 1px 5px 0px #f3d965;
-    box-shadow: 1px 1px 5px 0px #f3d965;
+    -webkit-box-shadow: 1px 1px 5px 0px #ddd;
+    box-shadow: 1px 1px 5px 0px #ddd;
     font-family: Consolas,"Courier New",Courier;
     font-size: 0.9rem;
     text-shadow: none;
@@ -101,25 +102,17 @@ body{
 	position: absolute;
 	right: 2rem;
     bottom: 1rem;
-	color: #ffeaea;
+	color: #333;
 }
 .view-cnt{
 	margin-top: 5px;
 	font-size: 13px;
 	color: #887a7a;
 }
-.one{
-	background: rgba(39, 29, 29, 0.86);
-}
-.two{
-	background: rgba(136, 0, 0, 0.86);
-}
+
 @media only screen and (max-width: 641px){
     .list{
 		position: relative;
 		width: 100%;
-		border-radius: 10px;
-		-webkit-box-shadow: 0px 0px 5px 0px #5d3030;
-	    box-shadow: 0px 0px 5px 0px #5d3030;
 	}
 }
