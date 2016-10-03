@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+#inp img{
+	width: 100%;
+	position: absolute;
+	top:0;
+	left: 0;
+	z-index: 1;
+}	
+.ccc{
+	animation:myanimate1 1s;
+}
+.bbb{
+	animation:myanimate2 1s;
+}
+@keyframes myanimate1{
+	0%{
+		opacity: 1;
+		transform:rotate(0deg) translate3d(0px,0px,0);
+		-webkit-transform:rotate(0deg) translate3d(0px,0px,0);
+		
+	}
+	100%{
+		opacity: 0;
+		transform: rotate(30deg) translate3d(50px,50px,0);
+		-webkit-transform:rotate(30deg) translate3d(50px,50px,0);	
+	}
+}
+@keyframes myanimate2{
+	0%{
+		opacity: 1;
+		transform:rotate(0deg) translate3d(0px,0px,0);
+		-webkit-transform:rotate(0deg) translate3d(0px,0px,0);
+		
+	}
+	100%{
+		opacity: 0;
+		transform: rotate(-30deg) translate3d(-50px,-50px,0);
+		-webkit-transform:rotate(-30deg) translate3d(-50px,-50px,0);	
+	}
+}
+</style>
+</head>
+<body>
+<div id="inp">
+	<img src="http://b.hiphotos.baidu.com/image/pic/item/9825bc315c6034a857770337ce134954082376ea.jpg" alt="">
+	<img src="http://a.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1f619c198c354e251f94ca5fea.jpg" alt="">
+	<img src="http://g.hiphotos.baidu.com/image/pic/item/9c16fdfaaf51f3de4aef02d291eef01f3a297923.jpg" alt="">
+	<img src="http://e.hiphotos.baidu.com/image/pic/item/eac4b74543a98226a32990918f82b9014b90eb98.jpg" alt="">
+	<img src="http://h.hiphotos.baidu.com/image/pic/item/f7246b600c3387445c2d94ca540fd9f9d62aa098.jpg" alt="" >
+</div>
+<script>
+var oInp = document.getElementById("inp");  
+var imgs = oInp.querySelectorAll('img');
+
+(function(imgs){
+	started();
+	function load (){  
+	   	var ismove = true;
+	    document.addEventListener('touchstart',touch, false);  
+	    document.addEventListener('touchmove',touch, false);  
+	    document.addEventListener('touchend',touch, false);  
+	       
+	    function touch (event){  
+	        var event = event || window.event;        
+	   
+	        switch(event.type){  
+	            case "touchstart":  
+	                //oInp.innerHTML = "Touch started (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")"; 
+	                if (!event.touches.length) return;
+	                var touch = event.touches[0];
+	                startX = touch.clientX;
+	         		startY = touch.clientY; 
+	                break;  
+	            case "touchend":  
+	                //oInp.innerHTML = "<br>Touch end (" + event.changedTouches[0].clientX + "," + event.changedTouches[0].clientY + ")"; 
+	                if(x>15){
+						//console.log(x+','+y);
+						if(ismove){
+							ismove = false;
+							var present = getpresent(imgs,imgs.length);
+							present.className = Math.random()>0.5?'ccc':'bbb';	
+							setTimeout(function(){
+								for(var i = 0 ; i < imgs.length ; i++){
+									imgs[i].style.zIndex = parseInt(imgs[i].style.zIndex) + 1;
+								}					
+								present.className='';
+								present.style.zIndex = 1;
+								ismove = true;
+							},1000);
+						}			
+					}	
+	                break;  
+	            case "touchmove":  
+	                event.preventDefault();  
+	               	 if (!event.touches.length) return;
+	                //oInp.innerHTML = "<br>Touch moved (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")";  
+	                var touch = event.touches[0];
+					x=touch.clientX-startX;
+					y=touch.clientY-startY;
+						
+	                break;  
+	        }  
+	        event.preventDefault();  
+	    }  
+	}  
+	window.addEventListener('load',load, false);  
+	function getpresent(object,value){
+		for(var i = 0 ; i < object.length ; i++){
+			if(object[i].style.zIndex==value){
+				return object[i];
+			}
+		}
+	}
+
+	function animate(obj){
+
+	}
+	function started(){
+		for(var i = 0 ; i < imgs.length ; i++){
+			imgs[i].style.zIndex = i + 1;
+		}
+	}
+})(imgs);
+</script>
+</body>
+</html>
