@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+
+	<link type="text/css" rel="stylesheet" href="../css/shCoreEclipse.css"/>
+</head>
+<body scroll="no">
+	<header>
+		<nav>
+			<ul class="title clear">
+				<a href="../index.html">
+					<li>华益峰</li>
+				</a>
+				<a href="index.html">
+					<li>博客</li>
+				</a>
+				<a href="">
+					<li>微博</li>
+				</a>
+				<a href="">
+					<li>github</li>
+				</a>
+				<a href="">
+					<li>知乎</li>
+				</a>
+			</ul>
+		</nav>
+	</header>
+	<section>
+		<div class="list one">
+			<div class="header">
+				<h1>
+					移动端触摸事件
+				</h1>
+			</div>
+			<div class="type clear">
+				<span class="span_button">
+					js
+				</span>
+				<span class="span_button">
+					css
+				</span>
+				<span class="span_button">
+					文章
+				</span>
+				<span class="span_button">
+					分享
+				</span>
+			</div>
+			<div class="content">
+				<div>
+					移动端触摸事件
+				</div>
+				<pre class="brush: js;">
+					function load (){  
+					    document.addEventListener('touchstart',touch, false);  
+					    document.addEventListener('touchmove',touch, false);  
+					    document.addEventListener('touchend',touch, false); 	function touch (event){  
+					        var event = event || window.event;        
+					        switch(event.type){  
+					            case "touchstart":  
+					                //oInp.innerHTML = "Touch started (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")";               
+					                break;  
+					            case "touchend":  
+					                //oInp.innerHTML = "<br>Touch end (" + event.changedTouches[0].clientX + "," + event.changedTouches[0].clientY + ")";                 
+					                break;  
+					            case "touchmove":  
+					                event.preventDefault();  
+					               	 if (!event.touches.length) return;
+					                //oInp.innerHTML = "<br>Touch moved (" + event.touches[0].clientX + "," + event.touches[0].clientY + ")";  	
+					                break;  
+					        }  
+					        event.preventDefault();  
+					    }  
+					}  
+					window.addEventListener('load',load, false); 
+				</pre>
+				<br>
+				下面是自己做的移动端图片切换插件
+				<a href="yifenghua.win/touch.html">yifenghua.win/touch.html</a>
+			</div>
+			<!-- <div class="timer">
+				<div class="timer_top">
+					<span>10</span>
+					天
+				</div>
+				之前
+			</div> -->
+			<div class="timer">
+				2016-9-27
+			</div>
+			<div class="view-cnt">（111 人已阅）</div>
+		</div>
+		
+	</section>
+<script type="text/javascript" src="../js/shCore.js"></script>
+<script type="text/javascript" src="../js/shBrushJScript.js"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+</body>
+</html>
