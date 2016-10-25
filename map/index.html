@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>自定义定位图标</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main.css?v=1.0"/>
+    <script type="text/javascript"
+            src="http://webapi.amap.com/maps?v=1.3&key=34fb3a4b93ac83d243242aa1c04ae3f1"></script>
+    <style type="text/css">
+        #tip {
+            height: 50px;
+            background-color: #fff;
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 1px solid #969696;
+            position: absolute;
+            font-size: 12px;
+            right: 10px;
+            bottom: 20px;
+            border-radius: 3px;
+            line-height: 45px;
+        }
+
+        #tip input[type='button'] {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+            background-color: #0D9BF2;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 3px;
+            outline: none;
+            border: 0;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div id="mapContainer"></div>
+<div id="tip">
+    <input type="button" value="开始定位" onClick="javascript:toolBar.doLocation()"/>
+    <span style="color: #C0C0C0">不支持IE9以下版本</span>
+</div>
+<script type="text/javascript">
+    //自定义定位标记
+    var toolBar;
+    var customMarker = new AMap.Marker({
+        offset: new AMap.Pixel(-14, -34),//相对于基点的位置
+        icon: new AMap.Icon({  //复杂图标
+            size: new AMap.Size(27, 36),//图标大小
+            image: "http://webapi.amap.com/images/custom_a_j.png", //大图地址
+            imageOffset: new AMap.Pixel(-28, 0)//相对于大图的取图位置
+        })
+    });
+    //初始化地图对象，加载地图
+    var map = new AMap.Map('mapContainer', {
+        resizeEnable: true
+    });
+    //地图中添加地图操作ToolBar插件
+    map.plugin(["AMap.ToolBar"], function() {
+        toolBar = new AMap.ToolBar({locationMarker: customMarker}); //设置地位标记为自定义标记
+        map.addControl(toolBar);
+    });
+</script>
+</body>
+</html>
