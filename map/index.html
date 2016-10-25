@@ -48,15 +48,15 @@
 </div> -->
 <script type="text/javascript">
     //自定义定位标记
-    var toolBar;
-    var customMarker = new AMap.Marker({
-        offset: new AMap.Pixel(-14, -34),//相对于基点的位置
-        icon: new AMap.Icon({  //复杂图标
-            size: new AMap.Size(27, 36),//图标大小
-            image: "http://webapi.amap.com/images/custom_a_j.png", //大图地址
-            imageOffset: new AMap.Pixel(-28, 0)//相对于大图的取图位置
-        })
-    });
+    // var toolBar;
+    // var customMarker = new AMap.Marker({
+    //     offset: new AMap.Pixel(-14, -34),//相对于基点的位置
+    //     icon: new AMap.Icon({  //复杂图标
+    //         size: new AMap.Size(27, 36),//图标大小
+    //         image: "http://webapi.amap.com/images/custom_a_j.png", //大图地址
+    //         imageOffset: new AMap.Pixel(-28, 0)//相对于大图的取图位置
+    //     })
+    // });
     //初始化地图对象，加载地图
     // var map = new AMap.Map('mapContainer', {
     //     resizeEnable: true
@@ -80,9 +80,13 @@
         showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
         showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
         panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
-        zoomToAccuracy:true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        zoomToAccuracy:true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+        isSupported:function(){
+            return false;
+        }
     });
     mapObj.addControl(geolocation);
+    geolocation.getCurrentPosition();
     AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
     AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
 });
