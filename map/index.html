@@ -42,30 +42,10 @@
 </head>
 <body>
 <div id="mapContainer"></div>
-<!-- <div id="tip">
-    <input type="button" value="开始定位" onClick="javascript:toolBar.doLocation()"/>
-    <span style="color: #C0C0C0">不支持IE9以下版本</span>
-</div> -->
+<div id="tip">
+</div>
 <script type="text/javascript">
-    //自定义定位标记
-    // var toolBar;
-    // var customMarker = new AMap.Marker({
-    //     offset: new AMap.Pixel(-14, -34),//相对于基点的位置
-    //     icon: new AMap.Icon({  //复杂图标
-    //         size: new AMap.Size(27, 36),//图标大小
-    //         image: "http://webapi.amap.com/images/custom_a_j.png", //大图地址
-    //         imageOffset: new AMap.Pixel(-28, 0)//相对于大图的取图位置
-    //     })
-    // });
-    //初始化地图对象，加载地图
-    // var map = new AMap.Map('mapContainer', {
-    //     resizeEnable: true
-    // });
-    // //地图中添加地图操作ToolBar插件
-    // map.plugin(["AMap.ToolBar"], function() {
-    //     toolBar = new AMap.ToolBar({locationMarker: customMarker}); //设置地位标记为自定义标记
-    //     map.addControl(toolBar);
-    // });
+    var arr=new Array();//经纬度坐标数组
     mapObj = new AMap.Map('mapContainer');
     mapObj.plugin('AMap.Geolocation', function () {
         geolocation = new AMap.Geolocation({
@@ -77,7 +57,7 @@
         showButton: true,        //显示定位按钮，默认：true
         buttonPosition: 'LB',    //定位按钮停靠位置，默认：'LB'，左下角
         buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-        showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+        showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
         showCircle: true,        //定位成功后用圆圈表示定位精度范围，默认：true
         panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
         zoomToAccuracy:true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
@@ -89,6 +69,59 @@
     geolocation.getCurrentPosition();
     AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
     AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    var dataroute = [];
+    function onComplete(data) {
+        var str=['定位成功'];
+        arr.push(new AMap.LngLat(data.position.getLng(),data.position.getLat()));
+        dataroute.push(data.position.getLng()+','+data.position.getLat());
+        str.push('经度：' + data.position.getLng());
+        str.push('纬度：' + data.position.getLat());
+        str.push('精度：' + data.accuracy + ' 米');
+        str.push('是否经过偏移：' + (data.isConverted ? '是' : '否'));
+        document.getElementById('tip').innerHTML = str.join('<br>');
+        var marker = new AMap.Marker({
+            position: [data.position.getLng(), data.position.getLat()],
+            map:mapObj,
+            icon: new AMap.Icon({  //复杂图标
+                size: new AMap.Size(27, 36),//图标大小
+                image: "http://webapi.amap.com/images/custom_a_j.png", //大图地址
+                imageOffset: new AMap.Pixel(0, 0)//相对于大图的取图位置
+            }),
+        });
+        document.getElementById('tip').onclick =  function(){
+	        console.log(1);
+	        console.log(arr);
+	        //导航组件
+	        location.href= 'http://m.amap.com/navi/?start='+dataroute[0]+'&dest='+dataroute[1]+'&destName=阜通西&naviBy=car&key=d3f5d8b3b05231fa6a11375492310e3a';
+	        //定义折线对象
+	        polyline=new AMap.Polyline({
+	            map:mapObj,
+	            path:arr,     //设置折线的节点数组
+	            strokeColor:"#F00",
+	            strokeOpacity:0.4,
+	            strokeWeight:3,
+	            strokeStyle:"dashed",
+	            strokeDasharray:[10,5]
+	        });  
+	        polyline.setMap(mapObj);
+	    }
+    }
+    //解析定位错误信息
+    function onError(data) {
+        document.getElementById('tip').innerHTML = '定位失败';
+    }
+
+    var clickEventListener = mapObj.on('click', function(e) {
+        console.log(e.lnglat.getLng() + ',' + e.lnglat.getLat());
+        arr.push(new AMap.LngLat(e.lnglat.getLng(),e.lnglat.getLat()));
+        dataroute.push(e.lnglat.getLng() + ',' + e.lnglat.getLat());
+    });
+    
+
+    
+
+        
+    
 });
 </script>
 </body>
