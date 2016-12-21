@@ -537,6 +537,9 @@ ul,li{
 .animated:nth-child(4){
   animation-delay:750ms;
 }
+.animated:nth-child(5){
+  animation-delay:1s;
+}
 
 /* 主页呼吸 */
 .button{
