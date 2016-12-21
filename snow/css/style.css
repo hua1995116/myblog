@@ -448,7 +448,7 @@ ul,li{
     -webkit-margin-end: 0px;
     -webkit-padding-start: 0px;
 }
-//设置响应式
+
 @media only screen and (min-width: 370px){
     html {
         font-size: 75%!important;
@@ -478,7 +478,7 @@ ul,li{
       margin:0 auto;
     }
 }
-//设置内容
+
 .container{
   width:100%;
   z-index: 999;
