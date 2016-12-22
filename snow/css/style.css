@@ -3,13 +3,12 @@
 
 }
 html {
-
   height: 100%;
-
+  width:100%;
 }
 
 body {
-
+  width:100%;
   background: #090b44; /* Old browsers */
 
   background: -moz-radial-gradient(center, ellipse cover, #090b44 0%, #00001c 100%); /* FF3.6+ */
@@ -38,7 +37,6 @@ body {
 
   height: 100%;
 
-  padding-bottom: 50px;
 
   box-sizing: border-box;
 
@@ -481,8 +479,20 @@ ul,li{
 
 .container{
   width:100%;
+  height:100%;
+  overflow:hidden;
+}
+.contain{
+  width:100%;
+  height:100%;
   z-index: 999;
-  position:relative
+  position:relative;
+  transition:0.75s transform;
+}
+.section1,.section2,.section3{
+  width:100%;
+  height:100%;
+  position:relative;
 }
 .container ul{
   width:100%;
@@ -542,19 +552,43 @@ ul,li{
 }
 
 /* 主页呼吸 */
-.button{
-  text-align: center;
-  line-height: 10rem;
-  color:#fff;
+.bt{
   width: 10rem;
   height: 10rem;
-  background: #08b3bb;
-  position:fixed;
+  line-height: 10rem;
   left: 50%;
   margin-left: -5rem;
   top:50%;
   font-size: 2rem;
   margin-top: -5rem;
+  position:absolute;
+}
+.bt1{
+  width: 8rem;
+  height: 8rem;
+  line-height: 8rem;
+  left: 50%;
+  margin-left: -5rem;
+  top:50%;
+  font-size: 2rem;
+  margin-top: -15rem;
+  position:absolute;
+}
+.bt2{
+  width: 8rem;
+  height: 8rem;
+  line-height: 8rem;
+  left: 50%;
+  margin-left: -5rem;
+  top:50%;
+  font-size: 2rem;
+  margin-top: -3rem;
+  position:absolute;
+}
+.button{
+  text-align: center;
+  color:#fff;
+  background: #08b3bb; 
   border-radius: 50rem;
   /*box-shadow: 0px 0 15px 2px #fff;*/
   cursor: pointer;
@@ -562,6 +596,35 @@ ul,li{
   -webkit-animation:breath 2s;
   animation-iteration-count:infinite;
   -webkit-animation-iteration-count:infinite;
+}
+.submit-btn{
+  width: 16rem;
+  height: 6rem;
+  line-height: 3rem;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  position:absolute;
+  margin-left: -8rem;
+  background:rgba(0,0,0,0.7);
+  left: 50%;
+  top:50%;
+  color:#fff;
+}
+.submit-btn:nth-child(1){
+  margin-top: -18rem;
+}
+.submit-btn:nth-child(2){
+  margin-top: -10rem;
+}
+.submit-btn:nth-child(3){
+  margin-top: -2rem;
+}
+.submit-btn span{
+  width: 16rem;
+  height: 3rem;
+  line-height: 3rem;
+  display:block;
+  color:#fff;
 }
 .big{
   transition:transform 3s;
@@ -620,4 +683,19 @@ ul,li{
   display:none;
   border:none;
   cursor:pointer;
+}
+.start{
+  width:8rem;
+  height:8rem;
+  border-radius: 100rem;
+  color:#fff;
+  background:#08b3bb;
+  text-align: center;
+  line-height: 8rem;
+  border:none;
+  cursor:pointer;
+  left: 50%;
+  margin-left: -4rem;
+  font-size: 1.5rem;
+  position:absolute;
 }
