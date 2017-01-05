@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>our love</title>
+</head>
+<style>
+*{
+	font-family:"Helvetica","Microsoft YaHei","MicrosoftJhengHei";
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+html{
+	height: 100%;
+	width: 100%;
+}
+body{
+	height: 100%;
+	width: 100%;
+	background: url(1.jpg) no-repeat;
+	background-size: 100%;
+	margin:0;
+}
+
+.contain{
+	padding: 20px 20px;
+	height: 100%;
+}
+.word1,.word2{
+	color: #404d5b;
+    font-weight: 500;
+    font-size: 25px;
+    font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
+}
+.main-left{
+	float:left;
+	width: 400px;
+}
+.main-right{
+	margin-left: 400px;
+	position: relative;
+	height: 100%;
+}
+#time{
+	width: 450px;
+	height: 50px;
+	text-align: center;
+	letter-spacing: 2px;
+	line-height: 1.5;
+	color: #871616;
+	font-size: 30px;
+	font-weight: bold;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-top: -25px;
+	margin-left: -222px;
+}
+.svg{
+	position: absolute;
+	width: 640px;
+	height: 600px;
+	left: 50%;
+	top: 50%;
+	margin-top: -300px;
+	margin-left: -320px;
+}
+#us{
+	position: absolute;
+	left: 20%;
+	top: 0;
+	font-size: 30px;
+	color: #a9ff00;
+}
+</style>
+<body>
+
+<div class="contain">
+	<div class="main-left">
+		<p class="word1"></p>
+		<p class="word2"></p>
+	</div>
+	<div class="main-right">
+		<div class="svg">
+			<svg width="640" height="600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="hi-there" stroke-width="4">
+			<path d="M318 160C318 160 264 65 140 124C140 124 83 168 85 245C87 322 177 436 317 524C317 524 559 378 551 240C543 102 405 57 318 160Z" fill="none" fill-opacity="0" stroke="#ff457e" />
+			</svg>
+		</div>
+		<div id="time">
+		</div>
+		<div id="us">
+			 我们相约的时光~
+		</div>
+	</div>
+</div>
+
+<script src="http://libs.useso.com/js/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="js/l-by-l.min.js"></script>
+<script>
+jQuery(document).ready(function($){
+    
+    $(".word1").lbyl({
+        content: "没有绚丽的动画，没有艳丽的色彩，只有跳动的数字。",
+        speed: 100,
+        type: 'show',
+        finished: function(){ 
+        	$('.word2').lbyl({
+        		content:"希望在这里能记录我们的时光，不管多久，从2016年12月25日开始（略略略\(^o^)/），计数器开始的那刻，便开始了我们的旅程，旅程就像这跳动的数字，永不止步。",
+        		speed: 150,
+        		type: 'fade',
+        		fadeSpeed: 500
+        	})
+        } // Finished Callback
+    });
+
+});
+</script>
+<script>
+	
+// var myDate = new Date();
+// myDate.getYear();        //获取当前年份(2位)
+// myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+// myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+// myDate.getDate();        //获取当前日(1-31)
+// myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
+// myDate.getTime();        //获取当前时间(从1970.1.1开始的毫秒数)
+// myDate.getHours();       //获取当前小时数(0-23)
+// myDate.getMinutes();     //获取当前分钟数(0-59)
+// myDate.getSeconds();     //获取当前秒数(0-59)
+// myDate.getMilliseconds();    //获取当前毫秒数(0-999)
+function totime(oldyear,oldmonth,oldday){
+	var timer = document.getElementById('time');
+	setInterval(function(){
+		var myDate = new Date();
+		var year = myDate.getFullYear(); 
+		var month = myDate.getMonth()+1;
+		var day = myDate.getDate();   
+		var hour = myDate.getHours();
+		var minute = myDate.getMinutes();
+		var second = myDate.getSeconds();  
+		var Nowday = day-oldday;
+		var NowMonth =  month - oldmonth;
+		var Nowyear = year - oldyear;
+		if(Nowday<0){
+			NowMonth--;
+			var addmonth = muchady(year,month-1);
+			Nowday = Nowday+addmonth;
+			if(NowMonth<0){
+				Nowyear--;
+				NowMonth = NowMonth+12;
+			}
+		}
+
+		timer.innerHTML = Nowyear +'年'+NowMonth+'月'+Nowday+'天'+hour+'小时'+minute+'分'+second+'秒';
+	},1000);
+
+	
+}
+function muchady(year,month){
+		if((year % 4 == 0) && (year % 100 != 0 )|| year % 400 == 0){
+			switch(month){
+				case 1:
+
+					return 31;
+				case 2:
+					return 29;
+				case 3:
+					return 31;
+
+				case 4:
+					return 30;
+
+				case 5:
+					return 31;
+
+				case 6:
+					return 30;
+
+				case 7:
+					return 31;
+
+				case 8:
+					return 31;
+
+				case 9:
+					return 30;
+
+				case 10:
+					return 31;
+
+				case 11:
+					return 30;
+
+				default:
+					return 31;
+
+			}
+			
+		}else{
+			switch(month){
+				case 1:
+
+					return 31;
+				case 2:
+					return 28;
+				case 3:
+					return 31;
+
+				case 4:
+					return 30;
+
+				case 5:
+					return 31;
+
+				case 6:
+					return 30;
+
+				case 7:
+					return 31;
+
+				case 8:
+					return 31;
+
+				case 9:
+					return 30;
+
+				case 10:
+					return 31;
+
+				case 11:
+					return 30;
+
+				default:
+					return 31;
+
+			}
+		}
+}
+
+</script>
+<script src="vivus.js"></script>
+<script>
+	
+var hi = new Vivus('hi-there', {type: 'oneByOne', duration: 100, start: 'autostart', forceRender: false, dashGap: 20}, function () {
+	totime(2016,12,25);
+});
+	
+</script>
+</body>
+</html>
