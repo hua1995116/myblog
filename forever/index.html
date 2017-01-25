@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>our love</title>
+	<title>Document</title>
 </head>
 <style>
 *{
@@ -11,9 +11,8 @@
 	-webkit-box-sizing: border-box;
 }
 html{
-	max-height: 700px;
+	height: 100%;
 	width: 100%;
-	overflow: hidden;
 }
 body{
 	height: 100%;
@@ -21,7 +20,6 @@ body{
 	background: url(1.jpg) no-repeat;
 	background-size: 100%;
 	margin:0;
-	overflow: hidden;
 }
 
 .contain{
@@ -41,7 +39,7 @@ body{
 .main-right{
 	margin-left: 400px;
 	position: relative;
-	min-height:500px;
+	height: 100%;
 }
 #time{
 	width: 450px;
@@ -151,6 +149,15 @@ function totime(oldyear,oldmonth,oldday){
 			if(NowMonth<0){
 				Nowyear--;
 				NowMonth = NowMonth+12;
+			}else{
+				
+			}
+		}else{
+			if(NowMonth<0){
+				Nowyear--;
+				NowMonth = NowMonth+12;
+			}else{
+
 			}
 		}
 
