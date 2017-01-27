@@ -162,12 +162,14 @@
 				},2000);
 				$('.gift21').addClass('rollOut');
 				setTimeout(function(){
+					var myAudio = document.getElementById('audio');
+					 myAudio.pause();
 					var html = '<div class="gitf-video animated zoomIn">'+
 									'<video controls="true" autoplay="autoplay" src="../dist/1.mp4" loop="loop" >'+
 					    				'<source src="../dist/1.mp4" > '+'HTML5 audio not supported' 
 									'</video>'+
 								'</div>';
-					var html1 = '<div class="gitf-video animated zoomIn"><object type="application/x-shockwave-flash" data="//static.youku.com/v20170126.1/v/swf/loader.swf" width="100%" height="100%" id="movie_player"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><param name="allowFullScreenInteractive" value="true"><param name="flashvars" value="skincolor1=ffffff&amp;skincolor2=ffffff&amp;VideoIDS=XMjQ4ODIxNDMwMA==&amp;ShowId=0&amp;category=106&amp;Cp=0&amp;unCookie=0&amp;frame=undefined&amp;uepflag=0&amp;Tid=0&amp;isAutoPlay=true&amp;playmode=1&amp;show_ce=1&amp;winType=interior&amp;Fid=0&amp;Pt=0&amp;Ob=0&amp;plchid=&amp;embedid=AjYyMjA1MzU3NQJpLnlvdWt1LmNvbQIvaS9VTkRJd05qTTBPRFV5T0E9PS92aWRlb3M=&amp;ysuid=1473851562285Kxh&amp;vext=bc%3D%26pid%3Dundefined%26unCookie%3Dundefined%26frame%3Dundefined%26type%3D1%26fob%3D0%26fpo%3D0%26svt%3D0%26cna%3DqipgEN7NLhACAXrgoYRQK1Ke%26emb%3DAjYyMjA1MzU3NQJpLnlvdWt1LmNvbQIvaS9VTkRJd05qTTBPRFV5T0E9PS92aWRlb3M%3D%26dn%3D%E7%BD%91%E9%A1%B5%26hwc%3D1%26mtype%3Doth&amp;cna=qipgEN7NLhACAXrgoYRQK1Ke&amp;pageStartTime=1485518941286"><param name="movie" value="//static.youku.com/v20170126.1/v/swf/loader.swf"><div class="player_html5"><div class="picture" style="height:100%"><div style="line-height:460px;"><span style="font-size:18px">您还没有安装flash播放器,请点击<a href="//www.adobe.com/go/getflash" target="_blank">这里</a>安装</span></div></div></div></object></div>';
+					
 					if($('.gitf-video').length){
 						return;
 					}else{
