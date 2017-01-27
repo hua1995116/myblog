@@ -59,7 +59,7 @@
 	</style>
 </head>
 <body>
-<audio controls="true" autoplay="autoplay" src="../dist/newyear.mp3" loop="loop" style="display:none">
+<audio controls="true" autoplay="autoplay" src="../dist/newyear.mp3" loop="loop" style="display:none" id="audio">
     <source src="../dist/newyear.mp3" type="audio/mp3"> HTML5 audio not supported 
 </audio>
 <div class="wrapper">
@@ -185,6 +185,11 @@
 		}
 	});
 
+	function audio(){
+		var Audio = document.getElementById('audio');
+		Audio.play()
+	}
+	audio();
 	var Newyear = function(){
 
 		function game2048(){
