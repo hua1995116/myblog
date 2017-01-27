@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="hahnzhu" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>Demo</title>
+	<link rel="stylesheet" href="../dist/css/parallax.css">
+	<!-- <link rel="stylesheet" href="../dist/css/parallax-animation.css"> -->
+	<link rel="stylesheet" href="../dist/css/animate.css">
+	<link rel="stylesheet" href="../dist/css/style.css">
+	<style>
+	/* custom */
+	section[data-id="1"] {
+		background:url(../dist/img/22.jpg) no-repeat;
+		background-size: cover;
+	}
+	section[data-id="2"] {	
+		background-color: #ff8c81;
+	}
+	section[data-id="3"] {
+		background:url(../dist/img/1.jpg) no-repeat;
+		background-size: cover;
+	}
+	section[data-id="4"] {
+		background-color: #3498db;
+	}
+	.box1 {
+		width: 100px;
+		height: 200px;
+		background-color: #ecf0f1;
+		position: absolute;
+		left: 160px; top: 126px;
+	}
+	.box2 {
+		width: 200px;
+		height: 100px;
+		background-color: #8e44ad;
+		position: absolute;
+		left: 60px; top: 226px;
+	}
+	.box3 {
+		width: 100px;
+		height: 100px;
+		background-color: #34495e;
+		position: absolute;
+		left: 160px; top: 226px;
+	}
+	.box4 {
+		width: 50px;
+		height: 50px;
+		background-color: #e74c3c;
+		position: absolute;
+		left: 185px; top: 250px;
+	}
+	</style>
+</head>
+<body>
+<!-- <audio controls="true" autoplay="autoplay" src="../dist/newyear.mp3" loop="loop" style="display:none">
+    <source src="../dist/newyear.mp3" type="audio/mp3"> HTML5 audio not supported 
+</audio> -->
+<div class="wrapper">
+
+	<div class="pages">
+
+		<!-- 第一屏 -->
+		<section class="page">
+			<div class="newyear-box animated">
+				<img src="../dist/img/23.png" alt="">
+			</div>
+			<div class="newyear-han animated">
+				<img src="../dist/img/21.png" alt="">
+			</div>
+			<div class="newyear-text animated">
+				2016即将过去,希望2017更好,祝你天天开心。
+			</div>
+		</section>
+
+        <!-- 第二屏 -->
+		<section class="page">
+			<div class="email-content animated">
+				<div class="tragle animated">
+					<span class="animated"></span>
+					<span class="animated"></span>
+				</div>
+				
+			</div>
+			
+		</section>
+
+        <!-- 第三屏 -->
+		<section class="page">
+			<div class="gift-content">
+				<img src="../dist/img/gift1.png" class="gift1 animated" >
+				<img src="../dist/img/gift21.png" class="gift21 animated" style="display:none">
+				<img src="../dist/img/gift22.png" class="gift22" style="display:none">
+				<div class="gift-light"></div>
+			</div>
+			
+		</section>
+
+		
+
+	</div>
+</div>
+<script src="../dist/js/zepto.min.js"></script>
+<script src="../dist/js/parallax.js"></script>
+<script>
+	
+(function(){
+	$('.pages').parallax({
+		direction: 'vertical', 	// horizontal (水平翻页)
+		swipeAnim: 'cover', 	// cover (切换效果)
+		drag:      true,		// 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
+		loading:   false,		// 有无加载页
+		indicator: false,		// 有无指示点
+		arrow:     true,		// 有无指示箭头
+		/*
+		 * 翻页后立即执行
+		 * {int} 		index: 第几页
+		 * {DOMElement} element: 当前页节点
+		 * {String}		directation: forward(前翻)、backward(后翻)、stay(保持原页)
+		 */
+		onchange: function(index, element, direction) {
+			// code here...
+			if(index==0){
+				$('.newyear-box').addClass('fadeInDown');
+				$('.newyear-han').addClass('zoomIn');
+				$('.newyear-text').addClass('fadeInLeft');
+			}else if(index==1){
+				$('.email-content').addClass('fadeInLeft');
+				$('.tragle span').addClass('fanup');
+				var html = '<div class="email-latter animated zoomIn">'+
+				'<p>在过去的一年中,有抱头哭泣的悲伤,</p>'+
+				'<p>有沉醉般的欢乐,</p>'+
+				'<p>那个时候我总有一句话想和你说,</p>'+
+				'<p>是我自己想的,</p>'+
+				'<p>我还是喜欢你,</p>'+
+				'<p>就像雨走了三千里,拥抱大地。</p>'+
+				'<p>我不太会表达,</p>'+
+				'<p>我不想让你觉得我无趣,</p>'+
+				'<p>觉得我显得不那么可靠,</p>'+
+				'<p>所以我假装很熟练,</p>'+
+				'<p>但至少我会学,别人能做到的,</p>'+
+				'<p>我也可以！希望我们能越来越好。</p>'+
+				'<p>love you！</p>'+
+			'</div>';
+				if($('.email-latter').length){
+					return;
+				}else{
+					$('.page:nth-child(2)').append(html);
+				}	
+			}else{
+				$('.gift1').addClass('wobble');
+				setTimeout(function(){
+					$('.gift1').css('display','none');
+					$('.gift21').css('display','block');
+					$('.gift22').css('display','block');
+				},2000);
+				$('.gift21').addClass('rollOut');
+				setTimeout(function(){
+					var html = '<div class="gitf-video animated zoomIn">'+
+									'<video controls="true" autoplay="autoplay" src="../dist/1.mp4" loop="loop" >'+
+					    				'<source src="../dist/1.mp4" > '+'HTML5 audio not supported' 
+									'</video>'+
+								'</div>'
+					if($('.gitf-video').length){
+						return;
+					}else{
+						$('.page:nth-child(3)').append(html);
+					}
+				},7000);
+			}
+		},
+		/*
+		 * 横竖屏检测
+		 * {String}		orientation: landscape、protrait
+		 */
+		orientationchange: function(orientation) {
+			// console.log(orientation);
+		}
+	});
+
+	var Newyear = function(){
+
+		function game2048(){
+
+		}
+
+		function firsthappy(){
+
+		}
+
+		function gift(){
+
+		}
+
+
+	};
+
+})();
+
+
+</script>
+</body>
+</html>
