@@ -2,47 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0c5ee17-2710-4bc8-b005-050e29cb1fce" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/notes/2017-11-03.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2016-12-06.html" afterPath="$PROJECT_DIR$/html/2016-12-06.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2016-12-21.html" afterPath="$PROJECT_DIR$/html/2016-12-21.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2016-12-31.html" afterPath="$PROJECT_DIR$/html/2016-12-31.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-01-13.html" afterPath="$PROJECT_DIR$/html/2017-01-13.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-01-26.html" afterPath="$PROJECT_DIR$/html/2017-01-26.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-02-20.html" afterPath="$PROJECT_DIR$/html/2017-02-20.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-02-21.html" afterPath="$PROJECT_DIR$/html/2017-02-21.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-02-22.html" afterPath="$PROJECT_DIR$/html/2017-02-22.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-02.html" afterPath="$PROJECT_DIR$/html/2017-03-02.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-10.html" afterPath="$PROJECT_DIR$/html/2017-03-10.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-18.html" afterPath="$PROJECT_DIR$/html/2017-03-18.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-20.html" afterPath="$PROJECT_DIR$/html/2017-03-20.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-21.html" afterPath="$PROJECT_DIR$/html/2017-03-21.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-29.html" afterPath="$PROJECT_DIR$/html/2017-03-29.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-03-31.html" afterPath="$PROJECT_DIR$/html/2017-03-31.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-04-07.html" afterPath="$PROJECT_DIR$/html/2017-04-07.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-04-22.html" afterPath="$PROJECT_DIR$/html/2017-04-22.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-04-23.html" afterPath="$PROJECT_DIR$/html/2017-04-23.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-04-26.html" afterPath="$PROJECT_DIR$/html/2017-04-26.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-05-25.html" afterPath="$PROJECT_DIR$/html/2017-05-25.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-05-29.html" afterPath="$PROJECT_DIR$/html/2017-05-29.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-08.html" afterPath="$PROJECT_DIR$/html/2017-06-08.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-09.html" afterPath="$PROJECT_DIR$/html/2017-06-09.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-10.html" afterPath="$PROJECT_DIR$/html/2017-06-10.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-11.html" afterPath="$PROJECT_DIR$/html/2017-06-11.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-12.html" afterPath="$PROJECT_DIR$/html/2017-06-12.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-13.html" afterPath="$PROJECT_DIR$/html/2017-06-13.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-06-14.html" afterPath="$PROJECT_DIR$/html/2017-06-14.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-07-12.html" afterPath="$PROJECT_DIR$/html/2017-07-12.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-07-16.html" afterPath="$PROJECT_DIR$/html/2017-07-16.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-07-22.html" afterPath="$PROJECT_DIR$/html/2017-07-22.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-09-18.html" afterPath="$PROJECT_DIR$/html/2017-09-18.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-09-30.html" afterPath="$PROJECT_DIR$/html/2017-09-30.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/2017-11-02.html" afterPath="$PROJECT_DIR$/html/2017-11-02.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/index.html" afterPath="$PROJECT_DIR$/html/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/json/data.json" afterPath="$PROJECT_DIR$/json/data.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/m.index.html" afterPath="$PROJECT_DIR$/m.index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/template.html" afterPath="$PROJECT_DIR$/template.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -60,9 +21,70 @@
       <file leaf-file-name="template.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/template.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="23" column="12" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+            <state relative-caret-position="308">
+              <caret line="53" column="4" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2017-11-03.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/html/2017-11-03.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="861">
+              <caret line="210" column="12" lean-forward="true" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2017-11-03.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/notes/2017-11-03.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="272">
+                <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="197" selection-end-column="3" />
+                <folding>
+                  <marker date="1509693040000" expanded="true" signature="1206:1432" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="1219:1242" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="1246:1428" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="1318:1422" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="1335:1366" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="1370:1414" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="1795:2405" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="1802:1964" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="1971:2397" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="1977:2327" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="1983:2321" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="2508:3185" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="2515:3038" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="3057:3177" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="3086:3106" ph="..." />
+                  <marker date="1509693040000" expanded="true" signature="3341:3761" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3354:3377" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3381:3759" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3446:3754" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3461:3488" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3492:3748" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3625:3741" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3644:3679" ph="{...}" />
+                  <marker date="1509693040000" expanded="true" signature="3683:3731" ph="{...}" />
+                </folding>
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="272">
+                <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -80,7 +102,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
+            <state relative-caret-position="-1188">
               <caret line="22" column="10" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="22" selection-end-column="10" />
               <folding />
             </state>
@@ -90,7 +112,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
+            <state relative-caret-position="70">
               <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
               <folding />
             </state>
@@ -107,11 +129,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m.index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="m.index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/m.index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+            <state relative-caret-position="-500">
+              <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -190,6 +212,7 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/html/index.html" />
         <option value="$PROJECT_DIR$/template.html" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -269,7 +292,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
+              <option name="myItemId" value="notes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -374,12 +397,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1509618858003</updated>
-      <workItem from="1509618861140" duration="15848000" />
+      <workItem from="1509618861140" duration="17360000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15848000" />
+    <option name="totallyTimeSpent" value="17360000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1426,11 +1449,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-335">
+          <caret line="16" column="15" lean-forward="false" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/m.index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-500">
+          <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="62" selection-end-line="7" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1188">
+          <caret line="22" column="10" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="22" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="53" column="4" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/2017-11-03.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="210" column="12" lean-forward="true" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/notes/2017-11-03.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="1347">
-            <caret line="171" column="3" lean-forward="false" selection-start-line="171" selection-start-column="3" selection-end-line="171" selection-end-column="3" />
+          <first_editor relative-caret-position="272">
+            <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="197" selection-end-column="3" />
             <folding>
               <marker date="1509693040000" expanded="true" signature="1206:1432" ph="{...}" />
               <marker date="1509693040000" expanded="true" signature="1219:1242" ph="{...}" />
@@ -1462,43 +1533,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-335">
-          <caret line="16" column="15" lean-forward="false" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="22" column="10" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="22" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="15" column="17" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/template.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="23" column="12" lean-forward="false" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/m.index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="19" lean-forward="false" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-          <folding />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="272">
+            <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
