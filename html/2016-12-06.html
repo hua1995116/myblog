@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          你不知道的javascript之函数作用域和块作用域（一）
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> js</span>
+      </div>
+      <div class="content markdown-body">
+        <h2 id="-iife-">立即执行函数表达式(IIFE)</h2>
+        <p>####1.使用匿名函数表达式</p>
+        <pre><code class="lang-javascript">var a = 2;
+(function IIFE(){
+    var a = 3;
+    console.log(a);//3
+})();
+console.log(a);//2
+</code></pre>
+        <p>####2.当作函数调用并传递参数进去</p>
+        <pre><code class="lang-javascript">var a = 2;
+(function IIFE(global){
+    var a = 3;
+    console.log(a);//3
+    console.log(global.a);//2
+})(window);
+console.log(a);//2
+</code></pre>
+        <p>####3.解决undefined标识符默认值被错误覆盖</p>
+        <pre><code class="lang-javascript">undefined = true;
+(function IITF(){
+    var a ;
+    if(a === undefined){
+        console.log(&#39;Undefined is safe here!&#39;);
+    }
+})();
+</code></pre>
+        <p>####4.倒置代码的运行顺序</p>
+        <pre><code class="lang-javascript">var a = 2;
+(function IFEE(def){
+    def(window);
+})(function def(global){
+    var a = 3;
+    console.log(a);//3
+    console.log(global.a);//2
+});
+</code></pre>
+        <h2 id="-">块作用域</h2>
+        <p>####for语句,i会被绑定在外部作用域（函数或全局）</p>
+        <pre><code class="lang-javascript">for(var i = 0 ; i &lt; 10 ; i++){
+    console.log(i);
+}
+</code></pre>
+        <p>####if语句,当使用var声明变量时，在哪里都一样</p>
+        <pre><code class="lang-javascript">var foo = true;
+if(foo){
+    var bar = foo*2;
+    bar = something(bar);
+    console.log(bar);
+}
+</code></pre>
+        <p>####以下是一个闭包结合自执行函数的实例</p>
+        <pre><code class="lang-javascript">var i = 1;
+var IFun = (function(){
+    var i = 1;
+    console.log(i);
+    return function(){
+        i++;
+        console.log(i);
+}
+})();
+IFun();
+IFun();
+最终输出的结果为1，2，3，很多会下意识的觉得结果会有4个值，但是运用了return 返回值以及自执行函数将函数返回给IFun变量，使得在第一次操作过程后，将返回函数直接赋给IFun。
+</code></pre>
+
+        <div class="timer">
+          2016-12-06
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          css实现左边定宽右边自适应的两列布局5种方法
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> css</span>
+      </div>
+      <div class="content markdown-body">
+        <p>在项目实践中不乏有需要两列式布局，左侧固定右侧自适应是比较常见的布局方式，现在我就来总结一下我自己所知道的5种方法。 html代码结构：
+        </p>
+        <pre><code class="lang-html">&lt;div class=&quot;box&quot;&gt;
+    &lt;div class=&quot;con1&quot;&gt;
+        我是左边
+    &lt;/div&gt;
+    &lt;div class=&quot;con2&quot;&gt;
+        我是右边
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+        <p>第一种： css代码：
+        </p>
+        <pre><code class="lang-css">.box{
+    display: flex;
+    display: -webkit-flex;
+}
+.con1{
+    flex:0 1 100px;
+    background: #ff0;
+}
+.con2{
+    flex:1;
+    background: #fe3;
+}
+</code></pre>
+        <p>效果如下
+          <img src="http://img.blog.csdn.net/20170222110043604" alt="这里写图片描述"> 第二种： css代码：
+        </p>
+        <pre><code class="lang-css">.con1{
+    width: 100px;
+    float: left;
+    background: #ff0;
+}
+.con2{
+    overflow: hidden;
+    background: #fe3;
+}
+</code></pre>
+        <p>第三种： css代码：
+        </p>
+        <pre><code class="lang-css">.con1{
+    width: 100px;
+    float: left;
+    background: #ff0;
+}
+.con2{
+    margin-left:100px;
+    background: #fe3;
+}
+</code></pre>
+        <p>第四种： css代码：
+        </p>
+        <pre><code class="lang-css">.box{
+    position: relative;
+}
+.con1{
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 100px;
+    background: #ff0;
+}
+.con2{
+    margin-left:100px;
+    background: #fe3;
+}
+</code></pre>
+        <p>第五种： css代码：
+        </p>
+        <pre><code class="lang-css">.box{
+    position: relative;
+}
+.con1{
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 100px;
+    background: #ff0;
+}
+.con2{
+    position: absolute;
+    left: 100px;
+    top:0;
+    right: 0;
+    width: 100%;
+    background: #fe3;
+}
+</code></pre>
+
+        <div class="timer">
+          2017-02-20
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

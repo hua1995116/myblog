@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          javascript中onmousemove、onmouseover、onmouseenter 的不同
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> html</span><span class="span_button"> css</span>
+      </div>
+      <div class="content markdown-body">
+        <p>在比较onmousemove、onmouseover、onmouseenter 的不同之前，首先我们先看看各种onmouse事件的作用：</p>
+        <ul>
+          <li>onmousedown 当元素上按下鼠标按钮时出发</li>
+          <li>onmousemove 当鼠标指针移动到水元素上时触发</li>
+          <li>onmouseover 当鼠标指针移动元素上时触发</li>
+          <li>onmouseout 当鼠标指针移出指定的对象时发生。</li>
+          <li>onmouseup 当在元素上释放鼠标按钮时触发</li>
+          <li>onmouseenter 事件在鼠标指针移动到元素上时触发。(不冒泡)</li>
+          <li>onmouseleave 事件在鼠标移除元素时触发。(不冒泡)</li>
+        </ul>
+        <p>要知道onmouseenter 和onmouseleave事件是不冒泡的 以下例子可以知道onmousemove、onmouseover、onmouseenter的不同之处，以及各个onmouse事件执行先后顺序，在onmouseover、onmouseenter中，over还可以通过子元素的触发。
+        </p>
+        <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+    &lt;style&gt;
+        .bg{
+            width: 200px;
+            height: 200px;
+            background: #ddd;
+            margin-top: 20px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo1&quot; onmousemove=&quot;mymouseMove()&quot; onmousedown=&quot;mymouseDown()&quot; onmouseup=&quot;mymouseUp()&quot; onmouseover=&quot;mymouseOver()&quot; onmouseout=&quot;mymouseOut()&quot; onmouseenter=&quot;mymouseEnter()&quot; onmouseleave=&quot;mymouseLeave()&quot;&gt; 
+
+    &lt;/div&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo2&quot; &gt;
+         &lt;p&gt;onmouseover: &lt;br&gt; &lt;span id=&quot;demo22&quot;&gt;鼠标移动到我这!&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo3&quot; &gt;
+        &lt;p&gt;onmouseenter: &lt;br&gt; &lt;span id=&quot;demo33&quot;&gt;鼠标移动到我这!&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo4&quot; &gt;
+         &lt;p&gt;onmousemove: &lt;br&gt; &lt;span id=&quot;demo44&quot;&gt;鼠标移动到我这!&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script&gt;
+    var x = 0;
+    var y = 0;
+    var z = 0;
+    function mymouseDown(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;down&#39;;
+        console.log(&#39;down&#39;);
+    }
+    function mymouseMove(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;move&#39;;
+        console.log(&#39;move&#39;);
+    }
+    function mymouseUp(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;up&#39;;
+        console.log(&#39;up&#39;);
+    }
+    function mymouseOver(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;over&#39;;
+        console.log(&#39;over&#39;);
+    }
+    function mymouseOut(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;out&#39;;
+        console.log(&#39;out&#39;);
+    }
+    function mymouseEnter(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;enter&#39;;
+        console.log(&#39;enter&#39;);
+    }
+    function mymouseLeave(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;leave&#39;;
+        console.log(&#39;leave&#39;);
+    }
+
+    document.getElementById(&#39;demo2&#39;).onmouseover = function(){
+        document.getElementById(&quot;demo22&quot;).innerHTML = x+=1;
+    }
+    document.getElementById(&#39;demo3&#39;).onmouseenter = function(){
+        document.getElementById(&quot;demo33&quot;).innerHTML = y+=1;
+    }
+    document.getElementById(&#39;demo4&#39;).onmousemove = function(){
+        document.getElementById(&quot;demo44&quot;).innerHTML = z+=1;
+    }
+&lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+
+        <div class="timer">
+          2017-01-26
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

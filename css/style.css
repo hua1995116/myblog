@@ -5,7 +5,7 @@ v1.4.1
 Author: Richard Clark - http://richclarkdesign.com
 */
 *{
-    font-family:'STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; 
+    /*font-family:'STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif; */
     font-size: 100%;
     box-sizing:border-box;
 }

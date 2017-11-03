@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+</head>
+<body scroll="no">
+<header>
+  <nav>
+    <ul class="title clear">
+      <a href="index.html">
+        秋风
+      </a>
+      <a href="html/index.html">
+        博客
+      </a>
+      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+        <img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+      </a>
+      <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+      </a>
+      <a href="https://github.com/hua1995116/">
+        <img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+      </a>
+    </ul>
+  </nav>
+</header>
+<section id="content">
+</section>
+<div id="page">
+  <div index='0' class="page-item">上一页</div>
+  <div index='1' class="page-item">下一页</div>
+</div>
+<script src="../js/scrollReveal.js"></script>
+<script src="../js/promise.js"></script>
+<script src="../js/axios.js"></script>
+<script>
+  var data;
+  var index = 0;
+  var content = document.getElementById('content');
+  axios.get('/json/data.json')
+    .then(function (response) {
+       data = response.data;
+      handleHhtml(content, data['list0']);
+
+      handlePages(data);
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+  function handleHhtml(content, data) {
+    var html = '';
+    for(var i = 0; i < data.length; i ++) {
+      html += '<div class="list" data-scroll-reveal="enter bottom">'+
+                '<div class="header"><a href="'+data[i].fileName+'"><h1>'+data[i].title+'</h1></a></div>'+
+                '<div class="type clear">'+
+                  handleTag(data[i].tag)+
+                '</div>'+
+                '<div class="content">'+data[i].description+'</div>'+
+                '<div class="timer">'+data[i].date+'</div>'+
+              '</div>';
+    }
+    content.innerHTML = html;
+    setTimeout(function() {
+      new scrollReveal({
+        reset: true
+      });
+    },0);
+  }
+
+  function handleTag(tag) {
+    var html = '';
+    tag = tag.split(',')
+    for(var i = 0; i < tag.length; i++) {
+      html += '<span class="span_button">'+tag[i]+'</span>'
+    }
+    return html;
+  }
+
+  function handlePages(data) {
+    var page = document.getElementById('page');
+    var length = Object.keys(data).length;
+
+    page.addEventListener('click', function(e) {
+      var targer = e.target || e.srcElement;
+      if (targer.getAttribute('index') === '0') {
+        if (index === 0) {
+          alert('最前啦');
+        } else {
+          index--;
+          var listname = 'list' + index;
+          handleHhtml(content, data[listname]);
+        }
+      } else {
+        if (index === length - 1) {
+          alert('最后啦');
+        } else {
+          index++;
+          var listname = 'list' + index;
+          handleHhtml(content, data[listname]);
+        }
+      }
+    })
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          Vue-router2.0基础，秒会。
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> vue</span>
+      </div>
+      <div class="content markdown-body">
+        <p>如果不是模块式开发，请先引入</p>
+        <pre><code class="lang-html">&lt;script src=&quot;https://unpkg.com/vue/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/vue-router/dist/vue-router.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+        <p>####1.0基础</p>
+        <pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;router-link to=&quot;/foo&quot;&gt;Go to Foo&lt;/router-link&gt;
+        &lt;router-link to=&quot;/bar&quot;&gt;Go to Bar&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+        <pre><code class="lang-javascript">// 0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
+const Foo = { template: &#39;&lt;div&gt;foo&lt;/div&gt;&#39; }
+const Bar = { template: &#39;&lt;div&gt;bar&lt;/div&gt;&#39; }
+const routes = [
+    { path: &#39;/foo&#39;, component: Foo },
+    { path: &#39;/bar&#39;, component: Bar }
+]
+
+const router = new VueRouter({
+    routes // （缩写）相当于 routes: routes
+})
+const app = new Vue({
+    router
+}).$mount(&#39;#app&#39;)
+</code></pre>
+        <p>####2.0动态路由匹配</p>
+        <pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;router-link to=&quot;/user/abc&quot;&gt;Go to abc&lt;/router-link&gt;
+        &lt;router-link to=&quot;/user/cba&quot;&gt;Go to cba&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+        <pre><code class="lang-javascript">const User = {
+    template: &#39;&lt;div&gt;User {{ $route.params.id }}&lt;/div&gt;&#39;,
+    &#39;$route&#39;(to,from){
+        console.log(&#39;从&#39;+from.params.id+&#39;到&#39;+to.params.id)
+    }
+}
+
+const router = new VueRouter({
+    routes: [
+        // 动态路径参数 以冒号开头
+        { path: &#39;/user/:id&#39;, component: User }
+    ]
+})
+
+const app = new Vue({
+    router
+}).$mount(&#39;#app&#39;)
+</code></pre>
+        <p>####3.0嵌套路由</p>
+        <pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;!-- 使用 router-link 组件来导航. --&gt;
+        &lt;!-- 通过传入 `to` 属性指定链接. --&gt;
+        &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;
+        &lt;router-link to=&quot;/user/foo/profile&quot;&gt;Go to profile&lt;/router-link&gt;
+        &lt;router-link to=&quot;/user/foo/posts&quot;&gt;Go to posts&lt;/router-link&gt;
+        &lt;router-link to=&quot;/user/foo&quot;&gt;Go to home&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;!-- 路由出口 --&gt;
+    &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+        <pre><code class="lang-javascript">const User = {
+    template: `
+    &lt;div class=&quot;user&quot;&gt;
+      &lt;h2&gt;User {{ $route.params.id }}&lt;/h2&gt;
+      &lt;router-view&gt;&lt;/router-view&gt;
+    &lt;/div&gt;
+  `
+}
+const UserProfile = {
+    template: &#39;&lt;div&gt;UserProfile&lt;/div&gt;&#39;
+}
+const UserPosts = {
+    template: &#39;&lt;div&gt;UserPosts&lt;/div&gt;&#39;
+}
+const UserHome = {
+    template: &#39;&lt;div&gt;UserHome&lt;/div&gt;&#39;
+}
+
+const router = new VueRouter({
+    routes: [
+        { path: &#39;/user/:id&#39;, component: User,
+            children: [
+                {
+                    // 当 /user/:id/profile 匹配成功，
+                    // UserProfile 会被渲染在 User 的 &lt;router-view&gt; 中
+                    path: &#39;profile&#39;,
+                    component: UserProfile
+                },
+                {
+                    // 当 /user/:id/posts 匹配成功
+                    // UserPosts 会被渲染在 User 的 &lt;router-view&gt; 中
+                    path: &#39;posts&#39;,
+                    component: UserPosts
+                },
+                {   path: &#39;&#39;,
+                    component: UserHome
+                }
+            ]
+        }
+    ]
+})
+
+const app = new Vue({
+    router
+}).$mount(&#39;#app&#39;)
+</code></pre>
+        <p>#####4.0编程式导航</p>
+        <pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;!-- 使用 router-link 组件来导航. --&gt;
+        &lt;!-- 通过传入 `to` 属性指定链接. --&gt;
+        &lt;!-- &lt;router-link&gt; 默认会被渲染成一个 `&lt;a&gt;` 标签 --&gt;
+        &lt;router-link to=&quot;/user/foo&quot;&gt;Go to foo&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;!-- 路由出口 --&gt;
+    &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+</code></pre>
+        <pre><code class="lang-javascript">const User = {
+    template: `
+    &lt;div class=&quot;user&quot;&gt;
+      &lt;h2&gt;User {{ $route.params.id }}&lt;/h2&gt;
+    &lt;/div&gt;
+  `
+}
+
+const Login = {
+    templete:`
+    &lt;div&gt;login&lt;/div&gt;
+  `
+}
+
+const router = new VueRouter({
+    routes: [
+        {
+            path: &#39;/user/:id&#39;, component: User,
+        },
+        {
+            path: &#39;/login&#39;,component:Login
+        }
+    ]
+})
+
+
+const app = new Vue({
+    router
+}).$mount(&#39;#app&#39;)
+
+router.push({ path: &#39;login&#39;, query: { plan: &#39;private&#39; }});
+</code></pre>
+        <p>####5.0命名路由</p>
+        <pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+    &lt;p&gt;
+        &lt;router-link :to=&quot;{name:&#39;user&#39;,params:{userId:123}}&quot;&gt;Go to 123&lt;/router-link&gt;
+        &lt;router-link to=&quot;/user/123&quot;&gt;Go to 123&lt;/router-link&gt;
+    &lt;/p&gt;
+    &lt;!-- 路由出口 --&gt;
+    &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;
+    &lt;router-view&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+        <pre><code class="lang-javascript">const User = {
+    template: `
+    &lt;div class=&quot;user&quot;&gt;
+      &lt;h2&gt;User {{ $route.params.id }}&lt;/h2&gt;
+    &lt;/div&gt;
+  `
+}
+
+const router = new VueRouter({
+    routes: [
+        {
+            path: &#39;/user/:userId&#39;,
+            name:&#39;user&#39;,
+            component: User
+        }
+    ]
+})
+
+
+const app = new Vue({
+    router
+}).$mount(&#39;#app&#39;)
+</code></pre>
+        <p>####6.0命名视图</p>
+        <pre><code class="lang-html">&lt;div id=&quot;app&quot;&gt;
+    &lt;h1&gt;Hello App!&lt;/h1&gt;
+
+    &lt;!-- 路由出口 --&gt;
+    &lt;!-- 路由匹配到的组件将渲染在这里 --&gt;
+    &lt;router-view class=&quot;view&quot;&gt;&lt;/router-view&gt;
+    &lt;router-view class=&quot;view&quot; name=&quot;a&quot;&gt;&lt;/router-view&gt;
+    &lt;router-view class=&quot;view&quot; name=&quot;b&quot;&gt;&lt;/router-view&gt;
+&lt;/div&gt;
+</code></pre>
+        <pre><code class="lang-javascript">const Foo = {
+    template:&#39;&lt;div&gt;I am Foo&lt;/div&gt;&#39;
+}
+const Bar = {
+    template:&#39;&lt;div&gt;I am Bar&lt;/div&gt;&#39;
+}
+const Baz = {
+    template:&#39;&lt;div&gt;I am Baz&lt;/div&gt;&#39;
+}
+
+const router = new VueRouter({
+    routes: [
+        {
+            path: &#39;/&#39;,
+            components: {
+                default:Foo,
+                a:Bar,
+                b:Baz
+            }
+        }
+    ]
+})
+
+
+const app = new Vue({
+    router
+}).$mount(&#39;#app&#39;)
+</code></pre>
+        <p>github完整代码地址<a href="https://github.com/hua1995116/vue/tree/master/vue-router">https://github.com/hua1995116/vue/tree/master/vue-router</a></p>
+
+        <div class="timer">
+          2017-03-18
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

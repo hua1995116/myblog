@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          vue-mixins一些常用方法
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> vue</span>
+      </div>
+      <div class="content markdown-body">
+        <h1 id="-">前言</h1>
+        <p>今天接手公司的一个vue的项目，发现项目中有个mixins属性，我发现之前的项目中都没有发现过这个属性。查阅了官方文档并进行了总结。 官方文档: <a href="https://cn.vuejs.org/v2/guide/mixins.html">mixins</a> vue-mixins与父子组件还是有很大的区别的。
+        </p>
+        <h1 id="-mixins-">组件与mixins区别</h1>
+        <p><strong>组件：</strong> 父组件 + 子组件 &gt;&gt;&gt; 父组件 + 子组件
+          <strong>mixins：</strong> 父组件 + 子组件 &gt;&gt;&gt; new父组件</p>
+        <h1 id="-">使用场景</h1>
+        <p>当两个组件存在相同的方法，例如需要进行初始化，例如分页操作，进入页面时，需要对页面初始化页面。这个时候你可以选择传统的写组件来进行分离，但是使用mixins可以不通过状态传递，直接进行强大的混合，方便了许多。 mixins允许你封装一块在应用的其他组件中都可以使用的函数。如果使用姿势得当，他们不会改变函数作用域外部的任何东西，因此哪怕执行多次，只要是同样的输入你总是能得到一样的值，
+        </p>
+        <h1 id="-">使用方法</h1>
+        <h2 id="1-">1.基础用法</h2>
+        <pre><code class="lang-vue">// 定义一个混合对象
+var myMixin = {
+  created: function () {
+    this.hello()
+  },
+  methods: {
+    hello: function () {
+      console.log(&#39;hello from mixin!&#39;)
+    }
+  }
+}
+// 定义一个使用混合对象的组件
+var Component = Vue.extend({
+  mixins: [myMixin]
+})
+var component = new Component() // -&gt; &quot;hello from mixin!&quot;
+</code></pre>
+        <p>以上可以看到混合后的组件能够非常自然的执行，mixins组件里的函数。</p>
+        <h2 id="2-">2.选项合并</h2>
+        <pre><code class="lang-vue">var mixin = {
+  created: function () {
+    console.log(&#39;混合对象的钩子被调用&#39;)
+  }
+}
+new Vue({
+  mixins: [mixin],
+  created: function () {
+    console.log(&#39;组件钩子被调用&#39;)
+  }
+})
+// -&gt; &quot;混合对象的钩子被调用&quot;
+// -&gt; &quot;组件钩子被调用&quot;
+</code></pre>
+        <p>对于有冲突的代码，这里可以分为两个情况，如果是vue生命周期里的钩子函数，那将会进行合并，以此执行mixins以及组件的函数；如果是methods等方法，（不是钩子函数）那组件中的方法将会覆盖mixins中的方法。</p>
+        <h2 id="3-">3.合并策略中的问题</h2>
+        <pre><code class="lang-vue">var mixin = {
+  created: function () {
+     this.init ()；
+  },
+  methods: {
+    init (){
+        // 一些初始化操作
+    }
+  }
+}
+new Vue({
+  mixins: [mixin],
+  created: function () {
+    console.log(&#39;组件钩子被调用&#39;)
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm =&gt; {
+       vm.init();
+    })
+  }
+})
+</code></pre>
+        <p>像这样我们希望路由进入的时候在进行初始化，盲目的进行混合就会使得初始化两次。</p>
+        <h2 id="4-">4.解决办法</h2>
+        <pre><code class="lang-vue">var mixin = {
+  created: function() {
+    let option = this.$options.doNotInit
+    if (!option) {
+      this.init();
+    }
+  },
+  methods: {
+    init (){
+        // 一些初始化操作
+    }
+  }
+}
+new Vue({
+  mixins: [mixin],
+  doNotInit: true,
+  created: function () {
+    console.log(&#39;组件钩子被调用&#39;)
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm =&gt; {
+       vm.init();
+    })
+  }
+})
+</code></pre>
+        <p>这样就避免了两次的初始化操作。</p>
+        <p>参考：
+          <a href="http://www.sohu.com/a/153785407_464084">http://www.sohu.com/a/153785407_464084</a>
+          <a href="http://www.deboy.cn/Vue-mixins-advance-tips.html">http://www.deboy.cn/Vue-mixins-advance-tips.html</a></p>
+
+        <div class="timer">
+          2017-07-12
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          css3实现圆环加载进度条动画
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> css</span>
+      </div>
+      <div class="content markdown-body">
+        <p>最近有人问我关于css3圆环的问题，要实现一个圆环，并且有加载特效。于是我看了看一般关于圆环实现的原理，以及自己手写了一个加载动画。可能体验还不是特别好，但是能用。话不多说，一下是代码：</p>
+        <p>####<strong>html结构</strong>：</p>
+        <pre><code class="lang-html">&lt;div class=&quot;circle&quot;&gt;
+    &lt;div class=&quot;left&quot;&gt;
+        &lt;div class=&quot;left_con&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;right&quot;&gt;
+        &lt;div class=&quot;right_con&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;mask&quot;&gt;
+        &lt;span&gt;60&lt;/span&gt;%
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+        <p>####<strong>css</strong>：</p>
+        <pre><code class="lang-css">.circle{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border-radius: 50%;
+    background:  rgba(0,120,200,0.2);
+}
+.circle .left,.circle .right{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.left{
+    clip: rect(0,100px,auto,0);
+}
+.right{
+    clip: rect(0,auto,auto,100px);
+}
+.left_con,.right_con{
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgb(0,120,200);    
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.left_con{
+    clip: rect(0,100px,auto,0);
+}
+.right_con{
+    clip: rect(0,auto,auto,100px);
+}
+.mask {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    left: 25px;
+    top: 25px;
+    background: #FFF;
+    position: absolute;
+    text-align: center;
+    line-height: 150px;
+    font-size: 16px;
+}
+</code></pre>
+        <p><strong>为操作方便引入了jq</strong></p>
+        <pre><code class="lang-html">&lt;script src=&quot;http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+        <p>####<strong>js代码</strong>：</p>
+        <pre><code class="lang-javascript">var annulus = function(speed){
+    var _this = this;
+    _this.speed = speed||10;
+    function init(){
+        circle();
+    }
+    function circle(){
+        $(&#39;.circle&#39;).each(function(index, el) {
+            var numStart = 0;
+            var num = $(this).find(&#39;span&#39;).text() * 3.6;
+            var timer = null;
+            var that = this;
+            timer = setInterval(function(){
+                if(numStart&gt;num){
+                    clearInterval(timer);
+                    tiemr = null;
+                }
+                animateLoading(that,numStart);
+                numStart += 3.6;
+            },_this.speed);
+        });
+    }
+    function animateLoading(_this,num){
+        if (num &lt;= 180) {
+            $(_this).find(&#39;.right_con&#39;).css({&#39;transform&#39;:&quot;rotate(&quot; + num + &quot;deg)&quot;});
+
+        } else {
+            $(_this).find(&#39;.right_con&#39;).css({&#39;transform&#39;: &quot;rotate(180deg)&quot;});
+            $(_this).find(&#39;.left_con&#39;).css({&#39;transform&#39;: &quot;rotate(&quot; + (num - 180) + &quot;deg)&quot;});
+        };
+    };
+    return {
+        init:init
+    }
+}
+
+var a = new annulus(10);
+a.init();
+</code></pre>
+
+        <div class="timer">
+          2017-03-10
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

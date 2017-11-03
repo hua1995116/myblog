@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          react+react-router 4.0+redux+antd 购物车实战项目
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> react</span>
+      </div>
+      <div class="content markdown-body">
+        <h1 id="-">前言</h1>
+        <p>前些日子抽空学习了下react，因为近期忙着找工作，没时间写博客，今天我们就来看看用react全家桶，构建一个项目把，可能我学的也不是特别好，但是经过各种查资料，总算是能够构建出一个像模像样的栗子了。</p>
+        <p>github地址：<a href="https://github.com/hua1995116/react-shopping">https://github.com/hua1995116/react-shopping</a></p>
+        <h2 id="-">脚手架</h2>
+        <p><a href="https://www.npmjs.com/package/generator-react-webpack">generator-react-webpack</a></p>
+        <p><strong>Installation</strong></p>
+        <pre><code class="lang-ja">npm install -g yo
+npm install -g generator-react-webpack
+</code></pre>
+        <p><strong>Setting up projects</strong></p>
+        <pre><code># Create a new directory, and `cd` into it:
+mkdir my-new-project &amp;&amp; cd my-new-project
+
+# Run the generator
+yo react-webpack
+</code></pre>
+        <h2 id="-">技术栈</h2>
+        <p>react+react-router+redux+ webpack + ES6 + fetch+antd</p>
+        <h2 id="-">项目结构</h2>
+        <pre><code>│  .babelrc
+│  .editorconfig
+│  .eslintrc
+│  .gitignore
+│  .yo-rc.json
+│  karma.conf.js
+│  package.json
+│  prod.server.js
+│  server.js
+│  shop.json
+│  tree.txt
+│  webpack.config.js
+│  
+├─cfg
+│      base.js
+│      defaults.js
+│      dev.js
+│      dist.js
+│      test.js
+│      
+├─dist
+│          
+├─src
+│  │  favicon.ico
+│  │  index.html
+│  │  index.js
+│  │  routes.js
+│  │  
+│  ├─actions
+│  │      index.js
+│  │      README.md
+│  │      
+│  ├─api
+│  │      shop.json
+│  │      
+│  ├─components
+│  │      Destination.js
+│  │      Detail.js
+│  │      Index.js
+│  │      Main.js
+│  │      Plan.js
+│  │      
+│  ├─config
+│  │      base.js
+│  │      dev.js
+│  │      dist.js
+│  │      README.md
+│  │      test.js
+│  │      
+│  ├─constants
+│  │      ActionTypes.js
+│  │      
+│  ├─images
+│  │      
+│  ├─reducers
+│  │      cart.js
+│  │      count.js
+│  │      history.js
+│  │      index.js
+│  │      
+│  ├─sources
+│  │      
+│  ├─stores
+│  │      
+│  └─styles
+│          App.css
+│          
+└─test
+</code></pre>
+        <h2 id="-">目标功能</h2>
+        <ul>
+          <li>[x] 商品浏览页面 -- 完成</li>
+          <li>[x] 商品详细页面-- 完成</li>
+          <li>[x] 购物车页面-- 完成</li>
+          <li>[x] 历史记录页面 -- 完成</li>
+        </ul>
+        <p>##项目运行
+          <strong>注意：由于涉及大量的 ES6 等新属性，nodejs 必须是 6.0 以上版本 。</strong></p>
+        <pre><code>git clone https://github.com/hua1995116/react-shopping.git 
+
+cd react-shopping
+
+npm install
+
+npm run start //运行
+
+npm run dist //打包
+</code></pre>
+        <p>##说明</p>
+        <blockquote>
+          <p>如果本项目对于你有帮助，请顺手进github点个star</p>
+          <p>该项目已经在windows 7和mac进行测试。</p>
+          <p>推荐一个vue2 的实战项目（仿网易云音乐） <a href="http://blog.csdn.net/blueblueskyhua/article/details/68156734">http://blog.csdn.net/blueblueskyhua/article/details/68156734</a></p>
+          <p>另外推荐一个 vue2 + vuex 的实战项目（实时聊天系统，有后台代码）。<a href="http://blog.csdn.net/blueblueskyhua/article/details/70807847">http://blog.csdn.net/blueblueskyhua/article/details/70807847</a></p>
+          <p>如果有什么更好的建议或者问题，请及时再下方评论留言。</p>
+        </blockquote>
+        <p>##效果演示</p>
+        <p><a href="http://www.qiufengh.com:8082/">http://www.qiufengh.com:8082</a></p>
+        <p>##核心代码说明</p>
+        <blockquote>
+          <p><strong>&quot;react&quot;: &quot;^15.0.0&quot;</strong> 原本的 react package 被拆分为 react 及 react-dom 两个 package 详细看官方api： <a href="https://facebook.github.io/react/">https://facebook.github.io/react/</a></p>
+          <p><strong>&quot;react-router&quot;: &quot;^4.1.1&quot;</strong> React Router V4 基于 Lerna 管理多个 Repository。在此代码库包括：</p>
+          <ul>
+            <li>react-router React Router 核心</li>
+            <li>react-router-dom 用于 DOM 绑定的 React Router</li>
+            <li>react-router-native 用于 React Native 的 React Router</li>
+            <li>react-router-redux React Router 和 Redux 的集成</li>
+            <li>react-router-config 静态路由配置帮助助手 api ：<a href="https://reacttraining.com/react-router/web/guides/quick-start">https://reacttraining.com/react-router/web/guides/quick-start</a></li>
+          </ul>
+        </blockquote>
+        <p>src/index.js</p>
+        <pre><code class="lang-javascript">import &#39;core-js/fn/object/assign&#39;
+import React from &#39;react&#39;
+import ReactDOM from &#39;react-dom&#39; // 14.0版本后拆分成react和react-demo
+import { createStore ,applyMiddleware } from &#39;redux&#39;
+import { Provider } from &#39;react-redux&#39;
+import Main from &#39;./components/Main&#39;
+import { createLogger } from &#39;redux-logger&#39;
+import thunk from &#39;redux-thunk&#39;
+import reducer from &#39;./reducers&#39;
+import &#39;antd/dist/antd.css&#39;
+
+import &#39;./styles/App.css&#39;
+import { getAllProducts } from &#39;./actions&#39;
+
+const middleware = [ thunk ] // redux-thunk解决异步回调
+if (process.env.NODE_ENV !== &#39;production&#39;) {
+  middleware.push(createLogger())
+}
+
+const store = createStore(reducer,
+  applyMiddleware(...middleware) // 中间件
+)
+
+store.dispatch(getAllProducts()) //获取全部商品
+// Render the main component into the dom
+ReactDOM.render(
+   &lt;Provider store={ store } &gt;
+     &lt;Main /&gt;
+   &lt;/Provider&gt;
+  ,document.getElementById(&#39;app&#39;)
+)
+</code></pre>
+        <p>主要定义了一些依赖。以及主入口模版文件Main.js</p>
+        <p>src/components/Main.js</p>
+        <pre><code class="lang-javascript">import React from &#39;react&#39;
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from &#39;react-router-dom&#39;
+import {connect} from &#39;react-redux&#39;
+import Index from &#39;./index&#39;
+import Destination from &#39;./Destination&#39;
+import Plan from &#39;./Plan&#39;
+import Detail from &#39;./Detail&#39;
+import {Menu, Icon} from &#39;antd&#39;
+const SubMenu = Menu.SubMenu
+
+const Basic = () =&gt; (
+
+  &lt;Router &gt;
+    &lt;div className=&quot;clear container-main&quot;&gt;
+      &lt;div className=&quot;fl&quot;&gt;
+        &lt;Menu
+          style={{width: 240}}
+          defaultSelectedKeys={[&#39;1&#39;]}
+          defaultOpenKeys={[&#39;sub1&#39;]}
+          mode=&quot;inline&quot;
+        &gt;
+          &lt;SubMenu key=&quot;sub1&quot; title={&lt;span&gt;&lt;Icon type=&quot;mail&quot;/&gt;&lt;span&gt;操作&lt;/span&gt;&lt;/span&gt;}&gt;
+            &lt;Menu.Item key=&quot;1&quot;&gt;&lt;Link to=&quot;/&quot;&gt;主页&lt;/Link&gt;&lt;/Menu.Item&gt;
+            &lt;Menu.Item key=&quot;2&quot;&gt;&lt;Link to=&quot;/about&quot;&gt;购物车&lt;/Link&gt;&lt;/Menu.Item&gt;
+            &lt;Menu.Item key=&quot;3&quot;&gt;&lt;Link to=&quot;/topics&quot;&gt;购买记录&lt;/Link&gt;&lt;/Menu.Item&gt;
+          &lt;/SubMenu&gt;
+        &lt;/Menu&gt;
+      &lt;/div&gt;
+
+      &lt;Route exact path=&quot;/&quot; component={Index}/&gt;
+      &lt;Route path=&quot;/about&quot; component={Destination}/&gt;
+      &lt;Route path=&quot;/topics&quot; component={Plan}/&gt;
+      &lt;Route path=&quot;/detail/:topicId&quot; component={Detail} /&gt;
+    &lt;/div&gt;
+  &lt;/Router&gt;
+)
+
+export default connect()(Basic)
+</code></pre>
+        <p>运用了函数式编程方式： 我们可以看看普通继承和函数式编程的差异，函数编程简洁了不少。也可以看到react-router在4.0版本后发生了一些变化。
+          <img src="http://img.blog.csdn.net/20170525130009551?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <h2 id="-">效果图</h2>
+        <p><img src="http://img.blog.csdn.net/20170525133053530?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <p><img src="http://img.blog.csdn.net/20170525133118375?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <p><img src="http://img.blog.csdn.net/20170525133131593?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <p><img src="http://img.blog.csdn.net/20170525133144187?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <p><img src="http://img.blog.csdn.net/20170525133157422?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+        <div class="timer">
+          2017-05-25
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

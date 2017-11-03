@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          vue+websocket+express+mongodb实战项目（实时聊天）（一）
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> vue</span>
+      </div>
+      <div class="content markdown-body">
+        <p>##vue+websocket+express+mongodb实战项目（实时聊天）（一）</p>
+        <p>在原来基础上增加了多个聊天室以及发送图片【vue+websocket+express+mongodb实战项目（实时聊天）（二）】
+          <a href="http://blog.csdn.net/blueblueskyhua/article/details/73250992">http://blog.csdn.net/blueblueskyhua/article/details/73250992</a> 旧版聊天室地址:
+          <a href="https://github.com/hua1995116/webchat/tree/08ff845a2ca46c27a9024138d5b4173c89dd8056">https://github.com/hua1995116/webchat/tree/08ff845a2ca46c27a9024138d5b4173c89dd8056</a> 新版地址：
+          <a href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a> ————————————————————————————— 继上一个项目
+          <a href="http://blog.csdn.net/blueblueskyhua/article/details/68156734">用vuejs仿网易云音乐（实现听歌以及搜索功能）</a>后，发现上一个项目单纯用vue的model管理十分混乱，然后我去看了看vuex，打算做一个项目练练手，又不想做一个重复的项目，这次我就放弃颜值，打算走心派。结合了后台nodejs，以及数据库mongodb来开发了一个实时聊天系统。这个系统可以说是一统江山，也算是实现前端程序员的一个梦了，前后通吃。自认为是一个比全的项目。项目地址：
+          <a
+            href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a> 觉得好的请顺手来个star。</p>
+        <p><img src="http://img.blog.csdn.net/20170426135802018" alt="这里写图片描述"></p>
+        <p><strong>技术栈</strong></p>
+        <ul>
+          <li>前端 vue，vue-router ,vuex</li>
+          <li>后端 nodejs，express</li>
+          <li>数据库 mongodb</li>
+          <li>通讯 websocket</li>
+          <li>脚手架工具 vue-cli</li>
+        </ul>
+        <p><strong>结构</strong> ├─build ├─config ├─models(存放mongoose对象) ├─schemas（存放mongoose的schemas模型） ├─src │ │ App.vue │ │ main.js（主入口） │ ├─assets<br>│ ├─components （组件） │ ├─router（vue-router路由） │ └─store（vuex） └─static（静态资源）
+        </p>
+        <p>首先用脚手架工具构建一个项目。像这样：</p>
+        <pre><code>vue init webpack my-project-name
+</code></pre>
+        <p>结构大致是这样的</p>
+        <p><img src="http://img.blog.csdn.net/20170426163230168?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <p>好！既然我们是实战项目，我就不多说这些配置问题。不然又跑题了。不然又要被小哥哥小姐姐们打了。</p>
+        <p><img src="http://img.blog.csdn.net/20170426140218399?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+        <p><strong>前端</strong></p>
+        <p>首先看src目录下的页面布局。 main.js// 主入口</p>
+        <pre><code class="lang-javascript">import Vue from &#39;vue&#39;
+import App from &#39;./App&#39;
+import router from &#39;./router&#39;
+import store from &#39;./store&#39;
+// 使用museui组件
+import MuseUI from &#39;muse-ui&#39;
+import &#39;muse-ui/dist/muse-ui.css&#39;
+Vue.use(MuseUI)
+Vue.config.productionTip = false
+
+/* eslint-disable no-new */
+new Vue({
+  el: &#39;#app&#39;,
+  router,
+  store,
+  template: &#39;&lt;App/&gt;&#39;,
+  components: {App}
+})
+</code></pre>
+        <p>我们为了让整个项目看起来漂漂亮亮的，所以选择了muse-ui，别说，这个UI框架是真的漂亮。不信大家可以看<a href="http://www.muse-ui.org/#/install">muse-ui</a>。其余都是脚手架的默认配置。</p>
+        <p>route/router.js</p>
+        <pre><code class="lang-vue">import Vue from &#39;vue&#39;
+import Router from &#39;vue-router&#39;
+import Index from &#39;@/components/Index&#39;
+import Robot from &#39;@/components/Robot&#39;
+import Home from &#39;@/components/Home&#39;
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: &#39;/&#39;,
+      name: &#39;Index&#39;,
+      component: Index
+    },
+    {
+      path: &#39;/robot&#39;,
+      name: &#39;Robot&#39;,
+      component: Robot
+    },
+    {
+      path: &#39;/home&#39;,
+      name: &#39;Home&#39;,
+      component: Home
+    }
+  ]
+})
+</code></pre>
+        <p>大家可以看到一共有三个路由，没错，我们就是写了三块，第一块是和大家一起的聊天室，第二块是和我们可爱的大白聊天，也就是我们的<a href="http://www.tuling123.com/">图灵机器人</a>。有空你也去搞一个耍耍。第三块就是我们的个人中心，虽然这一块没什么东西。但是毕竟好看，哦~忘了，我们是走心的，怎么可以只看脸。</p>
+        <p>components/Chat.vue</p>
+        <pre><code class="lang-javascript">created() {
+    const that = this
+    this.socket = io.connect(&#39;http://qiufengh.com:8081&#39;)
+    this.socket.on(&#39;message&#39;, function(obj) {
+        that.$store.commit(&#39;addroomdetailinfos&#39;, obj)
+        window.scrollTo(0, 900000)
+    })
+    this.socket.on(&#39;logout&#39;, function (obj) {
+        that.$store.commit(&#39;setusers&#39;, obj)
+    })
+},
+</code></pre>
+        <pre><code class="lang-javascript">this.socket = io.connect(&#39;http://qiufengh.com:8081&#39;)
+</code></pre>
+        <p>这一句，主要用于连接你当前的服务，到时候下载后面的项目时，记得改成自己的服务以及端口。因为是在Index和Chat都有设置，所以你需要在Index.vue和Chat里的connect都改成你自己的服务。socket.on()用于接受消息。socket.emit() 用于发送消息。不懂的socket.io的看这里<a href="https://socket.io/docs/">socket.io</a>。有了这个就可以和服务端进行交互。等会讲解服务端。</p>
+        <p>store/index.js</p>
+        <pre><code class="lang-javascript">state: {
+ //存放用户
+  user: {
+    name: &#39;&#39;,
+    src: &#39;&#39;
+  },
+  //存放历史记录
+  messhistory: {
+    infos: []
+  },
+  //存放房间信息，为了方便以后做多房间
+  roomdetail: {
+    id: &#39;&#39;,
+    users: {},
+    infos: []
+  },
+  //存放机器人开场白
+  robotmsg: [{
+    message: &#39;Hi~有什么想知道的可以问我&#39;,
+    user: &#39;robot&#39;
+  }],
+  //聊天页面显示控制
+  chattoggle: false,
+  //登录页面显示控制
+  logintoggle: false,
+  //注册页面显示控制
+  registertoggle: true,
+  //提示框显示控制
+  dialog: false,
+   //提示框内容
+  dialoginfo: &#39;&#39;
+}
+</code></pre>
+        <p>由于控制代码太多，所以之后的内容请大家移步，我的github地址。<a href="https://github.com/hua1995116/webchat/">https://github.com/hua1995116/webchat/</a></p>
+        <p><strong>服务器端</strong></p>
+        <p>由于build下dev-server.js中webpack代码太多，太杂乱，不易于讲解。主要来看看用于打包后的服务器端。两份代码是一样的。 prod.server.js（根目录下）
+        </p>
+        <pre><code class="lang-javascript">var express = require(&#39;express&#39;);
+var config = require(&#39;./config/index&#39;);
+var port = process.env.PORT || config.dev.port;
+
+var app = express();
+
+var router = express.Router();
+//用于静态展示入口
+router.get(&#39;/&#39;,function(req,res,next){
+    req.url = &#39;./index.html&#39;;
+    next();
+});
+
+app.use(router);
+
+require(&#39;./config/routes&#39;)(app)
+/*引入*/
+var mongoose = require(&#39;mongoose&#39;)
+//日志文件
+var morgan = require(&#39;morgan&#39;)
+//sesstion 存储
+var bodyParser = require(&#39;body-parser&#39;)
+var cookieParser = require(&#39;cookie-parser&#39;)
+var session = require(&#39;cookie-session&#39;)
+//用于异步回调
+mongoose.Promise = require(&#39;bluebird&#39;)
+global.db = mongoose.connect(&quot;mongodb://localhost:27017/vuechat&quot;)
+
+//服务器提交的数据json化
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+//sesstion 存储
+app.use(cookieParser())
+app.use(session({
+  secret: &#39;vuechat&#39;,
+  resave: false,
+  saveUninitialized: true
+}))
+
+var env = process.env.NODE_ENV || &#39;development&#39;
+if (&#39;development&#39; === app.get(&#39;env&#39;)) {
+  app.set(&#39;showStackError&#39;, true)
+  app.use(morgan(&#39;:method :url :status&#39;))
+  app.locals.pretty = true
+  mongoose.set(&#39;debug&#39;, true)
+}
+
+var server = app.listen(port)
+
+//websocket
+// var http = require(&#39;http&#39;).Server(app);
+var io = require(&#39;socket.io&#39;)(server);
+var Message = require(&#39;./models/message&#39;)
+var users = {}
+io.on(&#39;connection&#39;, function (socket) {
+  //监听用户发布聊天内容
+  socket.on(&#39;message&#39;, function (obj) {
+    //向所有客户端广播发布的消息
+    io.emit(&#39;message&#39;, obj)
+    var mess = {
+      username: obj.username,
+      src:obj.src,
+      msg: obj.msg,
+      roomid:&#39;room1&#39;
+    }
+    var message = new Message(mess)
+    //将发送过来的消息进行储存
+    message.save(function (err, mess) {
+      if (err) {
+        console.log(err)
+      }
+        console.log(mess)
+    })
+    console.log(obj.username + &#39;说：&#39; + obj.msg)
+  })
+  socket.on(&#39;login&#39;,function (obj) {
+    users[obj.name] = obj
+    //用于监听用户进行聊天室
+    io.emit(&#39;login&#39;, users)
+  })
+  socket.on(&#39;logout&#39;,function (name) {
+    delete users[name]
+    //用户监听用退出聊天室
+    io.emit(&#39;logout&#39;, users)
+  })
+})
+
+//声明静态资源地址
+app.use(express.static(&#39;./dist&#39;));
+</code></pre>
+        <p><strong>schema模型</strong></p>
+        <p>schema/user.js</p>
+        <pre><code class="lang-javascript">var mongoose = require(&#39;mongoose&#39;)
+//用于md5加密
+var bcrypt = require(&#39;bcryptjs&#39;)
+//加盐数
+var SALT_WORK_FACTOR = 10
+var UserSchema = new mongoose.Schema({
+  name: {
+    unique: true,
+    type: String
+  },
+  password: String,
+  src: String,
+  meta: {
+    createAt: {
+      type: Date,
+      default: Date.now()
+    },
+    updateAt: {
+      type: Date,
+      default: Date.now()
+    }
+  }
+});
+//对密码进行加密
+UserSchema.pre(&#39;save&#39;, function (next) {
+  var user = this
+  if (this.isNew) {
+    this.createAt = this.updateAt = Date.now()
+  }
+  else {
+    this.updateAt = Date.now()
+  }
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) return next(err)
+
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err)
+
+      user.password = hash
+      next()
+    })
+  })
+})
+//用于比较密码是否正确
+UserSchema.methods = {
+  comparePassword: function (_password, cb) {
+    bcrypt.compare(_password, this.password, function (err, isMatch) {
+      if (err) return cb(err)
+      cb(null, isMatch)
+    })
+  }
+}
+
+UserSchema.statics = {
+  fetch: function (cb) {
+    return this
+      .find({})
+      .sort(&#39;meta.updateAt&#39;)
+      .exec(cb)
+  },
+  findById: function (id, cb) {
+    return this
+      .findOne({_id: id})
+      .exec(cb)
+  }
+}
+
+module.exports = UserSchema
+</code></pre>
+        <p>这里主要用到一个md5的模块，可以查看 <a href="https://www.npmjs.com/package/bcryptjs">bcryptjs</a></p>
+        <p>schema/message.js</p>
+        <pre><code class="lang-javascript">var mongoose = require(&#39;mongoose&#39;)
+//聊天记录模型
+var MessageSchema = new mongoose.Schema({
+  username: String,
+  src:String,
+  msg: String,
+  roomid:String,
+  time: {
+    type: Date,
+    default: Date.now()
+  }
+})
+//静态方法
+MessageSchema.statics = {
+  fetch: function (cb) {
+    return this
+      .find({})
+      .sort(&#39;time&#39;)
+      .exec(cb)
+  },
+  findById: function (id, cb) {
+    return this
+      .findOne({_id: id})
+      .exec(cb)
+  }
+}
+module.exports = MessageSchema
+</code></pre>
+        <p>服务器的routes config/routes.js 讲一个注册的把，其他请前往项目查看</p>
+        <pre><code class="lang-javascript">app.post(&#39;/user/signup&#39;, function (req, res) {
+    //获取提交数据
+    var _user = req.body
+    console.log(_user)
+    User.findOne({name: _user.name}, function (err, user) {
+      if (err) {
+        console.log(err)
+      }
+      if (user) {
+        res.json({
+          errno: 1,
+          data: &#39;用户名已存在&#39;
+        })
+      } else {
+        var user = new User(_user)
+        user.save(function (err, user) {
+          if (err) {
+            console.log(err)
+          }
+          res.json({
+            errno: 0,
+            data: &#39;注册成功&#39;
+          })
+        })
+      }
+    })
+  })
+</code></pre>
+        <p>主要用于验证用户名是否重复。</p>
+        <p>核心部分就讲到这里啦，。其他具体的请查看我的github地址（具有详细的注释，不明白的可以提问，需要改进的请各位前辈指出）： 地址：
+          <a href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a> 在线观看地址：
+          <a href="http://www.qiufengh.com:8081/#/">http://www.qiufengh.com:8081/#/</a></p>
+        <pre><code>npm install -----安装依赖
+npm run dev -----运行
+npm run build -----打包
+node prod.server.js -----打包后运行
+//记得替换
+Index.vue和Chat.vue下的io.connect(&#39;http://qiufengh.com:8081&#39;)
+http://qiufengh.com:8081改成自己的项目地址。
+</code></pre>
+        <p>最后上几张图。
+          <img src="http://img.blog.csdn.net/20170426160852057?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+          <img src="http://img.blog.csdn.net/20170426160909313?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+          <img src="http://img.blog.csdn.net/20170426160936933?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+          <img src="http://img.blog.csdn.net/20170426160946449?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+        <div class="timer">
+          2017-04-26
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

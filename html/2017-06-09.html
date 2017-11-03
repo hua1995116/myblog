@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          二叉树之小球下落问题（js）
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> 数据结构</span>
+      </div>
+      <div class="content markdown-body">
+        <p>有一棵二叉树，最大深度为D，且所有叶子的深度都相同。所有结点从上到下从左到右编号为1，2，3，...，2^D-1。在结点1处放一个小球，它会往下落。每个内结点上都有一个开关，初始全部关闭，当每次有小球落到一个开关上时，它的状态都会改变。当小球到达一个内结点时，如果该结点上的开关关闭，则往左走，否则往右走，知道走到叶子结点，如图。</p>
+        <p><img src="http://img.blog.csdn.net/20170611122915740?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"> 一些小球从结点1处开始下落，最后一个小球将会落到哪里呢，输入叶子深度D和小球个数I，输出第I个小球最后的叶子编号。假设I不超过整棵树的叶子个数。D&lt;=20。
+          <strong>输入</strong>： 4 2 3 4 10 1
+          <strong>输出</strong>： 12 7 512
+        </p>
+        <p>代码：</p>
+        <pre><code class="lang-javascript">function drop(depth, count) {
+        var arr = [];
+        var r;
+        for (var i = 0; i &lt; count; i++) {
+            for (var root = 1; root &lt; Math.pow(2, depth - 1);) {
+                if (arr[root] &amp;&amp; arr[root].open) {
+                    arr[root].open = false;
+                    root = root * 2 + 1;
+                } else {
+                    if (!arr[root]) {
+                        arr[root] = {open: true};
+                    } else if (arr[root].open === false) {
+                        arr[root].open = true;
+                    }
+                    root = root * 2;
+                }
+            }
+            r = root;
+        }
+        return r;
+    }
+    console.log(drop(4, 2));// 12
+    console.log(drop(3, 4));// 7
+    console.log(drop(10, 1));// 512
+</code></pre>
+
+        <div class="timer">
+          2017-06-09
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

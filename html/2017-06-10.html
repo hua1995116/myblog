@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          排序算法之堆排序（js）
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> 数据结构</span>
+      </div>
+      <div class="content markdown-body">
+        <p>#排序算法之堆排序</p>
+        <pre><code class="lang-javascript">    var floor = Math.floor;
+    var H = {
+        1: 9,
+        2: 8,
+        3: 7,
+        4: 6,
+        5: 5,
+        6: 4,
+        7: 3,
+        8: 2,
+        9: 1
+    };
+    // 向上
+    function sift_up(H, i) {
+        var done = false;
+        if (i !== 1) {
+            while (!done &amp;&amp; i !== 1) {
+                if (H[i] &gt; H[floor(i / 2)]) {
+                    var temp;
+                    temp = H[i];
+                    H[i] = H[floor(i / 2)];
+                    H[floor(i / 2)] = temp;
+                } else {
+                    done = true;
+                }
+                i = floor(i / 2);
+            }
+        }
+        return H;
+    }
+    // 向下
+    function sift_down(H, n, i) {
+        var done = false;
+        if ((2 * i) &lt; n) {
+            while (!done &amp;&amp; ((i = i * 2) &lt;= n)) {
+                if ((i + 1) &lt; n &amp;&amp; (H[i + 1] &gt; H[i])) {
+                    i = i + 1;
+                }
+                if (H[floor(i / 2)] &lt; H[i]) {
+                    var temp;
+                    temp = H[i];
+                    H[i] = H[floor(i / 2)];
+                    H[floor(i / 2)] = temp;
+                } else {
+                    done = true;
+                }
+            }
+        }
+        return H;
+    }
+    // 增加
+    function insert(H, n, x) {
+        n = n + 1;
+        H[n] = x;
+        return sift_up(H, n);
+    }
+    // 删除
+    function deleteobj(H, n, i) {
+        var x, y;
+        x = H[i];
+        y = H[n];
+        delete H[n];
+        n = n - 1;
+        if (i &lt;= n) {
+            H[i] = y;
+            if (y &gt; x) {
+                return sift_up(H, i);
+            } else {
+                return sift_down(H, n, i);
+            }
+        }
+    }
+    // 创建
+    function meakup(A, H, n) {
+        var i, m = 0;
+        for (i = 1; i &lt;= n; i++) {
+            H = insert(H, m, A[i]);
+            m++;
+        }
+        return H;
+    }
+    // 创建
+    var H1 = {};
+    H1 = meakup(H,H1,9)
+    console.log(H1);
+    // 向上
+    H[9] = 10;
+    var cc = sift_up(H, 9);
+    console.log(cc);
+    // 删除
+    console.log(deleteobj(H, 9, 3));
+</code></pre>
+
+        <div class="timer">
+          2017-06-10
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>

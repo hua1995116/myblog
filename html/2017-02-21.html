@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+</head>
+
+<body scroll="no">
+  <header>
+    <nav>
+      <ul class="title clear">
+        <a href="index.html">
+					秋风
+				</a>
+        <a href="html/index.html">
+					博客
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+				</a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+				</a>
+        <a href="https://github.com/hua1995116/">
+					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+				</a>
+      </ul>
+    </nav>
+  </header>
+  <section>
+    <div class="list one">
+      <div class="header">
+        <h1>
+          原生JS实现ajax上传文件并显示进度条
+        </h1>
+      </div>
+      <div class="type clear">
+        <span class="span_button"> js</span>
+      </div>
+      <div class="content markdown-body">
+        <p>html代码</p>
+        <pre><code class="lang-html">&lt;progress id=&quot;progressbar&quot; value=&quot;0&quot; max=&quot;100&quot; style=&quot;width:300px;&quot;&gt;&lt;/progress&gt;&lt;span id=&quot;percentage&quot;&gt;&lt;/span&gt;
+&lt;input type=&quot;file&quot; id=&quot;file&quot; name=&quot;file&quot; /&gt;
+&lt;input type=&quot;button&quot; onclick=&quot;uploadFile()&quot; value=&quot;上传&quot; /&gt;
+&lt;div id=&quot;fileimg&quot;&gt;
+    &lt;div id=&quot;loading-cover&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;showloading&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+        <p>css代码</p>
+        <pre><code class="lang-css">#fileimg{
+        width:300px;
+        height: 300px;
+        overflow: hidden;
+        border:1px solid #ddd;
+        position: relative;
+    }
+    #fileimg img {
+        width: 100%;
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+    #loading-cover{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        background: rgba(0,0,0,0.3);
+        top:0;
+        left: 0;
+        z-index: 2;
+    }
+    #showloading{
+        width: 300px;
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        z-index: 3;
+    }
+</code></pre>
+        <p>js代码</p>
+        <pre><code class="lang-javascript">function uploadFile(){
+    var fileObj = document.getElementById(&#39;file&#39;).files[0];    
+    showImg(fileObj);
+    if(fileObj){
+        var url = &quot;uploadimage.jsp&quot;;
+        var form = new FormData();
+        form.append(&#39;myfile&#39;,fileObj);
+        xhr = new XMLHttpRequest();
+        xhr.open(&quot;post&quot;,url,true);
+        xhr.onload = uploadComplete; //请求完成
+        xhr.onerror =  uploadFailed; //请求失败
+        xhr.upload.onprogress = progressFunction;
+        xhr.send(form);
+    }else{
+    alert(&#39;请选择文件&#39;);
+    }
+}
+
+function showImg(fileObj){
+    var fileimg = document.getElementById(&#39;fileimg&#39;);    
+    var src = window.URL.createObjectURL(fileObj);
+    var img = document.createElement(&quot;img&quot;);
+     img.src = src;
+     fileimg.appendChild(img);
+}
+function progressFunction(evt){
+    var loadingCover = document.getElementById(&#39;loading-cover&#39;);
+    var showloading = document.getElementById(&#39;showloading&#39;);
+    var progressBar = document.getElementById(&#39;progressbar&#39;);
+    var percentage = document.getElementById(&#39;percentage&#39;);
+    if(evt.lengthComputable){
+        progressbar.max = evt.total;
+        progressBar.value = evt.loaded;
+        var loading = Math.round(evt.loaded / evt.total * 100);
+        percentage.innerHTML = loading + &#39;%&#39;;
+        showloading.innerHTML = loading + &#39;%&#39;;
+        loadingCover.style.top = -loading + &#39;%&#39;;
+        if(loading==100){
+            showloading.style.display = &#39;none&#39;;
+        }
+    }
+}
+function uploadComplete(evt) {
+  //服务断接收完文件返回的结果
+  //    alert(evt.target.responseText);
+      console.log(&quot;上传成功！&quot;);
+ }
+ //上传失败
+ function uploadFailed(evt) {
+     console.log(evt);
+ }
+</code></pre>
+        <p>github地址：<a href="https://github.com/hua1995116/UploadLoading/（包含后台代码）">https://github.com/hua1995116/UploadLoading/（包含后台代码）</a></p>
+
+        <div class="timer">
+          2017-02-21
+        </div>
+        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+      </div>
+
+  </section>
+
+  <script type="text/javascript" src="../js/prism.js"></script>
+
+
+</body>
+
+</html>
