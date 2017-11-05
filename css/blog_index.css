@@ -131,6 +131,15 @@ nav {
     cursor: pointer;
 }
 
+#tag {
+    width: 81%;
+    margin: 20px auto;
+}
+
+#tag .span_button {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 641px) {
     .list {
         position: relative;

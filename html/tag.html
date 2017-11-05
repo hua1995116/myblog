@@ -36,30 +36,51 @@
     </ul>
   </nav>
 </header>
-<section id="content">
-</section>
-<div id="page">
+<section id="tag"></section>
+<section id="content"></section>
+<!-- <div id="page">
   <div index='0' class="page-item">上一页</div>
   <div index='1' class="page-item">下一页</div>
-</div>
+</div> -->
 <script src="../js/scrollReveal.js"></script>
 <script src="../js/promise.js"></script>
 <script src="../js/axios.js"></script>
 <script>
   var data;
   var index = 0;
+  var taglist;
   var content = document.getElementById('content');
-  axios.get('/json/data.json')
-    .then(function (response) {
-       data = response.data;
-      handleHhtml(content, data['list0']);
+  var tag = document.getElementById('tag');
 
-      handlePages(data);
+  axios.get('/json/tagdata.json')
+    .then(function (response) {
+      data = response.data;
+      taglist = Object.keys(data);
+
+      handleHhtml(content, data[taglist[0]]);
+
+      hanldeTagList(tag, taglist);
+      // handlePages(data);
 
     })
     .catch(function (error) {
       console.log(error);
     });
+
+  function hanldeTagList(tag, taglist) {
+    var html = '';
+    for(var i = 0; i < taglist.length; i++) {
+      html += '<div class="span_button" type="'+taglist[i]+'">'+taglist[i]+'('+data[taglist[i]].length+')'+'</div>';
+    }
+    tag.innerHTML = html;
+    tag.addEventListener('click', function(e) {
+      var target = e.target || e.srcElement;
+      if(target.className === 'span_button') {
+        var tagtype = target.getAttribute('type');
+        handleHhtml(content, data[tagtype]);
+      }
+    })
+  }
 
   function handleHhtml(content, data) {
     var html = '';
@@ -90,31 +111,31 @@
     return html;
   }
 
-  function handlePages(data) {
-    var page = document.getElementById('page');
-    var length = Object.keys(data).length;
+  // function handlePages(data) {
+  //   var page = document.getElementById('page');
+  //   var length = Object.keys(data).length;
 
-    page.addEventListener('click', function(e) {
-      var targer = e.target || e.srcElement;
-      if (targer.getAttribute('index') === '0') {
-        if (index === 0) {
-          alert('最前啦');
-        } else {
-          index--;
-          var listname = 'list' + index;
-          handleHhtml(content, data[listname]);
-        }
-      } else {
-        if (index === length - 1) {
-          alert('最后啦');
-        } else {
-          index++;
-          var listname = 'list' + index;
-          handleHhtml(content, data[listname]);
-        }
-      }
-    })
-  }
+  //   page.addEventListener('click', function(e) {
+  //     var targer = e.target || e.srcElement;
+  //     if (targer.getAttribute('index') === '0') {
+  //       if (index === 0) {
+  //         alert('最前啦');
+  //       } else {
+  //         index--;
+  //         var listname = 'list' + index;
+  //         handleHhtml(content, data[listname]);
+  //       }
+  //     } else {
+  //       if (index === length - 1) {
+  //         alert('最后啦');
+  //       } else {
+  //         index++;
+  //         var listname = 'list' + index;
+  //         handleHhtml(content, data[listname]);
+  //       }
+  //     }
+  //   })
+  // }
 </script>
 <script>
   var _hmt = _hmt || [];

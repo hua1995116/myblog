@@ -4,6 +4,7 @@ const marked = require('marked');
 const beautify_html = require('js-beautify').html;
 const json = {};
 const arr = [];
+const tagjson = {};
 
 // 解析目录
 const filePath = path.resolve('./notes');
@@ -22,20 +23,18 @@ function fileDisplay(filePath) {
     } else {
       //遍历读取到的文件列表
       Promise.all(files.map(handlePromise)).then(() => {
-        arr.sort(function (a, b) {
-          return b.time - a.time;
-        })
-        let i = 0;
+        
+        handleTagJson();
 
-        for(var j = 0; j < arr.length; j++) {
-          if (!json[`list${i}`]) {
-            json[`list${i}`] = [];
+        handlePagesJson();
+
+        fs.writeFile('./json/tagdata.json', JSON.stringify(tagjson), err => {
+          if(err) {
+            throw err;
+          } else {
+            console.log('tagjson success');
           }
-          json[`list${i}`].push(arr[j]);
-          if (json[`list${i}`].length === 10) {
-            i++;
-          }
-        }
+        });
 
         fs.writeFile(`./json/data.json`, JSON.stringify(json), err => {
           if (err) {
@@ -48,6 +47,42 @@ function fileDisplay(filePath) {
     }
   });
 }
+
+function handleTagJson() {
+  for(let i = 0; i < arr.length; i++) {
+    if(!!arr[i]['tag']) {
+      const tagList = arr[i]['tag'].split(',');
+      for(let k = 0; k < tagList.length; k++) {
+        tagList[k] = tagList[k].trim();
+      }
+      for(let j = 0; j < tagList.length; j++) {
+        if(tagjson[tagList[j]]) {
+          tagjson[tagList[j]].push(arr[i]);
+        } else {
+          tagjson[tagList[j]] = [];
+          tagjson[tagList[j]].push(arr[i]);
+        }    
+      }
+    }
+  }
+}
+
+function handlePagesJson() {
+  arr.sort(function (a, b) {
+    return b.time - a.time;
+  })
+  let i = 0;
+  for(var j = 0; j < arr.length; j++) {
+    if (!json[`list${i}`]) {
+      json[`list${i}`] = [];
+    }
+    json[`list${i}`].push(arr[j]);
+    if (json[`list${i}`].length === 10) {
+      i++;
+    }
+  }
+}
+
 
 function handlePromise(filename) {
   return new Promise((resolve, reject) => {
@@ -122,3 +157,7 @@ function handleToJson(fileName, title, tag, description, date) {
     time
   });
 }
+
+
+
+
