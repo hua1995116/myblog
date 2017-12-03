@@ -25,36 +25,37 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          js中事件绑定3种方法以及事件委托
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            js中事件绑定3种方法以及事件委托
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> js
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>###事件绑定 首先，我先来介绍我们平时绑定事件的三种方法。
-          <strong>1.嵌入dom</strong></p>
-        <pre><code class="lang-html">&lt;button onclick=&quot;open()&quot;&gt;按钮&lt;/button&gt;
+        </div>
+        <div class="content markdown-body">
+          <p>###事件绑定 首先，我先来介绍我们平时绑定事件的三种方法。
+            <strong>1.嵌入dom</strong></p>
+          <pre><code class="lang-html">&lt;button onclick=&quot;open()&quot;&gt;按钮&lt;/button&gt;
 
 &lt;script&gt;
 function open(){
@@ -62,16 +63,16 @@ function open(){
 }
 &lt;/script&gt;
 </code></pre>
-        <p><strong>2.直接绑定</strong></p>
-        <pre><code class="lang-html">&lt;button id=&quot;btn&quot;&gt;按钮&lt;/button&gt;
+          <p><strong>2.直接绑定</strong></p>
+          <pre><code class="lang-html">&lt;button id=&quot;btn&quot;&gt;按钮&lt;/button&gt;
 &lt;script&gt;
 document.getElementById(&#39;btn&#39;).onclick = function(){
     alert(1)
 }
 &lt;/script&gt;
 </code></pre>
-        <p><strong>3.事件监听</strong></p>
-        <pre><code class="lang-html">&lt;button id=&quot;btn&quot;&gt;按钮&lt;/button&gt;
+          <p><strong>3.事件监听</strong></p>
+          <pre><code class="lang-html">&lt;button id=&quot;btn&quot;&gt;按钮&lt;/button&gt;
 &lt;script&gt;
 document.getElementById(&#39;btn&#39;).addEventListener(&#39;click&#39;,function(){
     alert(1)
@@ -82,11 +83,11 @@ document.getElementById(&#39;btn&#39;).attachEvent(&#39;click&#39;,function(){
 })
 &lt;/script&gt;
 </code></pre>
-        <p>###事件委托 对“事件处理程序过多”问题的解决方案就是事件委托。事件委托利用了事件冒泡，只制定一个事件处理程序，就可以管理某一类型的所有事件。例如click事件一直会冒泡到document层。也就是我们可以只指定onclick事件处理程序，而不必给每个事件分别添加处理程序。
-          <strong>下面我们来看一个阿里巴巴笔试题的例子。</strong></p>
-        <p><img src="http://img.blog.csdn.net/20170423134519975" alt="这里写图片描述"></p>
-        <p><strong>样式以及DOM结构</strong></p>
-        <pre><code class="lang-css"> &lt;style&gt;
+          <p>###事件委托 对“事件处理程序过多”问题的解决方案就是事件委托。事件委托利用了事件冒泡，只制定一个事件处理程序，就可以管理某一类型的所有事件。例如click事件一直会冒泡到document层。也就是我们可以只指定onclick事件处理程序，而不必给每个事件分别添加处理程序。
+            <strong>下面我们来看一个阿里巴巴笔试题的例子。</strong></p>
+          <p><img src="http://img.blog.csdn.net/20170423134519975" alt="这里写图片描述"></p>
+          <p><strong>样式以及DOM结构</strong></p>
+          <pre><code class="lang-css"> &lt;style&gt;
    * {
      padding: 0;
      margin: 0;
@@ -138,8 +139,8 @@ document.getElementById(&#39;btn&#39;).attachEvent(&#39;click&#39;,function(){
  &lt;/div&gt;
  &lt;/body&gt;
 </code></pre>
-        <p><strong>不用事件委托。</strong>而这种方法造成的代价是，性能的大量浪费。如果是成千上万条数据，<strong>页面将会严重卡顿，甚至崩溃。</strong></p>
-        <pre><code class="lang-javascript">function Contact(){
+          <p><strong>不用事件委托。</strong>而这种方法造成的代价是，性能的大量浪费。如果是成千上万条数据，<strong>页面将会严重卡顿，甚至崩溃。</strong></p>
+          <pre><code class="lang-javascript">function Contact(){
     this.init();
 }
 
@@ -157,8 +158,8 @@ Contact.prototype.init = function(){
 
 new Contact();
 </code></pre>
-        <p><strong>使用事件委托</strong>，只绑定一次事件，大大减少了性能的损耗。也是在需要大量事件处理程序中一种非常好的解决方式。</p>
-        <pre><code class="lang-javascript">function Contact(){
+          <p><strong>使用事件委托</strong>，只绑定一次事件，大大减少了性能的损耗。也是在需要大量事件处理程序中一种非常好的解决方式。</p>
+          <pre><code class="lang-javascript">function Contact(){
     this.init();
 }
 
@@ -175,25 +176,63 @@ Contact.prototype.init = function(){
 new Contact();
 </code></pre>
 
-        <div class="timer">
-          2017-04-23
+          <div class="timer">
+            2017-04-23
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

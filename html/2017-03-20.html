@@ -25,40 +25,41 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          vue-lazyload基础实例（基于vue2.0和vue-router2.0）
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            vue-lazyload基础实例（基于vue2.0和vue-router2.0）
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> vue
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> vue
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>首先引入依赖</p>
-        <pre><code class="lang-javascript">import Vue from &#39;vue&#39;;
+        </div>
+        <div class="content markdown-body">
+          <p>首先引入依赖</p>
+          <pre><code class="lang-javascript">import Vue from &#39;vue&#39;;
 import Router from &#39;vue-router&#39;;
 import VueLazyload from &#39;vue-lazyload&#39;;
 </code></pre>
-        <p>配置vue-lazyload</p>
-        <pre><code class="lang-javascript">Vue.use(VueLazyload, {
+          <p>配置vue-lazyload</p>
+          <pre><code class="lang-javascript">Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: &#39;./img/error.jpg&#39;,
   loading: &#39;http://cdn.uehtml.com/201402/1392662591495_1140x0.gif&#39;,
@@ -66,8 +67,8 @@ import VueLazyload from &#39;vue-lazyload&#39;;
   listenEvents: [ &#39;scroll&#39;, &#39;mousewheel&#39; ]
 });
 </code></pre>
-        <p>模版部分</p>
-        <pre><code class="lang-html">&lt;div class=&quot;hello&quot;&gt;
+          <p>模版部分</p>
+          <pre><code class="lang-html">&lt;div class=&quot;hello&quot;&gt;
   &lt;ul&gt;
     &lt;li v-for=&quot;item in imgUrl&quot;&gt;
       &lt;img v-lazy=&quot;item.src&quot; alt=&quot;&quot; width=&quot;300&quot; height=&quot;150&quot;/&gt;
@@ -88,8 +89,8 @@ export default {
   }
 };
 </code></pre>
-        <p>css</p>
-        <pre><code class="lang-css">img[lazy=loading]{
+          <p>css</p>
+          <pre><code class="lang-css">img[lazy=loading]{
     //your code
 }
 img[lazy=loaded]{
@@ -105,27 +106,65 @@ img[lazy=loaded]{
   }
 }
 </code></pre>
-        <p>项目完整实例地址：<a href="https://github.com/hua1995116/vue/tree/master/vue-lazyload">https://github.com/hua1995116/vue/tree/master/vue-lazyload</a> lazy-load api 地址<a href="https://www.npmjs.com/package/vue-lazyload">https://www.npmjs.com/package/vue-lazyload</a></p>
+          <p>项目完整实例地址：<a href="https://github.com/hua1995116/vue/tree/master/vue-lazyload">https://github.com/hua1995116/vue/tree/master/vue-lazyload</a> lazy-load api 地址<a href="https://www.npmjs.com/package/vue-lazyload">https://www.npmjs.com/package/vue-lazyload</a></p>
 
-        <div class="timer">
-          2017-03-20
+          <div class="timer">
+            2017-03-20
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

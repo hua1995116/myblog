@@ -5,6 +5,7 @@ const beautify_html = require('js-beautify').html;
 const json = {};
 const arr = [];
 const tagjson = {};
+const url = [];
 
 // 解析目录
 const filePath = path.resolve('./notes');
@@ -43,6 +44,14 @@ function fileDisplay(filePath) {
             console.log(`json success`);
           }
         });
+        console.log(url);
+        fs.writeFile('./json/url.txt', url.join('\n'), err => {
+          if (err) {
+            throw err;
+          } else {
+            console.log(`txt success`);
+          }
+        });  
       })
     }
   });
@@ -83,7 +92,12 @@ function handlePagesJson() {
   }
 }
 
-
+/**
+ * 
+ * 
+ * @param {any} filename 
+ * @returns 
+ */
 function handlePromise(filename) {
   return new Promise((resolve, reject) => {
     fs.readFile('./template.html', 'utf8', (err, template) => {
@@ -147,7 +161,7 @@ function handleTagLoop(tag) {
 
 function handleToJson(fileName, title, tag, description, date) {
   const time = new Date(fileName).getTime();
-
+  url.push(`http://yifenghua.win/html/${fileName}.html`);
   arr.push({
     fileName: `${fileName}.html`,
     title,

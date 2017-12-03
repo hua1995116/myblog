@@ -24,20 +24,43 @@
       <a href="/html/tag.html">
         归档
       </a>
-      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
         <img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
       </a>
-      <a href="http://blog.csdn.net/blueblueskyhua/article/">
+      <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
         <img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
       </a>
-      <a href="https://github.com/hua1995116/">
+      <a href="https://github.com/hua1995116/" class="big-media">
         <img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
       </a>
     </ul>
   </nav>
 </header>
-<section id="content">
-</section>
+<div class="body-content clear">
+  <section id="content" class="person-left-content">
+  </section>
+  <section class="person-right-content">
+    <div class="person-title">
+      <div class="person-title-img"></div>
+      <div class="person-title-name">蓝色的秋风</div>
+      <!-- <div class="person-title-me"><a href="">about me</a></div> -->
+      <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+      <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+            <img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+          </a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+            <img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+          </a>
+          <a href="https://github.com/hua1995116/">
+            <img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+          </a>
+      </div>
+    </div>
+    <div class="person-tag person-title clear">
+    </div>
+  </section>
+</div>
 <div id="page">
   <div index='0' class="page-item">上一页</div>
   <div index='1' class="page-item">下一页</div>
@@ -60,7 +83,23 @@
     .catch(function (error) {
       console.log(error);
     });
+  axios.get('/json/tagdata.json')
+    .then(function (response) {
+      data = response.data;
+      handletag(data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });  
 
+  function handletag(taglist) {
+    var personTag = document.querySelector('.person-tag');
+    var html = '';
+    for(var i in taglist) {
+      html += '<div class="person-tag-list">'+i+'</div>';
+    }
+    personTag.innerHTML = html;
+  }
   function handleHhtml(content, data) {
     var html = '';
     for(var i = 0; i < data.length; i ++) {

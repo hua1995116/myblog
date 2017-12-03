@@ -25,47 +25,48 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          debounce与throttle实现与原理
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            debounce与throttle实现与原理
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> js
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js
 </span>
-      </div>
-      <div class="content markdown-body">
-        <h1 id="-">前言</h1>
-        <p>前端时间在面试中，面试官让我写一个关于input输入框，并且实时搜索的问题，我就当然用keyup事件来写，写完面试官还是挺满意的。又问我一个问题，如何减少每次输入频繁请求的性能开销。这个我就犯难了。事后，我百度了下，查到了throttle（节流）和debounce（去抖）。 我还百度到，这些事件的运用场景：
-        </p>
-        <ul>
-          <li>鼠标事件：mousemove(拖曳)/mouseover(划过)/mouseWheel(滚屏)</li>
-          <li>键盘事件：keypress(基于ajax的用户名唯一性校验)/keyup(文本输入检验、自动完成)/keydown(游戏中的射击)</li>
-          <li>window的resize/scroll事件(DOM元素动态定位)</li>
-        </ul>
-        <h1 id="debounce-">debounce实现</h1>
-        <p>throttle：连续的时间间隔(每隔一定时间间隔执行callback)。</p>
-        <p>debounce：空闲的时间间隔(callback执行完，过一定空闲时间间隔再执行callback)。</p>
-        <h2 id="-debounce-">自己实现一个debounce：</h2>
-        <p>主要思路是通过一个不断清除定时器，创建定时器的过程。</p>
-        <pre><code class="lang-javascript">/**
+        </div>
+        <div class="content markdown-body">
+          <h1 id="-">前言</h1>
+          <p>前端时间在面试中，面试官让我写一个关于input输入框，并且实时搜索的问题，我就当然用keyup事件来写，写完面试官还是挺满意的。又问我一个问题，如何减少每次输入频繁请求的性能开销。这个我就犯难了。事后，我百度了下，查到了throttle（节流）和debounce（去抖）。 我还百度到，这些事件的运用场景：
+          </p>
+          <ul>
+            <li>鼠标事件：mousemove(拖曳)/mouseover(划过)/mouseWheel(滚屏)</li>
+            <li>键盘事件：keypress(基于ajax的用户名唯一性校验)/keyup(文本输入检验、自动完成)/keydown(游戏中的射击)</li>
+            <li>window的resize/scroll事件(DOM元素动态定位)</li>
+          </ul>
+          <h1 id="debounce-">debounce实现</h1>
+          <p>throttle：连续的时间间隔(每隔一定时间间隔执行callback)。</p>
+          <p>debounce：空闲的时间间隔(callback执行完，过一定空闲时间间隔再执行callback)。</p>
+          <h2 id="-debounce-">自己实现一个debounce：</h2>
+          <p>主要思路是通过一个不断清除定时器，创建定时器的过程。</p>
+          <pre><code class="lang-javascript">/**
  *
  * @param func {Function}   实际要执行的函数
  * @param wait {Number}  延迟时间，单位是毫秒（ms）
@@ -92,15 +93,15 @@ var debounce = function(func, wait, immediate) {
     }
 }；
 </code></pre>
-        <p>我们下面来看一个实例：</p>
-        <pre><code class="lang-javascript">window.addEventListener(&#39;resize&#39;,debounce(function(){
+          <p>我们下面来看一个实例：</p>
+          <pre><code class="lang-javascript">window.addEventListener(&#39;resize&#39;,debounce(function(){
         console.log(1);
     },1000,true));
 </code></pre>
-        <p>可以看到，你如果一直快速的改变浏览器的大小，console.log(1);只会执行一次。只有在你规定的时间内，不发生第二次改变，他才会再一次地输出console.log。</p>
-        <h2 id="_-debounce-">_的.debounce()分析</h2>
-        <p><strong>underscore(v1.8.3)：</strong></p>
-        <pre><code class="lang-javascript">_.debounce = function(func, wait, immediate) {
+          <p>可以看到，你如果一直快速的改变浏览器的大小，console.log(1);只会执行一次。只有在你规定的时间内，不发生第二次改变，他才会再一次地输出console.log。</p>
+          <h2 id="_-debounce-">_的.debounce()分析</h2>
+          <p><strong>underscore(v1.8.3)：</strong></p>
+          <pre><code class="lang-javascript">_.debounce = function(func, wait, immediate) {
     var timeout, args, context, timestamp, result;
 
     var later = function() {
@@ -133,13 +134,13 @@ var debounce = function(func, wait, immediate) {
     };
 };
 </code></pre>
-        <p>可以看到underscore的实有些不同，他的每一次定时器不清除timeout = setTimeout(later, wait);这个语句，每隔wait时间，会触发一次，但是在later函数中，会进行判断，如果在规定时间内再次触发这个函数，是不会触发func的。
-          <strong>lodash：</strong></p>
-        <p>在lodash中的实现和我自己实现的异曲同工。想要看细节，请移步lodash官网吧。</p>
-        <h1 id="throttle-">throttle实现</h1>
-        <h2 id="-throttle">自己实现一个throttle</h2>
-        <p>核心思想，通过记录时间差，来判断是否执行func。</p>
-        <pre><code class="lang-javascript">/**
+          <p>可以看到underscore的实有些不同，他的每一次定时器不清除timeout = setTimeout(later, wait);这个语句，每隔wait时间，会触发一次，但是在later函数中，会进行判断，如果在规定时间内再次触发这个函数，是不会触发func的。
+            <strong>lodash：</strong></p>
+          <p>在lodash中的实现和我自己实现的异曲同工。想要看细节，请移步lodash官网吧。</p>
+          <h1 id="throttle-">throttle实现</h1>
+          <h2 id="-throttle">自己实现一个throttle</h2>
+          <p>核心思想，通过记录时间差，来判断是否执行func。</p>
+          <pre><code class="lang-javascript">/**
 *
 * @param fn {Function}   实际要执行的函数
 * @param delay {Number}  执行间隔，单位是毫秒（ms）
@@ -186,9 +187,9 @@ function throttle(fn, threshhold) {
   }
 }
 </code></pre>
-        <h2 id="_-underscore-">_的.underscore()分析</h2>
-        <p><strong>underscore(v1.8.3)：</strong></p>
-        <pre><code class="lang-javascript">_.throttle = function(func, wait, options) {
+          <h2 id="_-underscore-">_的.underscore()分析</h2>
+          <p><strong>underscore(v1.8.3)：</strong></p>
+          <pre><code class="lang-javascript">_.throttle = function(func, wait, options) {
   var context, args, result;
   var timeout = null;
   var previous = 0;
@@ -223,28 +224,66 @@ function throttle(fn, threshhold) {
   };
 };
 </code></pre>
-        <p>lodash中的实现只是将debounce封装了一层，就不进行讲解了。</p>
-        <p>参考文章：<a href="http://www.qidiantong.com/javascript/3876.html">http://www.qidiantong.com/javascript/3876.html</a></p>
+          <p>lodash中的实现只是将debounce封装了一层，就不进行讲解了。</p>
+          <p>参考文章：<a href="http://www.qidiantong.com/javascript/3876.html">http://www.qidiantong.com/javascript/3876.html</a></p>
 
-        <div class="timer">
-          2017-07-22
+          <div class="timer">
+            2017-07-22
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

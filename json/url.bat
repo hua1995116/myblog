@@ -1,0 +1,1 @@
+curl -H 'Content-Type:text/plain' --data-binary @url.txt "http://data.zz.baidu.com/urls?site=yifenghua.win&token=y2FQvPHs2dGVid4G"

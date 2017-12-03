@@ -25,35 +25,36 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          你不知道的javascript之运算符||和&&
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            你不知道的javascript之运算符||和&&
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> js
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>学过c，php这些语言的同学在学习javascript时候可能会有一些困扰，因为javascript中的||、&amp;&amp;和c或者是php中有很大的差别。因为在javascript中返回的类型并不是布尔值，他返回的而是两个操作值中之一，例如一下例子：</p>
-        <pre><code class="lang-javascript">var a = 12;
+        </div>
+        <div class="content markdown-body">
+          <p>学过c，php这些语言的同学在学习javascript时候可能会有一些困扰，因为javascript中的||、&amp;&amp;和c或者是php中有很大的差别。因为在javascript中返回的类型并不是布尔值，他返回的而是两个操作值中之一，例如一下例子：</p>
+          <pre><code class="lang-javascript">var a = 12;
 var b = &quot;qwer&quot;;
 var c = null;
 
@@ -62,67 +63,105 @@ a&amp;&amp;b;  //qwer
 c||b;  //qwer
 c&amp;&amp;b;  null
 </code></pre>
-        <p>看了上面的例子相信大家都应该明白了把。||和&amp;&amp;首先对第一个操作数进行判断，如果其不是布尔值，先会进行强制类型转换，然后在执行条件判断。可以总结为两点：</p>
-        <ul>
-          <li>对于||来说，如果第一个数为真，那么返回第一个数，反之则为第二个数。</li>
-          <li>而对于&amp;&amp;来说，如果第一个数为真，那么返回第二个数，反之则为第一个数。</li>
-        </ul>
-        <p>上述中，c&amp;&amp;b，c为null，为假值，所以返回为第一个数，为null。</p>
-        <p>换一个角度来说就是这样：</p>
-        <pre><code class="lang-javascript">a||b    相当于      a?a:b
+          <p>看了上面的例子相信大家都应该明白了把。||和&amp;&amp;首先对第一个操作数进行判断，如果其不是布尔值，先会进行强制类型转换，然后在执行条件判断。可以总结为两点：</p>
+          <ul>
+            <li>对于||来说，如果第一个数为真，那么返回第一个数，反之则为第二个数。</li>
+            <li>而对于&amp;&amp;来说，如果第一个数为真，那么返回第二个数，反之则为第一个数。</li>
+          </ul>
+          <p>上述中，c&amp;&amp;b，c为null，为假值，所以返回为第一个数，为null。</p>
+          <p>换一个角度来说就是这样：</p>
+          <pre><code class="lang-javascript">a||b    相当于      a?a:b
 a&amp;&amp;b    相当于      a?b:a
 </code></pre>
-        <p>下面是一个常用的例子，相信大家都用过</p>
-        <pre><code class="lang-javascript">function come(a,b){
+          <p>下面是一个常用的例子，相信大家都用过</p>
+          <pre><code class="lang-javascript">function come(a,b){
     a = a|| &quot;hello&quot;;
     b = b|| &quot;world&quot;;
 }
 come(); //&quot;hellow world&quot;
 come(&quot;happy&quot;,&quot;newyear&quot;);//&quot;happy newyear&quot;
 </code></pre>
-        <p>a = a||&quot;hello&quot;检查变量a是否赋值，如果还未赋值，就给定一个默认值“hello”。</p>
-        <p>还有一种模式，在开发过程中不常见，但是在压缩工具中常见。</p>
-        <pre><code class="lang-javascript">function come (){
+          <p>a = a||&quot;hello&quot;检查变量a是否赋值，如果还未赋值，就给定一个默认值“hello”。</p>
+          <p>还有一种模式，在开发过程中不常见，但是在压缩工具中常见。</p>
+          <pre><code class="lang-javascript">function come (){
     console.log(a);
 }
 var a = 12;
 a&amp;&amp;come();//12
 </code></pre>
-        <p>而在日常开发中比较常用的确是</p>
-        <pre><code class="lang-javascript">if(a){
+          <p>而在日常开发中比较常用的确是</p>
+          <pre><code class="lang-javascript">if(a){
     come();
 }
 </code></pre>
-        <p>但是相比，a&amp;&amp;come()更加简洁。</p>
-        <p>可能你会问为什么在javascript中返回的是值而不是布尔值，那为什么还有a&amp;&amp;(b||c)这样的式子成立呢，因为在javascript中在这些判断式中会执行隐式强制转化。例如</p>
-        <pre><code class="lang-javascript">var a = 12;
+          <p>但是相比，a&amp;&amp;come()更加简洁。</p>
+          <p>可能你会问为什么在javascript中返回的是值而不是布尔值，那为什么还有a&amp;&amp;(b||c)这样的式子成立呢，因为在javascript中在这些判断式中会执行隐式强制转化。例如</p>
+          <pre><code class="lang-javascript">var a = 12;
 var b = null;
 var c = &quot;hello&quot;;
 if(a&amp;&amp;(b||c)){
     console.log(&#39;yeah&#39;);
 }
 </code></pre>
-        <p>这里a&amp;&amp;(b||c)的结果实际上是“hello”,然后由if将&quot;hello&quot;强转化为布尔值，所以最后结果为true。</p>
+          <p>这里a&amp;&amp;(b||c)的结果实际上是“hello”,然后由if将&quot;hello&quot;强转化为布尔值，所以最后结果为true。</p>
 
-        <div class="timer">
-          2017-01-13
+          <div class="timer">
+            2017-01-13
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

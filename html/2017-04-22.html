@@ -25,48 +25,49 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          你不知道的javascript之node类型详解
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            你不知道的javascript之node类型详解
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> js
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>前段时间有做过一个关于节点操作的排序问题，
-          <a href="http://blog.csdn.net/blueblueskyhua/article/details/68929578">http://blog.csdn.net/blueblueskyhua/article/details/68929578</a> 今天就node类型，进行详细的讲解。首先看下他的兼容性。
-          <img src="http://img.blog.csdn.net/20170422160634057" alt="这里写图片描述"> node共有12类型。
-          <img src="http://img.blog.csdn.net/20170422155335302" alt="这里写图片描述"> 类型详情可以参考
-          <a href="http://www.w3school.com.cn/jsref/prop_node_nodetype.asp">http://www.w3school.com.cn/jsref/prop_node_nodetype.asp</a>
-          <strong>1.nodeValue和nodeName</strong> 其中最常用的就是1和3，那今天我们就1和3来展开讲解，了解节点的属性主要有nodeValue和nodeName两个属性。分别获取节点类型和节点的名字。
-          <strong>2.节点关系</strong> 每个节点含有childNodes属性，其中保存着一个NodeList对象，NodeList对象是一个类数组对象，用于保存有序的节点，可以通过位置来访问。虽然可以用过方括号来访问NodeList的值，而且这个对象也有length属性，但是它并不是一个Array的实例。
-        </p>
-        <pre><code class="lang-javascript">//展示节点访问
+        </div>
+        <div class="content markdown-body">
+          <p>前段时间有做过一个关于节点操作的排序问题，
+            <a href="http://blog.csdn.net/blueblueskyhua/article/details/68929578">http://blog.csdn.net/blueblueskyhua/article/details/68929578</a> 今天就node类型，进行详细的讲解。首先看下他的兼容性。
+            <img src="http://img.blog.csdn.net/20170422160634057" alt="这里写图片描述"> node共有12类型。
+            <img src="http://img.blog.csdn.net/20170422155335302" alt="这里写图片描述"> 类型详情可以参考
+            <a href="http://www.w3school.com.cn/jsref/prop_node_nodetype.asp">http://www.w3school.com.cn/jsref/prop_node_nodetype.asp</a>
+            <strong>1.nodeValue和nodeName</strong> 其中最常用的就是1和3，那今天我们就1和3来展开讲解，了解节点的属性主要有nodeValue和nodeName两个属性。分别获取节点类型和节点的名字。
+            <strong>2.节点关系</strong> 每个节点含有childNodes属性，其中保存着一个NodeList对象，NodeList对象是一个类数组对象，用于保存有序的节点，可以通过位置来访问。虽然可以用过方括号来访问NodeList的值，而且这个对象也有length属性，但是它并不是一个Array的实例。
+          </p>
+          <pre><code class="lang-javascript">//展示节点访问
 var node1 = node.childNodes[0];
 var node2 = node.childNodes.item(0);
 var length = node.childNodes.length;
 </code></pre>
-        <p>如果需要操作NodeList就需要将它转化成数组。我就是因为一开始不知道他是个类数组对象，将他一直以数组进行操作，利用slice进行删除，怎么都删除不了。下面我就讲讲转化为数组的方法。</p>
-        <pre><code class="lang-javascript">function ToArray(nodes){
+          <p>如果需要操作NodeList就需要将它转化成数组。我就是因为一开始不知道他是个类数组对象，将他一直以数组进行操作，利用slice进行删除，怎么都删除不了。下面我就讲讲转化为数组的方法。</p>
+          <pre><code class="lang-javascript">function ToArray(nodes){
     var array = null;
     try{
         array = Array.prototype.slice.call(nodes, 0);
@@ -79,12 +80,12 @@ var length = node.childNodes.length;
     return array;
 }
 </code></pre>
-        <p>通过转化成数组，可以进行一些常见的操作，例如表单排序，删除等操作。 下面用一张图讲解一些关于node的父子兄弟节点的关系。
-        </p>
-        <p><img src="http://img.blog.csdn.net/20170422170708276" alt="这里写图片描述"></p>
-        <p><strong>3.操作节点</strong> appendChild，用于向childeNodes的尾部追加一个节点。
-        </p>
-        <pre><code class="lang-html">&lt;ul id=&quot;ul&quot;&gt;
+          <p>通过转化成数组，可以进行一些常见的操作，例如表单排序，删除等操作。 下面用一张图讲解一些关于node的父子兄弟节点的关系。
+          </p>
+          <p><img src="http://img.blog.csdn.net/20170422170708276" alt="这里写图片描述"></p>
+          <p><strong>3.操作节点</strong> appendChild，用于向childeNodes的尾部追加一个节点。
+          </p>
+          <pre><code class="lang-html">&lt;ul id=&quot;ul&quot;&gt;
     &lt;li&gt;1&lt;/li&gt;
     &lt;li&gt;2&lt;/li&gt;
     &lt;li&gt;3&lt;/li&gt;
@@ -96,50 +97,88 @@ var length = node.childNodes.length;
     lis.appendChild(lis4);
 &lt;/script&gt;
 </code></pre>
-        <p>追加前
-          <img src="http://img.blog.csdn.net/20170422171619623" alt="这里写图片描述"> 追加后
-          <img src="http://img.blog.csdn.net/20170422171647680" alt="这里写图片描述"></p>
-        <p>insertBefore，接受两个参数：要插入的节点和参照的节点。</p>
-        <pre><code class="lang-javascript">//插入后成为最后一个节点
+          <p>追加前
+            <img src="http://img.blog.csdn.net/20170422171619623" alt="这里写图片描述"> 追加后
+            <img src="http://img.blog.csdn.net/20170422171647680" alt="这里写图片描述"></p>
+          <p>insertBefore，接受两个参数：要插入的节点和参照的节点。</p>
+          <pre><code class="lang-javascript">//插入后成为最后一个节点
 returnedNode = someNode.insertBefore(newNode, null);
 //插入后成为第一个节点
 returnedNode = someNode.insertBefore(newNode, someNode.firstNode);
 //插入到最后一个节点前面
 returnedNode = someNode.insertBefore(newNode,some.lastChild);
 </code></pre>
-        <p>这里需要防坑</p>
-        <pre><code class="lang-html">&lt;ul id=&quot;ul&quot;&gt;
+          <p>这里需要防坑</p>
+          <pre><code class="lang-html">&lt;ul id=&quot;ul&quot;&gt;
     &lt;li&gt;1&lt;/li&gt;
     &lt;li&gt;2&lt;/li&gt;
     &lt;li&gt;3&lt;/li&gt;
     &lt;li&gt;4&lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
-        <p>以上获得的childNodes个数为9个。因为Chrome、Firefox、IE9+等标准浏览器下，使用childNodes获取节点，它会将空格符、回车符、换行符也看做一个文本节点，而IE8及以下，则会无视空格、回车符。 所以，想要获取正确的节点个数。 需要使得node.nodeType === 1来过滤空白节点。 replaceChild，接受两个参数：要插入的节点和要替换的节点。
-        </p>
-        <pre><code class="lang-javascript">//替换第一个子节点
+          <p>以上获得的childNodes个数为9个。因为Chrome、Firefox、IE9+等标准浏览器下，使用childNodes获取节点，它会将空格符、回车符、换行符也看做一个文本节点，而IE8及以下，则会无视空格、回车符。 所以，想要获取正确的节点个数。 需要使得node.nodeType === 1来过滤空白节点。 replaceChild，接受两个参数：要插入的节点和要替换的节点。
+          </p>
+          <pre><code class="lang-javascript">//替换第一个子节点
 var returnedNode = someNode.replaceChild(newNode, someNode.firstChild);
 </code></pre>
 
-        <div class="timer">
-          2017-04-22
+          <div class="timer">
+            2017-04-22
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

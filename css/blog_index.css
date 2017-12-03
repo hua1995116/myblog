@@ -1,161 +1,259 @@
 html {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
+  font-family: arial;
 }
 
 body {
-    width: 100%;
-    height: 100%;
-    /*overflow: hidden;*/
-    background: #fff0f0;
+  width: 100%;
+  height: 100%;
+  background: #fff0f0;
+}
+
+.body-content {
+  position: relative;
+  margin: auto 2rem;
 }
 
 nav {
-    background: #211925;
-    color: #fff;
+  background: #211925;
+  color: #fff;
 }
 
-#content {
-    width: 90%;
-    margin: 0 auto;
+.person-left-content {
+  margin-right: 350px;
 }
 
-.title {
-
-}
-.title a {
-    padding: 0 10px;
-    font-size: 18px;
-    height: 50px;
-    /*float: left;*/
-    display: inline-block;
-    font-family: "back";
-    color: #fff;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 50px;
-    transition:all 0.375s;
-    border-bottom: 3px solid transparent;
+.person-right-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
 }
 
-.title img {
-    margin-top: 13px;
-    width: 24px;
-    height: 24px;
+.person-title {
+  padding: 10px;
+  background: #fff;
+  -webkit-box-shadow: 0px 0px 5px 0px #e8c4c4;
+  box-shadow: 0px 0px 5px 0px #e8c4c4;
 }
 
-.title a:hover {
-    transform: rotate(360deg);
-    color: #fff;
-    cursor: pointer;
+.person-title-img {
+  width: 60px;
+  height: 60px;
+  margin: 10px auto;
+  border-radius: 50%;
+  border: 1px solid #e4edf4;
+  background-image: url('http://oys4ga3zg.bkt.clouddn.com/hua1995116.jpg');
+  background-size: 60px 60px;
 }
 
-.list {
-    position: relative;
-    background: #fff;
-    padding: 2rem 1rem;
-    width: 90%;
-    margin: 1rem auto;
-    -webkit-box-shadow: 0px 0px 5px 0px #e8c4c4;
-    box-shadow: 0px 0px 5px 0px #e8c4c4;
+.person-title-name {
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  color: #2c3033;
 }
 
-.list h1 {
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    color: #c79696;
+.person-title-desc {
+  margin: 20px auto;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.5;
+  color: rgb(112, 88, 88);
 }
 
-.list h1:hover {
-    color: #c3b3b3;
+.person-title-tag {
+  text-align: center;
 }
 
-.content {
-    line-height: 1.5rem;
-    color: #333;
-    letter-spacing: 1.5px;
-    text-indent: 2em;
-    word-wrap: break-word;
+.person-title-tag a img {
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  background: 0 0;
+  height: 24px;
+  margin: 0 8px;
+}
+
+.person-tag {
+  margin-top: 20px;
+}
+
+.person-tag-list {
+  background: #f3f3f3;
+  border-radius: 10px;
+  display: block;
+  float: left;
+  line-height: 14px;
+  margin: 10px 10px 10px 0;
+  padding: 3px 10px;
+  color: #666;
+  font-size: 14px;
 }
 
 .type {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
+
+/*标题*/
+
+.title a {
+  padding: 0 10px;
+  font-size: 18px;
+  height: 50px;
+  font-weight: 700;
+  display: inline-block;
+  color: #fff;
+  vertical-align: middle;
+  text-align: center;
+  line-height: 50px;
+  transition: all 0.375s;
+  border-bottom: 3px solid transparent;
+}
+
+.title img {
+  margin-top: 13px;
+  width: 24px;
+  height: 24px;
+}
+
+.title a:hover {
+  transform: rotate(360deg);
+  color: #fff;
+  cursor: pointer;
+}
+
+
+/*列表*/
+
+.list {
+  position: relative;
+  background: #fff;
+  padding: 2rem 1rem;
+  margin: 1rem auto;
+  -webkit-box-shadow: 0px 0px 5px 0px #e8c4c4;
+  box-shadow: 0px 0px 5px 0px #e8c4c4;
+}
+
+.list h1 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #c79696;
+}
+
+.list h1:hover {
+  color: #c3b3b3;
+}
+
+
+/*标签*/
 
 .span_button {
-    font-size: 1rem;
-    background: #bfb99b;
-    color: #EFEFEF;
-    padding: 0.3rem 0.6rem 0.2rem 0.6rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
-    display: inline-block;
-    -webkit-border-radius: 0.3em;
-    border-radius: 0.3em;
-    -webkit-box-shadow: 1px 1px 5px 0px #ddd;
-    box-shadow: 1px 1px 5px 0px #ddd;
-    font-family: Consolas, "Courier New", Courier;
-    font-size: 0.9rem;
-    text-shadow: none;
-    -webkit-transition-duration: 0.5s;
-    transition-duration: 0.5s;
-    font-weight: bold;
+  font-size: 1rem;
+  background: #bfb99b;
+  color: #EFEFEF;
+  padding: 0.3rem 0.6rem 0.2rem 0.6rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  -webkit-border-radius: 0.3em;
+  border-radius: 0.3em;
+  -webkit-box-shadow: 1px 1px 5px 0px #ddd;
+  box-shadow: 1px 1px 5px 0px #ddd;
+  font-family: Consolas, "Courier New", Courier;
+  font-size: 0.9rem;
+  text-shadow: none;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  font-weight: bold;
 }
+
+
+/*描述*/
+
+.content {
+  line-height: 1.5rem;
+  color: #333;
+  letter-spacing: 1.5px;
+  text-indent: 2em;
+  word-wrap: break-word;
+}
+
+
+/*日期*/
 
 .timer {
-    position: absolute;
-    right: 2rem;
-    bottom: 1rem;
-    color: #333;
+  position: absolute;
+  right: 2rem;
+  bottom: 1rem;
+  color: #333;
 }
 
-.view-cnt {
-    margin-top: 5px;
-    font-size: 13px;
-    color: #887a7a;
-}
+
+/*分页*/
 
 #page {
-    display: flex;
-    width: 200px;
-    margin: 10px auto;
+  display: flex;
+  width: 200px;
+  margin: 10px auto;
 }
 
 #page .page-item {
-    width: 100px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    color: #333;
-    cursor: pointer;
-    transition: all 0.5s;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.5s;
 }
 
 #page .page-item:hover {
-    color: rgb(102, 88, 88);
+  color: rgb(102, 88, 88);
 }
 
 #page .page-item:nth-child(1):hover {
-    transform: translate3d(-10px, 0, 0);
+  transform: translate3d(-10px, 0, 0);
 }
 
 #page .page-item:nth-child(2):hover {
-    transform: translate3d(10px, 0, 0);
+  transform: translate3d(10px, 0, 0);
 }
 
+
+/*tag.html*/
+
 #tag {
-    width: 81%;
-    margin: 20px auto;
+  width: 81%;
+  margin: 20px auto;
 }
 
 #tag .span_button {
-    cursor: pointer;
+  cursor: pointer;
+}
+/*小分辨率显示*/
+.big-media{
+  display: none !important;
 }
 
 @media only screen and (max-width: 641px) {
-    .list {
-        position: relative;
-        width: 100%;
-    }
+  .list {
+    position: relative;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .person-left-content {
+    margin-right: 0;
+  }
+  .person-right-content {
+    display: none;
+  }
+  .big-media {
+    display: inline-block !important;
+  }
 }

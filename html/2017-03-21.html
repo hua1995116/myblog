@@ -25,59 +25,98 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          关于display
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> css
-</span>
-      </div>
-      <div class="content markdown-body">
-        <p>今天在开发一个仿网易云的应用时，在布局上遇到一个特别奇怪的问题。先看布局如下。
-          <img src="http://img.blog.csdn.net/20170321103221981" alt="这里写图片描述"> 因为我是用vue写的，但是忽略其语法，就当是个不同的九宫格布局。 css代码
-          <img src="http://img.blog.csdn.net/20170321103440066" alt="这里写图片描述"> 就粗现了如下的情况，让我百思不得其解。
-          <img src="http://img.blog.csdn.net/20170321103606943" alt="这里写图片描述"> 没错，都是一样的代码，就在第八张图片的时候出现了错位。 当然问题来了，我们也不用怕，要发挥出一个程序猿应有的品质，去修复这个BUG，后来我想起来，因为display:inline-block是一种介于inline和block的东西，而它也和inline属性一样，存在基准线的问题，我就试了试把所有的li改成了。
-          <img src="http://img.blog.csdn.net/20170321103905682" alt="这里写图片描述"> 这样就完美解决了问题。
-          <img src="http://img.blog.csdn.net/20170321103941995" alt="这里写图片描述"> 看！再也不会出现那种高度不一的界面了。 另外可能你看到，我把float:left注释了，如果你用float布局，不用inline-block也是不会出现这种情况。 如果你想深入了解inline-block这个属性，送上张旭鑫老师的一篇博文，也许对你有帮助
-          <a href="http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/">http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/</a></p>
-
-        <div class="timer">
-          2017-03-21
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            关于display
+          </h1>
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        <div class="type clear">
+          <span class="span_button"> css
+</span>
+        </div>
+        <div class="content markdown-body">
+          <p>今天在开发一个仿网易云的应用时，在布局上遇到一个特别奇怪的问题。先看布局如下。
+            <img src="http://img.blog.csdn.net/20170321103221981" alt="这里写图片描述"> 因为我是用vue写的，但是忽略其语法，就当是个不同的九宫格布局。 css代码
+            <img src="http://img.blog.csdn.net/20170321103440066" alt="这里写图片描述"> 就粗现了如下的情况，让我百思不得其解。
+            <img src="http://img.blog.csdn.net/20170321103606943" alt="这里写图片描述"> 没错，都是一样的代码，就在第八张图片的时候出现了错位。 当然问题来了，我们也不用怕，要发挥出一个程序猿应有的品质，去修复这个BUG，后来我想起来，因为display:inline-block是一种介于inline和block的东西，而它也和inline属性一样，存在基准线的问题，我就试了试把所有的li改成了。
+            <img src="http://img.blog.csdn.net/20170321103905682" alt="这里写图片描述"> 这样就完美解决了问题。
+            <img src="http://img.blog.csdn.net/20170321103941995" alt="这里写图片描述"> 看！再也不会出现那种高度不一的界面了。 另外可能你看到，我把float:left注释了，如果你用float布局，不用inline-block也是不会出现这种情况。 如果你想深入了解inline-block这个属性，送上张旭鑫老师的一篇博文，也许对你有帮助
+            <a href="http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/">http://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/</a></p>
+
+          <div class="timer">
+            2017-03-21
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

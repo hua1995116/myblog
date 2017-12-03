@@ -25,36 +25,37 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          css实现左边定宽右边自适应的两列布局5种方法
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            css实现左边定宽右边自适应的两列布局5种方法
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> css
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> css
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>在项目实践中不乏有需要两列式布局，左侧固定右侧自适应是比较常见的布局方式，现在我就来总结一下我自己所知道的5种方法。 html代码结构：
-        </p>
-        <pre><code class="lang-html">&lt;div class=&quot;box&quot;&gt;
+        </div>
+        <div class="content markdown-body">
+          <p>在项目实践中不乏有需要两列式布局，左侧固定右侧自适应是比较常见的布局方式，现在我就来总结一下我自己所知道的5种方法。 html代码结构：
+          </p>
+          <pre><code class="lang-html">&lt;div class=&quot;box&quot;&gt;
     &lt;div class=&quot;con1&quot;&gt;
         我是左边
     &lt;/div&gt;
@@ -63,9 +64,9 @@
     &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-        <p>第一种： css代码：
-        </p>
-        <pre><code class="lang-css">.box{
+          <p>第一种： css代码：
+          </p>
+          <pre><code class="lang-css">.box{
     display: flex;
     display: -webkit-flex;
 }
@@ -78,10 +79,10 @@
     background: #fe3;
 }
 </code></pre>
-        <p>效果如下
-          <img src="http://img.blog.csdn.net/20170222110043604" alt="这里写图片描述"> 第二种： css代码：
-        </p>
-        <pre><code class="lang-css">.con1{
+          <p>效果如下
+            <img src="http://img.blog.csdn.net/20170222110043604" alt="这里写图片描述"> 第二种： css代码：
+          </p>
+          <pre><code class="lang-css">.con1{
     width: 100px;
     float: left;
     background: #ff0;
@@ -91,9 +92,9 @@
     background: #fe3;
 }
 </code></pre>
-        <p>第三种： css代码：
-        </p>
-        <pre><code class="lang-css">.con1{
+          <p>第三种： css代码：
+          </p>
+          <pre><code class="lang-css">.con1{
     width: 100px;
     float: left;
     background: #ff0;
@@ -103,9 +104,9 @@
     background: #fe3;
 }
 </code></pre>
-        <p>第四种： css代码：
-        </p>
-        <pre><code class="lang-css">.box{
+          <p>第四种： css代码：
+          </p>
+          <pre><code class="lang-css">.box{
     position: relative;
 }
 .con1{
@@ -120,9 +121,9 @@
     background: #fe3;
 }
 </code></pre>
-        <p>第五种： css代码：
-        </p>
-        <pre><code class="lang-css">.box{
+          <p>第五种： css代码：
+          </p>
+          <pre><code class="lang-css">.box{
     position: relative;
 }
 .con1{
@@ -142,25 +143,63 @@
 }
 </code></pre>
 
-        <div class="timer">
-          2017-02-20
+          <div class="timer">
+            2017-02-20
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

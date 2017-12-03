@@ -25,35 +25,36 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          原生JS实现ajax上传文件并显示进度条
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            原生JS实现ajax上传文件并显示进度条
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> js
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>html代码</p>
-        <pre><code class="lang-html">&lt;progress id=&quot;progressbar&quot; value=&quot;0&quot; max=&quot;100&quot; style=&quot;width:300px;&quot;&gt;&lt;/progress&gt;&lt;span id=&quot;percentage&quot;&gt;&lt;/span&gt;
+        </div>
+        <div class="content markdown-body">
+          <p>html代码</p>
+          <pre><code class="lang-html">&lt;progress id=&quot;progressbar&quot; value=&quot;0&quot; max=&quot;100&quot; style=&quot;width:300px;&quot;&gt;&lt;/progress&gt;&lt;span id=&quot;percentage&quot;&gt;&lt;/span&gt;
 &lt;input type=&quot;file&quot; id=&quot;file&quot; name=&quot;file&quot; /&gt;
 &lt;input type=&quot;button&quot; onclick=&quot;uploadFile()&quot; value=&quot;上传&quot; /&gt;
 &lt;div id=&quot;fileimg&quot;&gt;
@@ -61,8 +62,8 @@
     &lt;div id=&quot;showloading&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
-        <p>css代码</p>
-        <pre><code class="lang-css">#fileimg{
+          <p>css代码</p>
+          <pre><code class="lang-css">#fileimg{
         width:300px;
         height: 300px;
         overflow: hidden;
@@ -93,8 +94,8 @@
         z-index: 3;
     }
 </code></pre>
-        <p>js代码</p>
-        <pre><code class="lang-javascript">function uploadFile(){
+          <p>js代码</p>
+          <pre><code class="lang-javascript">function uploadFile(){
     var fileObj = document.getElementById(&#39;file&#39;).files[0];    
     showImg(fileObj);
     if(fileObj){
@@ -146,27 +147,65 @@ function uploadComplete(evt) {
      console.log(evt);
  }
 </code></pre>
-        <p>github地址：<a href="https://github.com/hua1995116/UploadLoading/（包含后台代码）">https://github.com/hua1995116/UploadLoading/（包含后台代码）</a></p>
+          <p>github地址：<a href="https://github.com/hua1995116/UploadLoading/（包含后台代码）">https://github.com/hua1995116/UploadLoading/（包含后台代码）</a></p>
 
-        <div class="timer">
-          2017-02-21
+          <div class="timer">
+            2017-02-21
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

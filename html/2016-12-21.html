@@ -25,35 +25,36 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          解决mongoose数据查询的异步操作
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            解决mongoose数据查询的异步操作
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> node</span><span class="span_button"> mongodb
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> node</span><span class="span_button"> mongodb
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>当我在在node环境下操作mongoose时候，发现我通过嵌套形式查询将数据循环放入一个数组时，最后得到数组一直为空，几经百度，依然无果，最后问群里的大神，原来是mongoose以及node异步造成的，百度了解决的办法，以下是我用的一个我认为比较简便的方法。</p>
-        <pre><code class="lang-javascript">//原来的代码
+        </div>
+        <div class="content markdown-body">
+          <p>当我在在node环境下操作mongoose时候，发现我通过嵌套形式查询将数据循环放入一个数组时，最后得到数组一直为空，几经百度，依然无果，最后问群里的大神，原来是mongoose以及node异步造成的，百度了解决的办法，以下是我用的一个我认为比较简便的方法。</p>
+          <pre><code class="lang-javascript">//原来的代码
 var shoppingModel = global.dbHandle.getModel(&#39;shopping&#39;);
 var cartsshop = [];
 for(var i = 0;i&lt;carts.length;i++){
@@ -67,11 +68,11 @@ shoppingModel.findOne({title:carts[i].title},function (err,shops) {
 }
 console.log(cartsshop);//[]
 </code></pre>
-        <p>通过引入node自身含有的方法events.</p>
-        <p>###events Node.js 所有的异步 I/O 操作在完成时都会发送一个事件到事件队列。 Node.js里面的许多对象都会分发事件：一个net.Server对象会在每次有新连接时分发一个事件， 一个fs.readStream对象会在文件被打开的时候发出一个事件。 所有这些产生事件的对象都是 events.EventEmitter 的实例。</p>
-        <p>###EventEmitter 类 events 模块只提供了一个对象： events.EventEmitter。EventEmitter 的核心就是事件触发与事件监听器功能的封装。 你可以通过require(&quot;events&quot;);来访问该模块。 以下是一个实例，
-        </p>
-        <pre><code class="lang-javascript">//event.js 文件
+          <p>通过引入node自身含有的方法events.</p>
+          <p>###events Node.js 所有的异步 I/O 操作在完成时都会发送一个事件到事件队列。 Node.js里面的许多对象都会分发事件：一个net.Server对象会在每次有新连接时分发一个事件， 一个fs.readStream对象会在文件被打开的时候发出一个事件。 所有这些产生事件的对象都是 events.EventEmitter 的实例。</p>
+          <p>###EventEmitter 类 events 模块只提供了一个对象： events.EventEmitter。EventEmitter 的核心就是事件触发与事件监听器功能的封装。 你可以通过require(&quot;events&quot;);来访问该模块。 以下是一个实例，
+          </p>
+          <pre><code class="lang-javascript">//event.js 文件
 var EventEmitter = require(&#39;events&#39;).EventEmitter; 
 var event = new EventEmitter(); 
 event.on(&#39;some_event&#39;, function() { 
@@ -81,8 +82,8 @@ setTimeout(function() {
     event.emit(&#39;some_event&#39;); 
 }, 1000);
 </code></pre>
-        <p>将我自己的代码进行改进，如下：</p>
-        <pre><code class="lang-javascript">var shoppingModel = global.dbHandle.getModel(&#39;shopping&#39;);
+          <p>将我自己的代码进行改进，如下：</p>
+          <pre><code class="lang-javascript">var shoppingModel = global.dbHandle.getModel(&#39;shopping&#39;);
 var cartsshop = [];
 var obj ;
 var j = 0;
@@ -108,30 +109,68 @@ for(var i = 0;i&lt;carts.length;i++){
   });
 }
 </code></pre>
-        <p>当然使用之前必须引入</p>
-        <pre><code class="lang-javascript">var events = require(&#39;events&#39;);
+          <p>当然使用之前必须引入</p>
+          <pre><code class="lang-javascript">var events = require(&#39;events&#39;);
 </code></pre>
-        <p>最后，就成功将数据取出，并返回给客户端啦。</p>
+          <p>最后，就成功将数据取出，并返回给客户端啦。</p>
 
-        <div class="timer">
-          2016-12-21
+          <div class="timer">
+            2016-12-21
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 

@@ -25,51 +25,52 @@
 					博客
 				</a>
         <a href="/html/tag.html">
-			        归档
-			    </a>
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+					归档
+				</a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
 				</a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
 				</a>
-        <a href="https://github.com/hua1995116/">
+        <a href="https://github.com/hua1995116/" class="big-media">
 					<img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
 				</a>
       </ul>
     </nav>
   </header>
-  <section>
-    <div class="list one">
-      <div class="header">
-        <h1>
-          vue+websocket+express+mongodb实战项目（实时聊天）（二）
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="list one">
+        <div class="header">
+          <h1>
+            vue+websocket+express+mongodb实战项目（实时聊天）（二）
 
-        </h1>
-      </div>
-      <div class="type clear">
-        <span class="span_button"> vue
+          </h1>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> vue
 </span>
-      </div>
-      <div class="content markdown-body">
-        <p>原项目地址： 【 vue+websocket+express+mongodb实战项目（实时聊天）（一）】
-          <a href="http://blog.csdn.net/blueblueskyhua/article/details/70807847">http://blog.csdn.net/blueblueskyhua/article/details/70807847</a></p>
-        <p>github地址: <a href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a> 在线演示地址：
-          <a href="http://www.qiufengh.com:8081/#/">http://www.qiufengh.com:8081/#/</a> 在原项目（vue+websocket+express+mongodb实战项目（实时聊天）（一））的基础上，我又继续开发，增加了两个新功能，多个聊天室以及上传图片功能。觉得不错可以关注我，点波star。这个项目我会继续更新的。
-        </p>
-        <p>###多个聊天室</p>
-        <p>首先我们先来看看socket.io的 <a href="https://socket.io/docs/rooms-and-namespaces/">API</a></p>
-        <p>加入某个分组</p>
-        <pre><code class="lang-javascript">io.on(&#39;connection&#39;, function(socket){
+        </div>
+        <div class="content markdown-body">
+          <p>原项目地址： 【 vue+websocket+express+mongodb实战项目（实时聊天）（一）】
+            <a href="http://blog.csdn.net/blueblueskyhua/article/details/70807847">http://blog.csdn.net/blueblueskyhua/article/details/70807847</a></p>
+          <p>github地址: <a href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a> 在线演示地址：
+            <a href="http://www.qiufengh.com:8081/#/">http://www.qiufengh.com:8081/#/</a> 在原项目（vue+websocket+express+mongodb实战项目（实时聊天）（一））的基础上，我又继续开发，增加了两个新功能，多个聊天室以及上传图片功能。觉得不错可以关注我，点波star。这个项目我会继续更新的。
+          </p>
+          <p>###多个聊天室</p>
+          <p>首先我们先来看看socket.io的 <a href="https://socket.io/docs/rooms-and-namespaces/">API</a></p>
+          <p>加入某个分组</p>
+          <pre><code class="lang-javascript">io.on(&#39;connection&#39;, function(socket){
   socket.join(&#39;some room&#39;);
 });
 </code></pre>
-        <p>向某个分组发送消息</p>
-        <pre><code class="lang-javascript">io.to(&#39;some room&#39;).emit(&#39;some event&#39;);
+          <p>向某个分组发送消息</p>
+          <pre><code class="lang-javascript">io.to(&#39;some room&#39;).emit(&#39;some event&#39;);
 </code></pre>
-        <p>而在我们这边也是一样的。</p>
-        <p>build/der-server.js</p>
-        <pre><code class="lang-javascript">socket.on(&#39;login&#39;,function (obj) {
+          <p>而在我们这边也是一样的。</p>
+          <p>build/der-server.js</p>
+          <pre><code class="lang-javascript">socket.on(&#39;login&#39;,function (obj) {
     socket.name = obj.name
     socket.room = obj.roomid
     if (!global.users[obj.roomid]) {
@@ -81,8 +82,8 @@
     console.log(obj.name + &#39;加入了&#39; + obj.roomid)
   })
 </code></pre>
-        <p>当一个用户加入一个房间时。让他加入一个分组。当然我们需要用户在加入的时候传递一个参数，房间名。</p>
-        <pre><code class="lang-javascript">socket.on(&#39;message&#39;, function (obj) {
+          <p>当一个用户加入一个房间时。让他加入一个分组。当然我们需要用户在加入的时候传递一个参数，房间名。</p>
+          <pre><code class="lang-javascript">socket.on(&#39;message&#39;, function (obj) {
     //向所有客户端广播发布的消息
     var mess = {
       username: obj.username,
@@ -104,10 +105,10 @@
     }
   })
 </code></pre>
-        <p>这样就可以向对应的房间发消息啦。
-          <strong>核心</strong>就是在加入的时候一定要传入房间名，否则就无法加入到某个分组中了。</p>
-        <p>###图片上传 1.客户端 利用了formdata </p>
-        <pre><code class="lang-javascript">fileup() {
+          <p>这样就可以向对应的房间发消息啦。
+            <strong>核心</strong>就是在加入的时候一定要传入房间名，否则就无法加入到某个分组中了。</p>
+          <p>###图片上传 1.客户端 利用了formdata </p>
+          <pre><code class="lang-javascript">fileup() {
     var that = this
     var file1 = document.getElementById(&#39;inputFile&#39;).files[0]
     if (file1) {
@@ -137,9 +138,9 @@
     }
 }
 </code></pre>
-        <p>2.服务器端 运用了multiparty模块。
-        </p>
-        <pre><code class="lang-javascript">app.post(&#39;/file/uploadimg&#39;, function (req, res, next) {
+          <p>2.服务器端 运用了multiparty模块。
+          </p>
+          <pre><code class="lang-javascript">app.post(&#39;/file/uploadimg&#39;, function (req, res, next) {
     // console.log(util.inspect(req.body, { showHidden: true, depth: null }))
     // console.log(util.inspect(req.header, { showHidden: true, depth: null }))
     // //生成multiparty对象，并配置上传目标路径
@@ -199,30 +200,68 @@
 
   })
 </code></pre>
-        <p>如果对于上传有问题可以看这个<a href="http://blog.csdn.net/blueblueskyhua/article/details/73178204">axios上传formdata失败以及nodejs接受formdata失败</a></p>
-        <p>效果图
-          <img src="http://img.blog.csdn.net/20170614181128760?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
-          <img src="http://img.blog.csdn.net/20170614181147644?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>如果对于上传有问题可以看这个<a href="http://blog.csdn.net/blueblueskyhua/article/details/73178204">axios上传formdata失败以及nodejs接受formdata失败</a></p>
+          <p>效果图
+            <img src="http://img.blog.csdn.net/20170614181128760?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            <img src="http://img.blog.csdn.net/20170614181147644?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
 
-        <div class="timer">
-          2017-06-14
+          <div class="timer">
+            2017-06-14
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
-        <!-- <div class="view-cnt">（111 人已阅）</div> -->
+
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+					</a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+					</a>
+          <a href="https://github.com/hua1995116/">
+						<img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+					</a>
+        </div>
       </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+    </div>
 
-  </section>
+    <script type="text/javascript" src="../js/prism.js"></script>
+    <script src="../js/axios.js"></script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+      axios.get('/json/tagdata.json')
+        .then(function(response) {
+          data = response.data;
+          handletag(data);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
 
-  <script type="text/javascript" src="../js/prism.js"></script>
-
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+      function handletag(taglist) {
+        var personTag = document.querySelector('.person-tag');
+        var html = '';
+        for (var i in taglist) {
+          html += '<div class="person-tag-list">' + i + '</div>';
+        }
+        personTag.innerHTML = html;
+      }
+    </script>
 
 </body>
 
