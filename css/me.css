@@ -1,0 +1,59 @@
+.header {
+  width: 100%;
+  padding: 30px 50px;
+  background: #5b63c5;
+  overflow: hidden;
+  color: #fff;
+}
+.name {
+  width: 50%;
+  float: left;
+  font-size: 2rem;
+}
+.job {
+  width: 50%;
+  text-align: right;
+  float: right;
+  font-size: 1.8rem;
+}
+
+.title {
+  margin-top: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.message {
+  margin-top: 10px;
+}
+
+.school {
+  float: left;
+  width: 50%;
+}
+
+.school p {
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+.info {
+  float: right;
+  width: 50%;
+  text-align: right;
+}
+
+.info a {
+  display: block;
+  color: #fff;
+}
+
+.info .iconname {
+  vertical-align: text-top;
+  font-size: 0.8rem;
+}
+
+.info > a .iconfont {
+  fill: #fff;
+  vertical-align: text-top;
+}
