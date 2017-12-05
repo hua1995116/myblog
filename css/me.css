@@ -1,6 +1,9 @@
 body {
   background-color: #eee;
   padding: 20px;
+  color: #333;
+  line-height: 1.5;
+  letter-spacing: 1px
 }
 .header {
   width: 100%;
@@ -76,12 +79,11 @@ body {
   padding: 30px 50px;
 }
 .con-left {
+  float: left;
   width: 50%;
 }
 
-.con-job {
-  padding: 5px;
-}
+
 .con-head {
   position: relative;
 }
@@ -167,6 +169,27 @@ body {
   margin-bottom: 20px;
 }
 
+.item-ul {
+
+}
+
+.item-li {
+  margin-top: 8px;
+  list-style: square inside;
+}
+
+.item-p {
+  margin-top: 8px;
+}
+
+.con-right {
+  float: right;
+  width: 50%;
+}
+
+.con-skill,.con-work,.con-job {
+  padding: 10px 15px;
+}
 @media only screen and (max-width: 1024px) {
   body {
     padding:0px;
