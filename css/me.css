@@ -12,13 +12,21 @@ body {
 .name {
   width: 50%;
   float: left;
-  font-size: 2rem;
+}
+.name h1 {
+  font-size: 2.6rem;
+  font-weight: 500;
 }
 .job {
   width: 50%;
   text-align: right;
   float: right;
   font-size: 1.8rem;
+  margin-top: 10px;
+}
+.job h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .title {
@@ -154,3 +162,39 @@ body {
 .item-content {
   font-size: 13px;
 }
+
+.con-item {
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 1024px) {
+  body {
+    padding:0px;
+  }
+  .con-left, .con-right {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .name, .job,.school, .info {
+    width: 100%;
+    text-align: center;
+  }
+  .name h1 {
+    letter-spacing: 0;
+    line-height: 1.25;
+    margin-top: 10px;
+  }
+  .job h2 {
+    margin: 5px auto 0;
+    padding: 10px;
+  }
+  .iconname {
+    display: none;
+  }
+  .info a {
+    display: inline-block
+  } 
+}
+

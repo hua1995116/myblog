@@ -246,7 +246,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1024px) {
   .person-left-content {
     margin-right: 0;
   }
