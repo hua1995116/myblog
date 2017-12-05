@@ -1,7 +1,11 @@
+body {
+  background-color: #eee;
+  padding: 20px;
+}
 .header {
   width: 100%;
   padding: 30px 50px;
-  background: #5b63c5;
+  background: #39393a;
   overflow: hidden;
   color: #fff;
 }
@@ -24,7 +28,7 @@
 }
 
 .message {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .school {
@@ -34,7 +38,7 @@
 
 .school p {
   font-size: 0.8rem;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .info {
@@ -56,4 +60,97 @@
 .info > a .iconfont {
   fill: #fff;
   vertical-align: text-top;
+}
+
+/*container*/
+.container { 
+  background: #fff;
+  padding: 30px 50px;
+}
+.con-left {
+  width: 50%;
+}
+
+.con-job {
+  padding: 5px;
+}
+.con-head {
+  position: relative;
+}
+
+.con-title-l {
+  width: 35%;
+  position: absolute;
+  top: 50%;
+  height: 0;
+  left: 0;
+  border-top: 1px solid #ededed;
+}
+
+.con-title-c {
+  position: relative;
+  z-index: 1;
+  width: 24%;
+  min-width: 100px;
+  margin: 0 auto;
+  padding: 4px 10px;
+  border-radius: 32px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  background-color: #eee;
+}
+
+.con-title-r {
+  width: 35%;
+  position: absolute;
+  top: 50%;
+  height: 0;
+  right: 0;
+  border-top: 1px solid #ededed;
+}
+
+.item-title {
+  position: relative;
+  padding: 10px 0 5px;
+  line-height: 20px;
+  overflow: hidden;
+  font-weight: 500;
+  min-height: 30px;
+  font-size: 13px;;
+}
+
+.item-name {
+  float: left;
+}
+
+.item-time {
+  float: left;
+  width: 100%;
+}
+
+.item-more {
+  position: absolute;
+  top: 10px;
+  right: 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid #39393a;
+  border-radius: 3px;
+  color: #39393a;
+  font-family: Menlo,Helvetica Neue,Helvetica,Arial,Microsoft YaHei,sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+}
+.btn:hover {
+  color: #fff;
+  background-color: #39393a;
+}
+
+.item-content {
+  font-size: 13px;
 }
