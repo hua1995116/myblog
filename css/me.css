@@ -5,6 +5,15 @@ body {
   line-height: 1.5;
   letter-spacing: 1px
 }
+.down {
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  color: #bbb;
+  font-size: 12px;
+  text-align: right;
+
+}
 .header {
   width: 100%;
   padding: 30px 50px;
