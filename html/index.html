@@ -15,13 +15,13 @@
 <header>
   <nav class="nav">
     <ul class="title clear">
-      <a href="./index.html">
+      <a href="../index.html">
         秋风
       </a>
-      <a href="./html/index.html">
+      <a href="./index.html">
         博客
       </a>
-      <a href="./html/tag.html">
+      <a href="./tag.html">
             归档
       </a>
       <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
@@ -72,7 +72,7 @@
   var data;
   var index = 0;
   var content = document.getElementById('content');
-  axios.get('./json/data.json')
+  axios.get('../json/data.json')
     .then(function (response) {
        data = response.data;
       handleHhtml(content, data['list0']);
@@ -83,7 +83,7 @@
     .catch(function (error) {
       console.log(error);
     });
-  axios.get('./json/tagdata.json')
+  axios.get('../json/tagdata.json')
     .then(function (response) {
       data = response.data;
       handletag(data);

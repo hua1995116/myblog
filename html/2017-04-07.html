@@ -19,13 +19,13 @@
   <header>
     <nav class="nav">
       <ul class="title clear">
-        <a href="./index.html">
+        <a href="../index.html">
 					秋风
 				</a>
-        <a href="./html/index.html">
+        <a href="./index.html">
 					博客
 				</a>
-        <a href="./html/tag.html">
+        <a href="./tag.html">
 			        归档
 			    </a>
         <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
@@ -237,7 +237,7 @@ process.stdin.on(&#39;end&#39;, function () {
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-    axios.get('/json/tagdata.json')
+    axios.get('../json/tagdata.json')
       .then(function(response) {
         data = response.data;
         handletag(data);
