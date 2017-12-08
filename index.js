@@ -127,7 +127,7 @@ function handlePromise(filename) {
             let htmlStr = marked(lines.join('\n').toString());
             // 将html模板文件中的 '@markdown' 替换为html字符串
             template = template.replace('@markdown', htmlStr);
-            template = template.replace('@markname', title);
+            template = template.replace(/\@markname/g, title);
             template = template.replace('@marktag', tagintoHTML);
             template = template.replace('@marktime', date);
 
