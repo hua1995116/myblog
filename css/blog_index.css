@@ -148,6 +148,18 @@ body {
   color: #c3b3b3;
 }
 
+/*阅读量*/
+
+.readers {
+  margin: 10px 0;
+  color: #a5a5a5;
+  font-size: 14px;
+}
+
+#busuanzi_value_page_pv {
+  display: inline-block;
+  padding: 0 5px;
+}
 
 /*标签*/
 
@@ -178,7 +190,6 @@ body {
   line-height: 1.5rem;
   color: #333;
   letter-spacing: 1.5px;
-  text-indent: 2em;
   word-wrap: break-word;
 }
 
@@ -261,13 +272,13 @@ body {
 }
 
 .my-pay-alipay {
-  background-image: url('http://picture-hyf.oss-cn-beijing.aliyuncs.com/IMG_2006.JPG?Expires=1512724707&OSSAccessKeyId=TMP.AQHFY0LHpejJSJ0ffIkiqlZe7EK6nWkjVhnX_Sz4HoEIAhHOTZK9_K2iOqjHAAAwLAIUWRiEGtsxl3tTDTv26QlOq6Jf4i0CFFxZJR7eEJhSOYEQx5wGoF1M572m&Signature=7ZBM8DAnf1e6Ua7IHhB1RS54MyQ%3D');
-  background-position: 0 0px;
+  background-image: url('http://picture-hyf.oss-cn-beijing.aliyuncs.com/IMG_2007.JPG');
+  background-position: 0 -59px;
 }
 
 .my-pay-weixin {
-  background-image: url('http://picture-hyf.oss-cn-beijing.aliyuncs.com/IMG_2007.JPG?Expires=1512724770&OSSAccessKeyId=TMP.AQHFY0LHpejJSJ0ffIkiqlZe7EK6nWkjVhnX_Sz4HoEIAhHOTZK9_K2iOqjHAAAwLAIUWRiEGtsxl3tTDTv26QlOq6Jf4i0CFFxZJR7eEJhSOYEQx5wGoF1M572m&Signature=YWaJaBQaaTv%2FzXDDDNEjDLuFqUQ%3D');
-  background-position: 0 -59px;
+  background-image: url('http://picture-hyf.oss-cn-beijing.aliyuncs.com/IMG_2006.JPG');
+  background-position: 0 0px;
 }
 
 .blog-bottom {
@@ -294,6 +305,29 @@ body {
   display: none !important;
 }
 
+#container {
+  padding: 0 1rem ;
+}
+
+.detail-content {
+  position: relative;
+  background: #fff;
+  padding: 2rem 1rem;
+  margin: 1rem auto;
+  -webkit-box-shadow: 0px 0px 5px 0px #e8c4c4;
+  box-shadow: 0px 0px 5px 0px #e8c4c4;
+}
+.detail-content h1 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #c79696;
+}
+
+.detail-content h1:hover {
+  color: #c3b3b3;
+}
+
+
 @media only screen and (max-width: 641px) {
   .list {
     position: relative;
@@ -302,6 +336,7 @@ body {
   .my-pay-type {
     width: 240px;
   }
+  
 }
 
 @media only screen and (max-width: 1024px) {
@@ -314,4 +349,32 @@ body {
   .big-media {
     display: inline-block !important;
   }
+  .body-content {
+    position: relative;
+    margin: 0;
+  }
+  .detail-content {
+    margin: 0 auto;
+  }
+}
+
+.markdown-body {
+  font-size: medium !important;
+}
+
+div.markdown-body h1 {
+  padding-bottom: 0.3rem;
+  font-size: 1.2rem;
+}
+
+:-webkit-any(article,aside,nav,section) h1 {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+
+.markdown-body p {
+  font-size: 1rem !important;
+}
+.markdown-body h3 {
+  font-size: 1rem !important;
 }
