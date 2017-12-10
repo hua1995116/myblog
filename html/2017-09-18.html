@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title> vue父子组件&继承组件的生命周期以及应用
   </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
   <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
@@ -273,6 +275,10 @@ export default {
 
   <script src="../js/axios.js"></script>
   <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");

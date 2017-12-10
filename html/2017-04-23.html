@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title> js中事件绑定3种方法以及事件委托
   </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
   <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
@@ -238,6 +240,10 @@ new Contact();
 
   <script src="../js/axios.js"></script>
   <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");

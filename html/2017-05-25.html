@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title> react+react-router 4.0+redux+antd 购物车实战项目
   </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
   <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
@@ -331,6 +333,10 @@ export default connect()(Basic)
 
   <script src="../js/axios.js"></script>
   <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");

@@ -7,7 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title>秋风的博客</title>
-
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
 </head>
@@ -161,6 +162,11 @@
   }
 </script>
 <script>
+  // NProgress.set(0.4);
+  NProgress.start();
+  window.onload = function() {
+    NProgress.done();
+  }
   var _hmt = _hmt || [];
   (function() {
     var hm = document.createElement("script");
