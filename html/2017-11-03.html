@@ -11,10 +11,9 @@
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
-  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
   <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="../css/prism.css">
-  <!-- <link type="text/css" rel="stylesheet" href="./css/shCoreEclipse.css"/> -->
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
 </head>
 
 <body scroll="no">
@@ -73,7 +72,7 @@ console.log(marked(&#39;I am using __markdown__.&#39;));
 // Outputs: &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
 </code></pre>
           <p>假设我们的git.md是这样的：</p>
-          <pre><code>st = status
+          <pre><code class="lang-git">st = status
 co = checkout
 cob = checkout -b
 br = branch
@@ -271,7 +270,6 @@ node http.js
   </div>
   <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <script type="text/javascript" src="../js/prism.js"></script>
-
   <script src="../js/axios.js"></script>
   <script>
     NProgress.start();
