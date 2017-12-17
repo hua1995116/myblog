@@ -295,8 +295,29 @@ const server = app.listen(3000)
 </code></pre>
           <p>这里可以设置默认的时间，我这里以10秒为单位,为了demo的效果起见。一般我采用的是一分钟进行一次存储。</p>
           <p>github地址：<a href="https://github.com/hua1995116/mcharts">https://github.com/hua1995116/mcharts</a></p>
-          <p>原文链接: <a href="http://yifenghua.win/html/2017-12-16.html">http://yifenghua.win/html/2017-12-16.html</a></p>
           <p>如有好的建议以及优化的方案，还请各位在Issues上提给我，喜欢的话可以点个star。</p>
+          <h2 id="-">进阶（一个利用监控平台的实战栗子）</h2>
+          <p>我利用这个平台对我的一个项目进行了监控。</p>
+          <p>项目线上地址：<a href="http://www.qiufengh.com/#/">http://www.qiufengh.com/#/</a></p>
+          <p>项目监控地址：<a href="http://qiufengh.com:8080/">http://qiufengh.com:8080/</a></p>
+          <p>此项目代码地址：<a href="https://github.com/hua1995116/webchat/tree/monitoring">https://github.com/hua1995116/webchat/tree/monitoring</a></p>
+          <p>在这里我设置了每过1分组记录一次日志。</p>
+          <pre><code class="lang-javascript">// 监控引入
+app.use(performance({
+    time: 60, // 秒为单位
+    originalDir: &#39;./originalData&#39;, // 数据的目录
+    errorDir: &#39;./errorData&#39; // 报错的目录
+}))
+</code></pre>
+          <p>以及每隔10分钟进行一次解析。</p>
+          <pre><code class="lang-javascript">function setPrase() {
+    setInterval(function(){
+        parseData();
+      }, 1000 * 60 * 10);
+}
+</code></pre>
+          <p>如果你只是纯粹玩的话，可以忽视我这一段，毕竟我这个系统还不够完善。</p>
+          <p>原文链接: <a href="http://yifenghua.win/html/2017-12-16.html">http://yifenghua.win/html/2017-12-16.html</a> (更完美的阅读体验哦)</p>
           <p><img src="http://oys4ga3zg.bkt.clouddn.com/2.gif" alt="http://oys4ga3zg.bkt.clouddn.com/2.gif"></p>
 
           <div class="timer">
