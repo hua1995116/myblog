@@ -178,8 +178,12 @@ body {
   margin-bottom: 20px;
 }
 
-.item-ul {
+.item-li .item-ul {
+  margin-left:2rem;
+}
 
+.item-li .item-ul .item-li {
+  list-style: decimal;
 }
 
 .item-li {
