@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="hahnzhu" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>Demo</title>
+	<link rel="stylesheet" href="./css/parallax.css">
+	<link rel="stylesheet" href="./css/parallax-animation.css">
+	<link rel="stylesheet" href="./css/animate.css">
+	<!-- <link rel="stylesheet" type="text/css" href="../dist/qicss/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="../dist/qicss/demo.css" /> -->
+
+	<!--必要样式-->
+	<!-- <link rel="stylesheet" type="text/css" href="../dist/qicss/component.css" /> -->
+	<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<!-- <audio autoplay="autoplay" src="scene.mp3" loop="loop">
+  <source src="scene.mp3" />
+</audio> -->
+<div class="wrapper">
+
+	<div class="pages">
+
+		<!-- 第一屏 首屏介绍--> 
+		<section class="page">	
+			<canvas id="canvas" width="694" height="662"></canvas> 
+			<div class="page1-content">
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="500">
+					王王,
+				</div>
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="1000">
+					很是对不起你,
+				</div>
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="1500">
+					在每一个情人节,我都没办法留在你的身边。
+				</div>
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="2000">
+					首先祝王王情人节快乐。
+				</div>
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="2500">
+					爱你么么哒。
+				</div>
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="3000">
+					特此献上花花的爱,以表衷心。
+				</div>
+				<div class="page1-p" data-animation="fadeInToBottom"  data-delay="3500">
+					尽情欣赏~
+				</div>
+			</div>
+		</section>
+        <!-- 第二屏 两个人物动画，相爱时间，配上气球-->
+		<section class="page">	
+			<div class="page2-title"  data-animation="fadeInToBottom"  data-duration="1000">转眼之间，我们已经相爱290天了。</div>
+			<div class="page2-p"  data-animation="fadeInToBottom"  data-duration="1000">请收下我的小花。</div>
+			<div class="page2-boy" data-animation="fadeInLeft"  data-duration="2000">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/boy.png" alt="">
+			</div>
+			<div class="page2-gril" data-animation="fadeInRight"  data-duration="3000">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/gril.png" alt="">
+			</div>
+		</section>
+
+        <!-- 第三屏 我们曾经在这座城市-->
+		<section class="page">
+			<div class="page3-title" data-animation="fadeInToBottom"  data-delay="1000">我们的曾经在这座城市有无数美好的回忆</div>
+			<div class="page3-title" data-animation="fadeInToBottom"  data-delay="2000">我们的足迹遍布全城</div>
+			<div class="page3-map">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/1518593648%281%29.jpg" alt="">
+				<div class="location-map map1" data-animation="fadeInToBottom"  data-delay="200"></div>
+				<div class="location-map map2" data-animation="fadeInToBottom"  data-delay="500"></div>
+				<div class="location-map map3" data-animation="fadeInToBottom"  data-delay="700"></div>
+				<div class="location-map map4" data-animation="fadeInToBottom"  data-delay="1000"></div>
+				<div class="location-map map5" data-animation="fadeInToBottom"  data-delay="1200"></div>
+				<div class="location-map map6" data-animation="fadeInToBottom"  data-delay="1400"></div>
+			</div>
+		</section>
+
+		<!-- 第四屏 我们的思念距离-->
+		<section class="page">
+			<div class="page4-map">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/1518589190%281%29.jpg" alt="">
+			</div>
+			<div class="page3-title" data-animation="fadeInLeft" data-delay="500">两点一线</div>
+			<div class="page3-title" data-animation="fadeInLeft" data-delay="1000">163公里</div>
+			<div class="page3-title" data-animation="fadeInLeft" data-delay="1500">但是这并不能阻挡我的心靠近你</div>
+			<div class="page3-list">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/1.jpg" alt="" class="page3-img page3-img1" data-animation="fadeIn"  data-duration="1000" data-delay="2500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/2.jpg" alt="" class="page3-img page3-img2" data-animation="fadeIn" data-duration="1000" data-delay="3500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/3.jpg" alt="" class="page3-img page3-img3" data-animation="fadeIn" data-duration="1000" data-delay="4500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/4.jpg" alt="" class="page3-img page3-img4" data-animation="fadeIn" data-duration="1000" data-delay="5500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/5.jpg" alt="" class="page3-img page3-img5" data-animation="fadeIn" data-duration="1000" data-delay="6500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/6.jpg" alt="" class="page3-img page3-img6" data-animation="fadeIn" data-duration="1000" data-delay="7500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/7.jpg" alt="" class="page3-img page3-img7" data-animation="fadeIn" data-duration="1000" data-delay="8500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/8.jpg" alt="" class="page3-img page3-img8" data-animation="fadeIn" data-duration="1000" data-delay="9500"> 
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/9.jpg" alt="" class="page3-img page3-img9" data-animation="fadeIn" data-duration="1000" data-delay="10500">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/10.jpg" alt="" class="page3-img page3-img10" data-animation="fadeIn" data-duration="1000" data-delay="11000">
+			</div>
+		</section>
+		<!-- 第五屏 送给礼物动画-->
+		<section class="page">
+			<div class="page3-title" data-animation="fadeInLeft" data-delay="500">送给我亲爱的菡宝宝</div>
+			<div class="page5-head" data-animation="fadeInDown" data-delay="1000" data-duration="1000">
+				<img src="
+				http://2018hyf.oss-cn-beijing.aliyuncs.com/head.png" alt="">
+			</div>
+			<div class="page5-gift" data-animation="fadeInDown" data-delay="3000" data-duration="2000">
+				<img src="
+				http://2018hyf.oss-cn-beijing.aliyuncs.com/gift.png" alt="">
+			</div>
+		</section>
+		<!-- 第六屏 抽奖-->
+		<section class="page">
+			<div class="page3-title" data-animation="fadeInLeft" data-delay="500">嘿嘿，先玩个游戏吧~</div>
+			<div class="content">
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/pocket.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/gift.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/pocket.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/thank.png"></div>
+				<div class="block" id="pocket"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/choujiang.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/thank.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/pocket.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/mouse1.png"></div>
+				<div class="block"><img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/pocket.png"></div>
+			</div>
+			<div class="page5-input-content">
+				<input type="" name="" class="page5-input">
+				<div class="page5-btn">发送</div>
+			</div>
+		</section>
+		<div class="pocket-success">
+			<div class="pocket-bg"></div>
+			<div class="pocket-content">
+				<img src="http://2018hyf.oss-cn-beijing.aliyuncs.com/kouhong.jpg" alt="">
+				<p>tf 16</p>
+				<p>凭暗号5Y2O55uK5bOw54ix546L6K+X6I+h</p>
+				<p>请截图，往花花处领取</p>
+				<p>希望你能喜欢礼物~爱你哦</p>
+			</div>
+		</div>
+		<!-- 第六屏 白天到黑夜-->
+		<!-- <section class="page">
+			
+		</section> -->
+		<!-- 第七屏 烟花-->
+		<!-- <section class="page">
+				
+		</section> -->
+	</div>
+</div>
+
+<script src="./js/zepto.min.js"></script>
+<script src="./js/parallax.js"></script>
+<script>
+	
+	$('.pages').parallax({
+		direction: 'vertical', 	// horizontal (水平翻页)
+		swipeAnim: 'cover', 	// cover (切换效果)
+		drag:      true,		// 是否允许拖拽 (若 false 则只有在 touchend 之后才会翻页)
+		loading:   false,		// 有无加载页
+		indicator: false,		// 有无指示点
+		arrow:     true,		// 有无指示箭头
+		/*
+		 * 翻页后立即执行
+		 * {int} 		index: 第几页
+		 * {DOMElement} element: 当前页节点
+		 * {String}		directation: forward(前翻)、backward(后翻)、stay(保持原页)
+		 */
+		onchange: function(index, element, direction) {
+			// code here...
+			// console.log(index, element, direction);
+		},
+		/*
+		 * 横竖屏检测
+		 * {String}		orientation: landscape、protrait
+		 */
+		orientationchange: function(orientation) {
+			// console.log(orientation);
+		}
+	});
+
+
+</script>
+<script src="./js/star.js"></script>
+<script>
+(function () {
+	var arr = [1,2,3,6,9,8,7,4];
+	var blocks = document.querySelectorAll('.block');
+	var pocket = document.querySelector('#pocket');
+	var page5input = document.querySelector('.page5-input');
+	var page5btn = document.querySelector('.page5-btn');
+	var pocketSuccess = document.querySelector('.pocket-success');
+	var pocketBg = document.querySelector('.pocket-bg');
+	var speed = 100;
+	var index = 0;
+	var giftIndex = 38;
+	var i = 0;
+	var isrun = false;
+	var pocketTimes = localStorage.getItem("pocketTimes") || 1;
+	pocketBg.onclick = function() {
+		pocketSuccess.style.display = 'none';
+	}
+	function roll() {
+		if(i === giftIndex) {
+			// alert(1);
+			if(i===42) {
+				pocketSuccess.style.display = 'flex';
+
+			} else {
+				alert('恭喜获得花花的香吻一枚，请于年后向花花处领取。\r下方输入"王王爱花花"可100%惊喜大礼包！');
+			}
+		}
+		if(i > giftIndex) {
+			return;
+		}
+		if(i < giftIndex) {
+			removeAll();
+			if(arr[index] === 4) {
+				addClass(arr[index]);
+				index++;
+				index = 0;
+			} else {
+				addClass(arr[index]);
+				index++;
+			}
+
+			i++;
+			if(i > (giftIndex-10)) {
+				speed +=100;
+			}
+			setTimeout(roll, speed);
+		}
+	}
+	function removeAll() {
+		var len = blocks.length;
+		Array.prototype.slice.call(blocks).map((item, index) => {
+			blocks[index].className = 'block';
+		})
+	}
+	function addClass(index) {
+		blocks[(+index-1)].className = 'block active';
+	}
+	pocket.onclick = function() {
+		if(pocketTimes > 0) {
+			i = 0;
+			speed = 100;
+			index = 0;
+			if(localStorage.getItem('haspcocket') === 'false') {
+				giftIndex = 42;
+			}
+			roll();
+			pocketTimes--;
+			localStorage.setItem('pocketTimes', pocketTimes);
+		} else {
+			alert('您暂时没有抽奖机会');
+		}
+		
+	}
+	page5btn.onclick = function() {
+		var value = page5input.value;
+		if(value) {
+			var haspcocket = localStorage.getItem('haspcocket') || 'true';
+			if(value === "王王爱花花" && haspcocket === 'true') {
+				pocketTimes++;
+				localStorage.setItem('pocketTimes', pocketTimes);
+				localStorage.setItem('haspcocket', 'false');
+				alert('恭喜，再次获得抽奖机会，快去抽奖吧。')
+			} else {
+				alert('你已经参加过该活动');
+			}
+		} else {
+			alert("不能为空！");
+		}
+	}
+})();
+</script>
+</body>
+</html>
