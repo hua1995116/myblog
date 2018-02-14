@@ -203,14 +203,14 @@ body {
 .con-skill,.con-work,.con-job {
   padding: 10px 15px;
 }
-@media only screen and (max-width: 1024px) {
+/* @media only screen and (max-width: 1024px) { */
   body {
     padding:0px;
   }
   .con-left, .con-right {
     width: 100%;
   }
-}
+/* } */
 
 @media only screen and (max-width: 720px) {
   .name, .job,.school, .info {
