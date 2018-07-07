@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/hua1995116/myblog.git"
   },
-  "author": "",
+  "author": "huayifeng<qiufenghyf@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hua1995116/myblog/issues"
@@ -20,5 +20,8 @@
     "express": "^4.16.2",
     "js-beautify": "^1.7.4",
     "marked": "^0.3.6"
+  },
+  "devDependencies": {
+    "puppeteer": "^1.5.0"
   }
 }
