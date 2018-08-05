@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title> 教你如何搭建一个自动化构建的博客
-  </title>
+  <title> 教你如何搭建一个自动化构建的博客</title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -47,15 +46,13 @@
         <div class="header">
           <h1>
             教你如何搭建一个自动化构建的博客
-
           </h1>
         </div>
         <div class="readers">
           阅读量<span id="busuanzi_value_page_pv"></span>
         </div>
         <div class="type clear">
-          <span class="span_button">  nodejs
-</span>
+          <span class="span_button">  nodejs</span>
         </div>
         <div class="content markdown-body">
           <h1 id="-">前言</h1>
@@ -107,7 +104,7 @@ fs.readFile(&#39;./notes/git.md&#39;, &#39;utf8&#39;, (err,markContent)=&gt;{
       }  
     }) 
   }  
-})
+})   
 </code></pre>
           <p>既然我们已经知道了md文件如何转成html，但是我们发现，这样生成的文件是没有样式的，所以我们需要去找一个样式的库，我现在用的是<a href="https://github.com/sindresorhus/github-markdown-css">github-markdown.css</a> 还有一个代码高亮的库，<a href="https://github.com/PrismJS/prism">prism</a> 。引用prism.css和prism.js ，就可以发现我们打开的html，就有了样式，还有代码高亮的操作。</p>
           <p>因为我们到，github-markdown-css，prism分别取下载对应的css和js，然后引入。</p>

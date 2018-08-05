@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title> 解决mongoose数据查询的异步操作
-  </title>
+  <title> 解决mongoose数据查询的异步操作</title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -47,15 +46,13 @@
         <div class="header">
           <h1>
             解决mongoose数据查询的异步操作
-
           </h1>
         </div>
         <div class="readers">
           阅读量<span id="busuanzi_value_page_pv"></span>
         </div>
         <div class="type clear">
-          <span class="span_button"> node</span><span class="span_button"> mongodb
-</span>
+          <span class="span_button"> node</span><span class="span_button"> mongodb</span>
         </div>
         <div class="content markdown-body">
           <p>当我在在node环境下操作mongoose时候，发现我通过嵌套形式查询将数据循环放入一个数组时，最后得到数组一直为空，几经百度，依然无果，最后问群里的大神，原来是mongoose以及node异步造成的，百度了解决的办法，以下是我用的一个我认为比较简便的方法。</p>
@@ -85,7 +82,7 @@ event.on(&#39;some_event&#39;, function() {
 }); 
 setTimeout(function() { 
     event.emit(&#39;some_event&#39;); 
-}, 1000);
+}, 1000); 
 </code></pre>
           <p>将我自己的代码进行改进，如下：</p>
           <pre><code class="lang-javascript">var shoppingModel = global.dbHandle.getModel(&#39;shopping&#39;);

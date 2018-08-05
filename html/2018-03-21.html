@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 你不知道的js类型转化和原型链
+  </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="../css/prism.css">
+  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="../index.html">
+        秋风
+      </a>
+        <a href="./index.html">
+        博客
+      </a>
+        <a href="./tag.html">
+            归档
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
+        <img src="http://oys4ga3zg.bkt.clouddn.com/%E6%8E%98%E9%87%91.png" alt="">
+      </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
+        <img src="http://oys4ga3zg.bkt.clouddn.com/CSDN.png" alt="">
+      </a>
+        <a href="https://github.com/hua1995116/" class="big-media">
+        <img src="http://oys4ga3zg.bkt.clouddn.com/github.png" alt="">
+      </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section class="person-left-content">
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            你不知道的js类型转化和原型链
+          </h1>
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js
+</span>
+        </div>
+        <div class="content markdown-body">
+          <p>昨天晚上接到了蚂蚁金服的电面。其中有一道题，让我印象深刻，结束之后，我就去查了资料，写了一篇拙劣的文章来总结。</p>
+          <h1 id="-">问题</h1>
+          <pre><code class="lang-js">var a = {}; a.__proto__ === ?
+</code></pre>
+          <pre><code class="lang-js">var a = 1; a.__proto__ === ?
+</code></pre>
+          <p>当时模棱两可，我知道他们的顶端都是<code>Object.prototype</code>就直接回答这个选项，因为当时心里想着一切不是皆对象吗，那对象的原型链顶端不就是<code>Object.prototype</code>吗？还有为什么数字有原型链？脑子浮现出Functin，Array各种数据类型，但是还是非常的模糊，回答了之后面试官也没有继续追问（可能觉得我不清楚吧），但是这个问题始终是我心里的一个结，查了一些资料后，并对其进行了整理。</p>
+          <p>大家都知道，JavaScript的数据类型分为两种，一种是基础数据类型，另一种是引用数据类型。</p>
+          <h3 id="-primitive-">什么是基础类型（<strong>primitive</strong> ）？</h3>
+          <p>[A <strong>primitive</strong> (primitive value, primitive data type) is data that is not an <a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Glossary/object">object</a> and has no <a href="https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Glossary/method">methods</a>.]没有属性和方法的数据。</p>
+          <h1 id="-">类型转化</h1>
+          <p>首先我们看第二个问题，从第二个问题着手来讲解，<code>var a = 1; a.__proto__=== ?</code> 去浏览器运行下可以知道，<code>a.__proto__=== Number.prototype</code>， 然后我们再这样运行 <code>a.__proto__.__proto__=== Object.prototype</code>得到的结果竟然是true。</p>
+          <p>在前端我们说了，js分两种类型，那为什么一个数字(a)的原型链顶端是Object的原型?两者是怎么联系的？<strong>primitive</strong> 不是没有属性和方法吗？哪里来的原型链？</p>
+          <p>原来是这样的，js是弱语言，如果他发现类型不匹配的时候，他会干嘛？他会类型转化（Auto Convert）啊。</p>
+          <p>所以以上的问题变形一下就变成了<code>var a = 1; new Number(a).__proto__=== ?</code>这样问题就变得很明了了，一个Number方法，构造了一个Number的实例，那么原型链肯定是Number的原型啊（即Number.prototype）。再者，一个Number方法构造出的实例，必然有原型链。既然已经是一个实例，就是一个对象，再往上，必然是Object.prtotype。</p>
+          <p>再看一下栗子。</p>
+          <pre><code class="lang-js">var a = &quot;abc&quot;;
+console.info(a.length);
+
+var b = 1;
+console.info(b.toString());
+</code></pre>
+          <p>这就是我们平常一直在使用的，理解上面的问题，你心中肯定知道了原因，为什么a,b是<strong>primitive</strong> ，但是为什么还有其他的属性。也是因为类型的转化，等同于</p>
+          <pre><code>var a = &quot;abc&quot;;
+console.info(new String(a).length);
+var b = 1;
+console.info(new Number(b).toString());
+</code></pre>
+          <h3 id="-">小结</h3>
+          <p>总结以上，所以，js基础类型确实和引用类型没有关系！没有关系！让他们发生关系的是！类型转化。（因为js自身原因，强行让他们发生了关系）。并且基础类型没有方法，没有属性。</p>
+          <p><img src="https://user-gold-cdn.xitu.io/2018/3/10/1620facea6045646?w=486&amp;h=205&amp;f=png&amp;s=8790" alt=""></p>
+          <p>所以我觉得那句，js万物皆对象，真的有点坑人。</p>
+          <h1 id="-">原型链</h1>
+          <p>但是后来我又想，不是还有一些function,array,date之类的吗，那些又是什么，属于什么。这次我一并将他们理清楚。还有那些强行发生关系的构造函数,例如Number,String,Boolean,Date?</p>
+          <p><img src="https://user-gold-cdn.xitu.io/2018/3/10/1620fb97fb19861d?w=760&amp;h=378&amp;f=png&amp;s=12887" alt=""></p>
+          <p>以上就是我整理的关系以及引用类型的原型链走向。</p>
+          <p>提示（有些不太明白同学可能会误会）：</p>
+          <p>（我把Date，Number，Boolean，String归类到了Function。而刚才不是说原型链上是Objec.prototype么，那是你要搞清楚方法和new 方法()，方法通过new对象就变成了Object。下面也进行一些证明）<br><img src="https://user-gold-cdn.xitu.io/2018/3/10/1620fad7341b43a9?w=264&amp;h=41&amp;f=png&amp;s=1547" alt=""></p>
+          <p><img src="https://user-gold-cdn.xitu.io/2018/3/10/1620fad8a954a95a?w=320&amp;h=39&amp;f=png&amp;s=1612" alt=""></p>
+          <p><img src="https://user-gold-cdn.xitu.io/2018/3/10/1620fadad89917c7?w=320&amp;h=33&amp;f=png&amp;s=1454" alt=""></p>
+          <h3 id="-">小结</h3>
+          <p>Object只是在js中充当了一个复杂的类型，包含了许多的子集，但是Object和基础类型还是属于平行关系了。</p>
+          <h1 id="-">延伸</h1>
+          <p>通过以上的理解，还自己创建了一个用原型链对类型判断的方法。（因为据说用Object.prototype.toString.call()这样的实现方式有点丑陋而且奇怪的方法，别人会不明白你写的是什么东西。）</p>
+          <pre><code class="lang-js">var a = null;    
+var b = 1;
+var c = &#39;1&#39;;
+var d = undefined;
+var g = true;
+var e = function (){};
+var f = [];
+var h = new Date();
+var i = {}
+
+function type(a) {
+    if(a === null) {
+        return &#39;null&#39;;
+    }
+    if(typeof a === &#39;number&#39;) {
+        return &#39;number&#39;;
+    }
+    if(typeof a === &#39;string&#39;) {
+        return &#39;string&#39;
+    }
+    if(typeof a === &#39;undefined&#39;) {
+        return &#39;undefined&#39;;
+    }
+    if(typeof a === &#39;boolean&#39;) {
+        return &#39;boolean&#39;;
+    }
+    if(a instanceof Array) {
+        return &#39;array&#39;;
+    }
+    if(a instanceof Date) {
+        return &#39;date&#39;;
+    }
+    if(a instanceof Function) {
+        return &#39;function&#39;;
+    }
+    if(a instanceof Object) {
+        return &#39;object&#39;;
+    }
+}
+
+console.log(type(a)); // null 
+console.log(type(b)); // number
+console.log(type(c)); // string
+console.log(type(d)); // undefined
+console.log(type(f)); // array
+console.log(type(e)); // function
+console.log(type(g)); // boolean
+console.log(type(h)); // date
+console.log(type(i)); // object
+</code></pre>
+          <h1 id="-">总结</h1>
+          <p>通过以上无非就想说明基础类型和引用类型的关系，以及各个类型的原型链。说的有点乱，如果有不对的地方请提出，我及时更正，以免带来误导。 留下一个问题，如果以上说的你都理解了，那么你必然知道这个答案。
+          </p>
+          <pre><code class="lang-js">var a = 1;
+a.a = 1;
+console.log(a.a);
+</code></pre>
+
+          <div class="timer">
+            2018-03-21
+          </div>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+      <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+      <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+      <div id="container"></div>
+      <script>
+        var gitment = new Gitment({
+          id: location.href, // 可选。默认为 location.href
+          owner: 'hua1995116',
+          repo: 'myblog',
+          oauth: {
+            client_id: '814dc8bc817d0a663020',
+            client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+          },
+        })
+        gitment.render('container')
+      </script>
+    </section>
+    <section class="person-right-content">
+      <div class="person-title">
+        <div class="person-title-img"></div>
+        <div class="person-title-name">蓝色的秋风</div>
+        <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
+        <div class="person-title-tag">
+          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          <img src="http://oys4ga3zg.bkt.clouddn.com/c-juejin.png" alt="">
+        </a>
+          <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          <img src="http://oys4ga3zg.bkt.clouddn.com/c-CSDN.png" alt="">
+        </a>
+          <a href="https://github.com/hua1995116/">
+          <img src="http://oys4ga3zg.bkt.clouddn.com/c-github.png" alt="">
+        </a>
+        </div>
+      </div>
+      <div class="person-tag person-title clear">
+      </div>
+    </section>
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="text/javascript" src="../js/prism.js"></script>
+  <script src="../js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+    axios.get('../json/tagdata.json')
+      .then(function(response) {
+        data = response.data;
+        handletag(data);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    function handletag(taglist) {
+      var personTag = document.querySelector('.person-tag');
+      var html = '';
+      for (var i in taglist) {
+        html += '<div class="person-tag-list">' + i + '</div>';
+      }
+      personTag.innerHTML = html;
+    }
+  </script>
+
+</body>
+
+</html>

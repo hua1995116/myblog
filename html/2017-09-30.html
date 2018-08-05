@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title> 阿里云linux服务器配置(node环境)
-  </title>
+  <title> 阿里云linux服务器配置(node环境)</title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
   <link rel="stylesheet" type="text/css" href="../css/style.css">
@@ -47,15 +46,13 @@
         <div class="header">
           <h1>
             阿里云linux服务器配置(node环境)
-
           </h1>
         </div>
         <div class="readers">
           阅读量<span id="busuanzi_value_page_pv"></span>
         </div>
         <div class="type clear">
-          <span class="span_button"> linux
-</span>
+          <span class="span_button"> linux</span>
         </div>
         <div class="content markdown-body">
           <h1 id="-">前言</h1>
@@ -83,7 +80,7 @@
           <pre><code>service sshd restart
 </code></pre>
           <p>重启sshd服务</p>
-          <pre><code>netstat -natlp
+          <pre><code>netstat -natlp 
 </code></pre>
           <p>检查 ssh服务是否侦听到了新端口</p>
           <p>完毕之后，你还需要在安全组，开放对应的端口。</p>
@@ -106,7 +103,7 @@
           </p>
           <p>首先查看在~/.ssh 是否有一个config文件</p>
           <pre><code>cd ~/.ssh
-ls
+ls 
 </code></pre>
           <p>试过没有，我们就mkdir config</p>
           <pre><code>Host aliyun1  别名
@@ -116,7 +113,7 @@ Port 22 端口
 IdentitiesOnly yes  只接受SSH key 登录
 </code></pre>
           <p>配置好后 进入bash </p>
-          <pre><code>ssh aliyun1
+          <pre><code>ssh aliyun1 
 </code></pre>
           <p>输入密码。 这样是否很方便呢？
           </p>
