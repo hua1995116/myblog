@@ -113,9 +113,9 @@ function handlePromise(filename) {
             let fileName, tag, description, date, title;
 
             fileName = filename.split('.')[0];
-            title = lines[0] && lines[0].split(':')[1];
+            title = lines[0] && lines[0].replace('name:', '');
             tag = lines[1] && lines[1].split(':')[1];
-            description = lines[2] && lines[2].split(':')[1];
+            description = lines[2] && lines[2].replace('description:', '');
             date = fileName;
 
             const tagintoHTML = handleTagLoop(tag);

@@ -74,7 +74,7 @@
           <p>因此这一款高颜值方便的统计工具诞生。</p>
           <p><img src="https://user-gold-cdn.xitu.io/2018/8/14/165379caf41509a8?w=970&amp;h=552&amp;f=png&amp;s=7404" alt=""></p>
           <p>高颜图
-            <img src="https://user-gold-cdn.xitu.io/2018/8/14/165379c66b2f9078?w=838&amp;h=376&amp;f=jpeg&amp;s=85593" alt=""></p>
+            <img src="https://user-gold-cdn.xitu.io/2018/10/6/166498c213e8bb2f?w=1084&amp;h=1026&amp;f=png&amp;s=168629" alt=""></p>
           <p>玩具源码</p>
           <p><a href="https://github.com/hua1995116/linec">https://github.com/hua1995116/linec</a></p>
           <h1 id="-">准备</h1>
@@ -274,12 +274,13 @@ describe(&#39;linec files test&#39;, () =&gt; {
 },
 </code></pre>
           <p>本地项目命令行</p>
-          <p><code>npm link</code></p>
+          <pre><code>npm link
+</code></pre>
           <p>就可以使用linec 命令，将linec命令软连接到本地，linec这个名字可以自定义。</p>
           <p>远端命令行</p>
           <p>默认就是包名字，但是如果bin里面定义了一个名字，同上，可以修改名字。也就是包名可以和命令不一致，但是为了更方便的使用，个人建议统一包名和命令。</p>
           <p>详情可以参考 <a href="http://www.ruanyifeng.com/blog/2015/05/command-line-with-node.html">http://www.ruanyifeng.com/blog/2015/05/command-line-with-node.html</a></p>
-          <h1 id="-">持续集成</h1>
+          <h1 id="-">持续集成测试&amp;覆盖率的自动统计</h1>
           <p><a href="https://travis-ci.org/">https://travis-ci.org/</a></p>
           <p>配置.travis.yml</p>
           <pre><code class="lang-yaml">language: node_js
@@ -301,18 +302,27 @@ before_script:
           <h1 id="-">安装&amp;使用</h1>
           <pre><code class="lang-shell">$ npm install -g linec / cnpm install -g linec 
 </code></pre>
+          <p>基础用法</p>
           <pre><code class="lang-shell">$ linec
 </code></pre>
+          <p>导出到html</p>
+          <pre><code class="lang-shell">$ linec -o
+</code></pre>
+          <p>运行完会在当前目录出现一个output.html</p>
           <h1 id="-">功能</h1>
           <ul>
             <li>输出空行，实际行数，总行数</li>
             <li>支持400+语言</li>
             <li>显示遍历速度</li>
             <li>显示多种颜色</li>
+            <li>支持导出html</li>
           </ul>
           <p>工具源码(欢迎star) <a href="https://github.com/hua1995116/linec">https://github.com/hua1995116/linec</a></p>
           <h1 id="-">效果图</h1>
-          <p><img src="https://user-gold-cdn.xitu.io/2018/8/14/165379c66b2f9078?w=838&amp;h=376&amp;f=jpeg&amp;s=85593" alt=""></p>
+          <p>基础模式</p>
+          <p><img src="https://user-gold-cdn.xitu.io/2018/10/6/166498c213e8bb2f?w=1084&amp;h=1026&amp;f=png&amp;s=168629" alt=""></p>
+          <p>导出后打开html</p>
+          <p><img src="https://user-gold-cdn.xitu.io/2018/10/6/166498c6ea46431e?w=1826&amp;h=1504&amp;f=png&amp;s=679704" alt=""></p>
           <h1 id="-">结尾</h1>
           <p>以上就是全部内容，可能对于Node工具开发我可能还是处于初出茅庐的阶段，有更规范的操作，欢迎大佬们给我指正。</p>
 
