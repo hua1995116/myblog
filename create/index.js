@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 async function run() {
-    console.log('Start to crawl girl\'s pivtures...');
+    console.log('Start to create pdf...');
     const browser = await puppeteer.launch({
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--ash-host-window-bounds=1920x1080'], // 
       headless: true,
