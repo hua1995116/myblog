@@ -91,7 +91,8 @@ proxy_set_header Connection &quot;ugrade&quot;;
     proxy_pass http://localhost:9090;
   }
 </code></pre>
-          <p>第一行告诉Nginx在与Node后端通信时使用HTTP/1.1，这是WebSockets所必需的。接下来的两个告诉Nginx响应升级请求，当浏览器想要使用WebSocket过程时候，需要指定的header，这一<a href="https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header">维基百科</a>上有提到。</p>
+          <p>第一行告诉Nginx在与Node后端通信时使用HTTP/1.1，这是WebSockets所必需的。接下来的两个告诉Nginx响应升级请求为websocket，当浏览器想要使用WebSocket过程时候，需要指定的header，这一<a href="https://en.wikipedia.org/wiki/HTTP/1.1_Upgrade_header">维基百科</a>上有提到，是因为当客户端发送一个<code>Connection: Upgrade</code> nginx
+            并不知道这是一个websocket请求，所以需要显示地指定，并且使用101交换协议。</p>
           <blockquote>
             <p>The server, if it supports the protocol, replies with the same Upgrade: WebSocket and Connection: Upgrade headers and completes the handshake.[3] </p>
           </blockquote>
