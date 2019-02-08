@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title> [译]在 Node.js中 比较 Object.assign 和 Object Spread
+  <title> [译] Object.assign 和 Object Spread 之争, 用谁？
   </title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
@@ -46,7 +46,7 @@
       <div class="detail-content">
         <div class="header">
           <h1>
-            [译]在 Node.js中 比较 Object.assign 和 Object Spread
+            [译] Object.assign 和 Object Spread 之争, 用谁？
 
           </h1>
         </div>
@@ -128,8 +128,8 @@ const obj = new MyClass();
 
 Object.assign(obj, { val: 42 }); // Prints &quot;Setter called 42&quot;
 </code></pre>
-          <p>换句话说，Object.assign（）修改了一个对象，因此它可以触发 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set">ES6 setter</a>。如果你更喜欢使用<a href="https://facebook.github.io/immutable-js/">immutable</a>技术，那么 Object spread 操作符就是你更好的选择。使用
-            <code>Object.assign()</code>，你必须确保始终将空对象<code>{​​}</code>作为第一个参数传递。</p>
+          <p>换句话说，<code>Object.assign（）</code>修改了一个对象，因此它可以触发 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set">ES6 setter</a>。如果你更喜欢使用<a href="https://facebook.github.io/immutable-js/">immutable</a>技术，那么 Object spread
+            操作符就是你更好的选择。使用 <code>Object.assign()</code>，你必须确保始终将空对象<code>{​​}</code>作为第一个参数传递。</p>
           <p>性能怎么样？ 这是一些简单的基准测试。如果将空对象作为第一个参数传递给<code>Object.assign()</code>，看起来 Object spread 会更快，但除此之外它们是可互换的。</p>
           <p>下面是一个使用<code>Object.assign()</code>和in-place赋值的基准测试:</p>
           <pre><code class="lang-javascript">const Benchmark = require(&#39;benchmark&#39;);
@@ -190,8 +190,9 @@ rules:
           <pre><code>Use an object spread instead of `Object.assign` eg: `{ ...foo }`  prefer-object-spread
 </code></pre>
           <h1 id="-">最后</h1>
-          <p>Object rest / spread运算符在语法更加简洁，并且比<code>Object.assign（）</code>提供了性能优势。 如果您运行的是Node.js 8或更高版本，请尝试使用这些新运算符，使代码更简洁。</p>
+          <p>Object rest / spread运算符在语法更加简洁，并且比<code>Object.assign（）</code>提供了性能优势。 如果你运行的是Node.js 8或更高版本，请尝试使用这些新运算符，使代码更简洁。</p>
           <h1 id="-">更多请关注</h1>
+          <p>友情链接： <a href="https://huayifeng.top/">https://huayifeng.top/</a></p>
           <p><img src="https://user-gold-cdn.xitu.io/2019/1/24/1688055012ff10bc?w=500&amp;h=500&amp;f=png&amp;s=19651" alt=""></p>
 
           <div class="timer">
