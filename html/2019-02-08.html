@@ -130,6 +130,9 @@ Object.assign(obj, { val: 42 }); // Prints &quot;Setter called 42&quot;
 </code></pre>
           <p>换句话说，<code>Object.assign（）</code>修改了一个对象，因此它可以触发 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set">ES6 setter</a>。如果你更喜欢使用<a href="https://facebook.github.io/immutable-js/">immutable</a>技术，那么 Object spread
             操作符就是你更好的选择。使用 <code>Object.assign()</code>，你必须确保始终将空对象<code>{​​}</code>作为第一个参数传递。</p>
+          <blockquote>
+            <p><strong>2019.02.12 补充说明，当一个 Object 使用了 Object.defineProperty 修改了 set 方法，因为调用 Object.assign 会触发 setter 方法，会触发意想不到的错误。</strong></p>
+          </blockquote>
           <p>性能怎么样？ 这是一些简单的基准测试。如果将空对象作为第一个参数传递给<code>Object.assign()</code>，看起来 Object spread 会更快，但除此之外它们是可互换的。</p>
           <p>下面是一个使用<code>Object.assign()</code>和in-place赋值的基准测试:</p>
           <pre><code class="lang-javascript">const Benchmark = require(&#39;benchmark&#39;);
