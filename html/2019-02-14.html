@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title> 急速 debug 指南 （Node - webpack插件,babel插件,vue源码篇）
+  <title> 急速 debug 实战三（Node - webpack插件,babel插件,vue源码篇）
   </title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
@@ -46,7 +46,7 @@
       <div class="detail-content">
         <div class="header">
           <h1>
-            急速 debug 指南 （Node - webpack插件,babel插件,vue源码篇）
+            急速 debug 实战三（Node - webpack插件,babel插件,vue源码篇）
 
           </h1>
         </div>
@@ -58,6 +58,10 @@
 </span>
         </div>
         <div class="content markdown-body">
+          <p>本教程共三篇。</p>
+          <p>1.<a href="https://huayifeng.top/debug01/">急速 debug 实战一 （浏览器 - 基础篇）</a></p>
+          <p>2.<a href="https://huayifeng.top/debug02/">急速 debug 实战二 （浏览器 - 线上篇）</a></p>
+          <p>3.<a href="https://huayifeng.top/debug03/">急速 debug 实战三 （Node - webpack插件,babel插件,vue源码篇）</a></p>
           <p>在我们日常开发中有许多情况下没有 debug 就会让我们的开发变得非常的低效，甚至对一些流程的理解变得非常困难。本教程适用于，正在开发 node 应用， webpack 插件，babel 插件，想要读懂别人写的一些 webpack 插件，babel 插件 或者是想要对 vue 源码想要更加深入的了解。本教程都非常适用。相信你看完教程后，便会对那些看似复杂的东西不再惧怕，即使他们充满未知，但是能有一个方法去更好地了解他们。</p>
           <p>示例代码仓库： <a href="https://github.com/hua1995116/debug">https://github.com/hua1995116/debug</a></p>
           <pre><code class="lang-bash">git clone https://github.com/hua1995116/debug.git
@@ -134,7 +138,7 @@ app.listen(3000);
             <img src="https://s3.qiufengh.com/blog/屏幕快照2019-02-17-10.png" alt="屏幕快照2019-02-17-10.png"></p>
           <p>恭喜你成功了！</p>
           <h1 id="webpack-babel-">webpack插件、babel插件</h1>
-          <p>相信如果你在写插件的时候通过 <code>console.log</code> 的形式会让你的插件开发变得分外的困难和头疼。还有就是看别人写的插件，如果你只会 <code>console.log</code>,那么也会令原本简单的事情变得非常复杂。</p>
+          <p>相信如果你在写插件的时候通过 <code>console.log</code> 的形式会让你的插件开发变得分外的困难和头疼。还有就是看别人写的插件，如果你只会 <code>console.log</code>,那么也会令原本简单的事情变得非常复杂。除此之外，调试的好处就是，能让你看到 webpack 提供的很多钩子函数，能够让我们不再面对未知。</p>
           <h2 id="webpack-">webpack 插件调试</h2>
           <pre><code>$ cd webpack-plugin-debug
 
@@ -201,9 +205,12 @@ npm run dev
           </ol>
           <p><img src="https://s3.qiufengh.com/blog/屏幕快照2019-02-17-13.png" alt="屏幕快照2019-02-17-13.png"></p>
           <p>接下来你就可以一步一步慢慢地进行调试了。</p>
-          <p>如果再到某个细节 ，你可以继续写入 debugger。</p>
+          <p>如果再到某个细节，你可以继续写入 debugger。 具体细节打算后面会出一篇源码的文章, 毕竟大家学会整个技能已经会自己调试了，所以讲的不多。(溜了溜了</p>
           <h1 id="-">结尾</h1>
           <p>看完了本教程，希望对大家有所帮助~，对各种插件以及原理不再惧怕，如果有更好地调试方式，欢迎评论来秀一波操作。</p>
+          <h1 id="-">更多请关注</h1>
+          <p>友情链接： <a href="https://huayifeng.top/">https://huayifeng.top/</a></p>
+          <p><img src="https://user-gold-cdn.xitu.io/2019/1/24/1688055012ff10bc?w=500&amp;h=500&amp;f=png&amp;s=19651" alt=""></p>
 
           <div class="timer">
             2019-02-14
