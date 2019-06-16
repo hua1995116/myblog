@@ -9,10 +9,10 @@
   <title>@markname</title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
-	<link rel="stylesheet" type="text/css" href="../css/style.css">
-	<link rel="stylesheet" type="text/css" href="../css/github-markdown.css">
-	<link rel="stylesheet" type="text/css" href="../css/prism.css">
-  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+	<link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
 </head>
 
 <body scroll="no">
@@ -41,7 +41,7 @@
   </nav>
 </header>
 <div class="body-content clear">
-  <section class="person-left-content">
+  <section>
     <div class="detail-content">
       <div class="header">
         <h1>
@@ -85,33 +85,13 @@
       gitment.render('container')
     </script>
   </section>
-  <section class="person-right-content">
-    <div class="person-title">
-      <div class="person-title-img"></div>
-      <div class="person-title-name">蓝色的秋风</div>
-      <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
-      <div class="person-title-tag">
-        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
-          <img src="http://cdn.lschief.com/c-juejin.png" alt="">
-        </a>
-        <a href="http://blog.csdn.net/blueblueskyhua/article/">
-          <img src="http://cdn.lschief.com/c-CSDN.png" alt="">
-        </a>
-        <a href="https://github.com/hua1995116/">
-          <img src="http://cdn.lschief.com/c-github.png" alt="">
-        </a>
-      </div>
-    </div>
-    <div class="person-tag person-title clear">
-    </div>
-  </section>
+
 </div>
 <div class="blog-bottom">
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 </div>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script type="text/javascript" src="../js/prism.js"></script>
-<script src="../js/axios.js"></script>
+<script type="text/javascript" src="/js/prism.js"></script>
+<script src="/js/axios.js"></script>
 <script>
 	NProgress.start();
   window.onload = function() {
@@ -136,27 +116,9 @@
       }
     });
   })();
-  axios.get('../json/tagdata.json')
-    .then(function (response) {
-      data = response.data;
-      handletag(data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });  
-
-  function handletag(taglist) {
-    var personTag = document.querySelector('.person-tag');
-    var html = '';
-    for(var i in taglist) {
-      html += '<div class="person-tag-list">'+i+'</div>';
-    }
-    personTag.innerHTML = html;
-  }
-
 
 </script>
-
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 
 </html>

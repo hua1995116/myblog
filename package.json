@@ -22,6 +22,11 @@
     "marked": "^0.3.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "fs-extra": "^8.0.1",
+    "pinyin": "^2.9.0",
     "puppeteer": "^1.5.0"
   }
 }
