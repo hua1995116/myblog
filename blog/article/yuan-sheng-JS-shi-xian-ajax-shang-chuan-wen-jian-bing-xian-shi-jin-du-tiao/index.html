@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 原生JS实现ajax上传文件并显示进度条</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            原生JS实现ajax上传文件并显示进度条
+          </h1>
+        </div>
+        <div class="timer">
+          2017-02-21
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js</span>
+        </div>
+        <div class="content markdown-body">
+          <p>html代码</p>
+          <pre><code class="lang-html">&lt;progress id=&quot;progressbar&quot; value=&quot;0&quot; max=&quot;100&quot; style=&quot;width:300px;&quot;&gt;&lt;/progress&gt;&lt;span id=&quot;percentage&quot;&gt;&lt;/span&gt;
+&lt;input type=&quot;file&quot; id=&quot;file&quot; name=&quot;file&quot; /&gt;
+&lt;input type=&quot;button&quot; onclick=&quot;uploadFile()&quot; value=&quot;上传&quot; /&gt;
+&lt;div id=&quot;fileimg&quot;&gt;
+    &lt;div id=&quot;loading-cover&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;showloading&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+          <p>css代码</p>
+          <pre><code class="lang-css">#fileimg{
+        width:300px;
+        height: 300px;
+        overflow: hidden;
+        border:1px solid #ddd;
+        position: relative;
+    }
+    #fileimg img {
+        width: 100%;
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+    #loading-cover{
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        background: rgba(0,0,0,0.3);
+        top:0;
+        left: 0;
+        z-index: 2;
+    }
+    #showloading{
+        width: 300px;
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        z-index: 3;
+    }
+</code></pre>
+          <p>js代码</p>
+          <pre><code class="lang-javascript">function uploadFile(){
+    var fileObj = document.getElementById(&#39;file&#39;).files[0];    
+    showImg(fileObj);
+    if(fileObj){
+        var url = &quot;uploadimage.jsp&quot;;
+        var form = new FormData();
+        form.append(&#39;myfile&#39;,fileObj);
+        xhr = new XMLHttpRequest();
+        xhr.open(&quot;post&quot;,url,true);
+        xhr.onload = uploadComplete; //请求完成
+        xhr.onerror =  uploadFailed; //请求失败
+        xhr.upload.onprogress = progressFunction;
+        xhr.send(form);
+    }else{
+    alert(&#39;请选择文件&#39;);
+    }
+}
+
+function showImg(fileObj){
+    var fileimg = document.getElementById(&#39;fileimg&#39;);    
+    var src = window.URL.createObjectURL(fileObj);
+    var img = document.createElement(&quot;img&quot;);
+     img.src = src;
+     fileimg.appendChild(img);
+}
+function progressFunction(evt){
+    var loadingCover = document.getElementById(&#39;loading-cover&#39;);
+    var showloading = document.getElementById(&#39;showloading&#39;);
+    var progressBar = document.getElementById(&#39;progressbar&#39;);
+    var percentage = document.getElementById(&#39;percentage&#39;);
+    if(evt.lengthComputable){
+        progressbar.max = evt.total;
+        progressBar.value = evt.loaded;
+        var loading = Math.round(evt.loaded / evt.total * 100);
+        percentage.innerHTML = loading + &#39;%&#39;;
+        showloading.innerHTML = loading + &#39;%&#39;;
+        loadingCover.style.top = -loading + &#39;%&#39;;
+        if(loading==100){
+            showloading.style.display = &#39;none&#39;;
+        }
+    }
+}
+function uploadComplete(evt) {
+  //服务断接收完文件返回的结果
+  //    alert(evt.target.responseText);
+      console.log(&quot;上传成功！&quot;);
+ }
+ //上传失败
+ function uploadFailed(evt) {
+     console.log(evt);
+ }
+</code></pre>
+          <p>github地址：<a href="https://github.com/hua1995116/UploadLoading/（包含后台代码）">https://github.com/hua1995116/UploadLoading/（包含后台代码）</a></p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

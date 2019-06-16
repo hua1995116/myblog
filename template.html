@@ -13,31 +13,32 @@
 	<link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
 	<link rel="stylesheet" type="text/css" href="/css/prism.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
 </head>
 
 <body scroll="no">
 <header>
   <nav class="nav">
-    <ul class="title clear">
-      <a href="../index.html">
-        秋风
-      </a>
-      <a href="./index.html">
-        博客
-      </a>
-      <a href="./tag.html">
-            归档
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
         </a>
-      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
-        <img src="http://cdn.lschief.com/%E6%8E%98%E9%87%91.png" alt="">
-      </a>
-      <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
-        <img src="http://cdn.lschief.com/CSDN.png" alt="">
-      </a>
-      <a href="https://github.com/hua1995116/" class="big-media">
-        <img src="http://cdn.lschief.com/github.png" alt="">
-      </a>
-    </ul>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
   </nav>
 </header>
 <div class="body-content clear">
@@ -48,6 +49,9 @@
           @markname
         </h1>
       </div>
+      <div class="timer">
+        @marktime
+      </div>
       <div class="readers">
         阅读量<span id="busuanzi_value_page_pv"></span>
       </div>
@@ -56,9 +60,6 @@
       </div>
       <div class="content markdown-body">
         @markdown
-        <div class="timer">
-          @marktime
-        </div>
         <!-- <div class="view-cnt">（111 人已阅）</div> -->
       </div>
       <div class="my-pay">
@@ -69,27 +70,17 @@
         </div>
       </div>
     </div>
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
     <div id="container"></div>
-    <script>
-      var gitment = new Gitment({
-        id: location.href, // 可选。默认为 location.href
-        owner: 'hua1995116',
-        repo: 'myblog',
-        oauth: {
-          client_id: '814dc8bc817d0a663020',
-          client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
-        },
-      })
-      gitment.render('container')
-    </script>
   </section>
 
 </div>
 <div class="blog-bottom">
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 </div>
+<footer id="footer">
+  <p class="small">© Copyright 2019 qiufenghua</p>
+</footer>
 <script type="text/javascript" src="/js/prism.js"></script>
 <script src="/js/axios.js"></script>
 <script>
@@ -119,6 +110,19 @@
 
 </script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+</script>
 </body>
 
 </html>

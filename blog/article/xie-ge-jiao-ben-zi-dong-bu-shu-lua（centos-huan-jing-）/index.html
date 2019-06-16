@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 写个脚本自动部署lua（centos环境）
+  </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            写个脚本自动部署lua（centos环境）
+
+          </h1>
+        </div>
+        <div class="timer">
+          2018-08-05
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> shell</span><span class="span_button"> lua
+          </span>
+        </div>
+        <div class="content markdown-body">
+          <h1 id="shell-">shell脚本须知</h1>
+          <p>lsb_release -a 查询当前系统 属于centos还是 ubuntu</p>
+          <p>退出码（exit status，或exit code）的约定：</p>
+          <pre><code>0表示成功（Zero - Success）
+非0表示失败（Non-Zero  - Failure）
+2表示用法不当（Incorrect Usage）
+127表示命令没有找到（Command Not Found）
+126表示不是可执行的（Not an executable）
+
+</code></pre>
+          <p>比较符号</p>
+          <pre><code>-eq 等于
+-ne 不等于
+-gt 大于
+-lt 小于
+ge 大于等于
+le 小于等于
+</code></pre>
+          <p>if ... fi 语句；</p>
+          <pre><code> #!/bin/sh
+    a=10
+    b=20
+    if [ $a == $b ]
+    then
+       echo &quot;a is equal to b&quot;
+    fi
+    if [ $a != $b ]
+    then
+       echo &quot;a is not equal to b&quot;
+    fi
+
+</code></pre>
+          <p>if ... else ... fi 语句；</p>
+          <pre><code>    #!/bin/sh
+    a=10
+    b=20
+    if [ $a == $b ]
+    then
+       echo &quot;a is equal to b&quot;
+    else
+       echo &quot;a is not equal to b&quot;
+    fi
+</code></pre>
+          <p>if ... elif ... else ... fi 语句。</p>
+          <pre><code>
+    #!/bin/sh
+    a=10
+    b=20
+    if [ $a == $b ]
+    then
+       echo &quot;a is equal to b&quot;
+    elif [ $a -gt $b ]
+    then
+       echo &quot;a is greater than b&quot;
+    elif [ $a -lt $b ]
+    then
+       echo &quot;a is less than b&quot;
+    else
+       echo &quot;None of the condition met&quot;
+    fi
+</code></pre>
+          <p>文件夹不存在则创建</p>
+          <pre><code>if [ ! -d &quot;/data/&quot; ];then
+mkdir /data
+else
+echo &quot;文件夹已经存在&quot;
+fi
+</code></pre>
+          <p>文件存在则删除</p>
+          <pre><code>if [ ! -f &quot;/data/filename&quot; ];then
+echo &quot;文件不存在&quot;
+else
+rm -f /data/filename
+fi
+</code></pre>
+          <p>判断文件夹是否存在</p>
+          <pre><code>if [ -d &quot;/data/&quot; ];then
+echo &quot;文件夹存在&quot;
+else
+echo &quot;文件夹不存在&quot;
+fi
+</code></pre>
+          <p>判断文件是否存在</p>
+          <pre><code>
+if [ -f &quot;/data/filename&quot; ];then
+echo &quot;文件存在&quot;
+else
+echo &quot;文件不存在&quot;
+fi
+
+</code></pre>
+          <p>文件比较符</p>
+          <pre><code>-e 判断对象是否存在
+-d 判断对象是否存在，并且为目录
+-f 判断对象是否存在，并且为常规文件
+-L 判断对象是否存在，并且为符号链接
+-h 判断对象是否存在，并且为软链接
+-s 判断对象是否存在，并且长度不为0
+-r 判断对象是否存在，并且可读
+-w 判断对象是否存在，并且可写
+-x 判断对象是否存在，并且可执行
+-O 判断对象是否存在，并且属于当前用户
+-G 判断对象是否存在，并且属于当前用户组
+-nt 判断file1是否比file2新  [ &quot;/data/file1&quot; -nt &quot;/data/file2&quot; ]
+-ot 判断file1是否比file2旧  [ &quot;/data/file1&quot; -ot &quot;/data/file2&quot; ]
+</code></pre>
+          <p>linux shell 安装模块自动跳过确认</p>
+          <pre><code>yes| XXX
+
+yum -y install XXX
+</code></pre>
+          <h1 id="shell-">shell运行</h1>
+          <p>给文件授予权限</p>
+          <pre><code>chmod a+x install.sh   (a - all , u - user, o - other , g - group)
+./install.sh
+</code></pre>
+          <p>install.sh</p>
+          <pre><code>#!/bin/sh
+
+if [ ! -d &quot;/usr/local/openresty/nginx/conf&quot; ];then
+    echo &quot;开始安装环境&quot;
+else
+    echo &quot;已经存在环境,不再安装&quot;
+    sudo /usr/bin/openresty -t 
+    sudo /usr/bin/openresty -s reload  
+    exit 1
+fi
+
+sudo yum -y install yum-utils
+
+if [ $? -ne 0 ]; then
+    echo &quot;yum-utils安装失败&quot;
+    exit 1
+else
+    echo &quot;yum-utils安装成功&quot;
+fi
+
+sudo yum-config-manager  --add-repo https://openresty.org/package/centos/openresty.repo
+
+if [ $? -ne 0 ]; then
+    echo &quot;openresty添加失败&quot;
+    exit 1
+else
+    echo &quot;openresty添加成功&quot;
+fi
+
+sudo yum -y install openresty
+
+if [ $? -ne 0 ]; then
+    echo &quot;openresty安装失败&quot;
+    exit 1
+else
+    echo &quot;openresty安装成功&quot;
+fi
+
+sudo /usr/bin/openresty
+
+if [ $? -ne 0 ]; then
+    echo &quot;openresty启动失败&quot;
+    exit 1
+else
+    echo &quot;openresty启动成功&quot;
+fi
+
+</code></pre>
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

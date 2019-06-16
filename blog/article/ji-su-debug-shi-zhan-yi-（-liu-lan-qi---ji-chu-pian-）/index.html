@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 急速 debug 实战一（浏览器-基础篇）
+  </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            急速 debug 实战一（浏览器-基础篇）
+
+          </h1>
+        </div>
+        <div class="timer">
+          2019-02-07
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> Chrome
+          </span>
+        </div>
+        <div class="content markdown-body">
+          <h1 id="-">前言</h1>
+          <p>工欲善其事，必先利其器。最近在写代码的时候越发觉得不是代码有多难，而是当代码出了问题该如何调试，如何追溯本源，这才是最难的。</p>
+          <p>响应这个要求，我决定写一个关于调试实战系列。本来不打算写这个基础篇章，为了整个的完整性。（不喜勿喷）</p>
+          <p>打算出三个篇章</p>
+          <p>1.<a href="https://huayifeng.top/debug01/">急速 debug 实战一 （浏览器 - 基础篇）</a></p>
+          <p>2.<a href="https://huayifeng.top/debug02/">急速 debug 实战二 （浏览器 - 线上篇）</a></p>
+          <p>3.<a href="https://huayifeng.top/debug03/">急速 debug 实战三 （Node - webpack插件,babel插件,vue源码篇）</a></p>
+          <p>所以示例在以下环境通过。</p>
+          <p>操作系统: MacOS 10.13.4 </p>
+          <p>Chrome: 版本 72.0.3626.81（正式版本） （64 位）</p>
+          <h1 id="-js">断点调试JS</h1>
+          <p>可能很多人现在还比较频繁的用着 <code>console.log</code> 的方式调试着代码，这种方式不说他绝对的不好，只是相比之下断点有以下两个优势：</p>
+          <ul>
+            <li>
+              <p>使用 <code>console.log()</code>，您需要手动打开源代码，查找相关代码，插入 <code>console.log()</code> 语句，然后重新加载此页面，才能在控制台中看到这些消息。 使用断点，无需了解代码结构即可暂停相关代码。</p>
+            </li>
+            <li>
+              <p>在 <code>console.log()</code> 语句中，您需要明确指定要检查的每个值。 使用断点，DevTools 会在暂停时及时显示所有变量值。 有时在您不知道的情况下，有些变量会影响您的代码。</p>
+            </li>
+          </ul>
+          <h2 id="-">问题</h2>
+          <p>1.打开: <a href="http://yifenghua.win/example/debugger/demo1.html">http://yifenghua.win/example/debugger/demo1.html</a></p>
+          <p>2.在 <code>Number 1</code> 文本框中输入 5。</p>
+          <p>3.在 <code>Number 2</code> 文本框中输入 1。</p>
+          <p>4.点击 <code>Add Number 1 and Number 2</code>。 按钮下方的标签显示<code>5 + 1 = 51</code>。 结果应为 6。 这就是我们需要修正的问题。</p>
+          <p><img src="https://s3.qiufengh.com/blog/2019-02-14-01.png" alt="2019-02-14-01.png"></p>
+          <h2 id="-">界面</h2>
+          <p>第 1 步：重现错误</p>
+          <p>1.通过按<code>Command+Option+I (Mac)</code> 或 <code>Control+Shift+I（Windows、Linux）</code>，打开 DevTools。 此快捷方式可打开 <code>Console</code> 面板。
+            <img src="https://s3.qiufengh.com/blog/2019-02-14-02.png" alt="2019-02-14-02.png"></p>
+          <p>2.点击 Sources 标签。
+            <img src="https://s3.qiufengh.com/blog/2019-02-14-03.png" alt="2019-02-14-03.png"></p>
+          <p>第 3 步：使用断点暂停代码</p>
+          <p>如果退一步思考应用的运作方式，您可以根据经验推测出，使用与 <strong>Add Number 1 and Number 2</strong> 按钮关联的 click 事件侦听器时计算的和不正确 <code>(5 + 1 = 51)</code>。 因此，您可能需要在 <code>click</code> 侦听器运行时暂停代码。 <strong>Event Listener Breakpoints</strong> 可让您完成此任务：</p>
+          <ol>
+            <li>在 <strong>JavaScript Debugging</strong> 窗格中，点击 <strong>Event Listener Breakpoints</strong> 以展开该部分。 DevTools 会显示 <strong>Animation</strong> 和 <strong>Clipboard</strong> 等可展开的事件类别列表。</li>
+            <li>在 <strong>Mouse</strong> 事件类别旁，点击 <strong>Expand Expand</strong> 图标。 DevTools 会显示 <strong>click</strong> 和 <strong>mousedown</strong> 等鼠标事件列表。 每个事件旁都有一个复选框。</li>
+            <li>勾选 <strong>click</strong> 复选框。 DevTools 现在经过设置可以在任何 click 事件侦听器运行时自动暂停。</li>
+            <li>返回至演示页面，再次点击 <strong>Add Number 1 and Number 2</strong>。 DevTools 会暂停演示并在 <strong>Sources</strong> 面板中突出显示一行代码。 DevTools 应在此代码行暂停：
+              <pre><code>function onClick() {
+</code></pre>如果是在其他代码行暂停，请按 <strong>Resume Script Execution</strong> 继续执行脚本， 直到在正确的代码行暂停为止。</li>
+          </ol>
+          <p><img src="https://s3.qiufengh.com/blog/2019-02-14-04.png" alt="2019-02-14-04.png"></p>
+          <h2 id="-">单步调试代码</h2>
+          <p>一个常见的错误原因是脚本执行顺序有误。 可以通过单步调试代码一次一行地检查代码执行情况，准确找到执行顺序异常之处。 立即尝试：</p>
+          <p>在 DevTools 的 <strong>Sources</strong> 面板上，点击 <strong>Step into next function call</strong> 单步执行时进入下一个函数调用，以便一次一行地单步调试 onClick() 函数的执行。 DevTools 突出显示下面这行代码：</p>
+          <pre><code>if (inputsAreEmpty()) {
+</code></pre>
+          <p>点击 <strong>Step over next function call</strong> 单步执行时越过下一个函数调用。 DevTools 执行但不进入 <code>inputsAreEmpty()</code>。 请注意 DevTools 是如何跳过几行代码的。 这是因为 <code>inputsAreEmpty()</code> 求值结果为 false，所以 <code>if</code> 语句的代码块未执行。</p>
+          <p>这就是单步调试代码的基本思路。 如果看一下 <code>get-started.js</code> 中的代码，您会发现错误多半出在 <code>updateLabel()</code> 函数的某处。 您可以使用另一种断点来暂停较接近极可能出错位置的代码，而不是单步调试每一行代码。</p>
+          <h2 id="-">设置代码行断点</h2>
+          <p>代码行断点是最常见的断点类型。 如果您想在执行到某一行代码时暂停，请使用代码行断点：</p>
+          <p>看一下 <code>updateLabel()</code> 中的最后一行代码：</p>
+          <pre><code>label.textContent = addend1 + &#39; + &#39; + addend2 + &#39; = &#39; + sum;
+</code></pre>
+          <p>在这行代码的左侧，您可以看到这行代码的行号是 <strong>32</strong>。 点击 <strong>32</strong>。 DevTools 会在 <strong>32</strong> 上方放置一个蓝色图标。 这意味着这行代码上有一个代码行断点。 DevTools 现在始终会在执行此行代码之前暂停。</p>
+          <p>点击 <strong>Resume script execution</strong> 继续执行脚本 。 脚本将继续执行，直到第 32 行。 在第 29 行、第 30 行和第 31 行上，DevTools 会在各行分号右侧输出 <code>addend1</code>、<code>addend2</code> 和 <code>sum</code> 的值。
+            <img src="https://s3.qiufengh.com/blog/2019-02-14-05.png" alt="2019-02-14-05.png"></p>
+          <h2 id="-">检查变量值</h2>
+          <p><code>addend1</code>、<code>addend2</code> 和 <code>sum</code> 的值疑似有问题。 这些值位于引号中，这意味着它们是字符串。 这个假设有助于说明错误的原因。 现在可以收集更多信息。 DevTools 可提供许多用于检查变量值的工具。</p>
+          <p>方法 1：Scope 窗格
+            在某代码行暂停时，<strong>Scope</strong> 窗格会显示当前定义的局部和全局变量，以及各变量值。 其中还会显示闭包变量（如果适用）。 双击变量值可进行编辑。 如果不在任何代码行暂停，则 <strong>Scope</strong> 窗格为空。</p>
+          <p><img src="https://s3.qiufengh.com/blog/2019-02-14-06.png" alt="2019-02-14-06.png"></p>
+          <p>方法 2：监视表达式
+            <strong>Watch Expressions</strong> 标签可让您监视变量值随时间变化的情况。 顾名思义，监视表达式不仅限于监视变量。 您可以将任何有效的 JavaScript 表达式存储在监视表达式中。 立即尝试：</p>
+          <p>点击 <strong>Watch</strong> 标签。
+            点击 <strong>Add Expression</strong> 添加表达式。
+            输入 <code>typeof sum</code>。
+            按 <code>Enter</code> 键。 DevTools 会显示 <code>typeof sum: &quot;string&quot;</code>。 冒号右侧的值就是监视表达式的结果。</p>
+          <p><img src="https://s3.qiufengh.com/blog/2019-02-14-07.png" alt="2019-02-14-07.png"></p>
+          <p>正如猜想，sum 的求值结果本应是数字，而实际结果却是字符串。 现在已确定这就是错误的原因。</p>
+          <p>方法 3：控制台
+            除了查看 <code>console.log()</code> 消息以外，您还可以使用控制台对任意 JavaScript 语句求值。 对于调试，您可以使用控制台测试错误的潜在解决方法。 立即尝试：</p>
+          <p>如果您尚未打开 Console 抽屉式导航栏，请按 Escape 将其打开。 该导航栏将在 DevTools 窗口底部打开。
+            在 Console 中，输入 <code>parseInt(addend1) + parseInt(addend2)</code>。 此语句有效，因为您会在特定代码行暂停，其中 <code>addend1</code> 和 <code>addend2</code> 在范围内。
+            按 <code>Enter</code> 键。 DevTools 对语句求值并打印输出 <code>6</code>，即您预计演示页面会产生的结果。</p>
+          <p><img src="https://s3.qiufengh.com/blog/2019-02-14-08.png" alt="2019-02-14-08.png"></p>
+          <h2 id="-">应用修正方法</h2>
+          <p>您已找到修正错误的方法。 接下来就是尝试通过编辑代码并重新运行演示来使用修正方法。 您不必离开 DevTools 就能应用修正。 您可以直接在 DevTools UI 内编辑 JavaScript 代码。 立即尝试：</p>
+          <ol>
+            <li>点击 <strong>Resume script execution</strong> 继续执行脚本。</li>
+            <li>在 <strong>Code Editor 中</strong>，将第 31 行 <code>var sum = addend1 + addend2</code>替换为 <code>var sum = parseInt(addend1) + parseInt(addend2)</code>。
+              3.按 <code>Command+S (Mac)</code> 或 <code>Control+S（Windows、Linux）</code>以保存更改。</li>
+            <li>点击 <strong>Deactivate breakpoints</strong> 取消激活断点。 其将变为蓝色，表示处于活动状态。 在完成此设置后，DevTools 会忽略您已设置的任何断点。</li>
+            <li>尝试使用不同的值运行演示。 现在演示可以正确计算。</li>
+          </ol>
+          <h1 id="-">各类断点使用概览</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>断点类型</th>
+                <th>情况</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>代码行</td>
+                <td>在确切的代码区域中。</td>
+              </tr>
+              <tr>
+                <td>条件代码行</td>
+                <td>在确切的代码区域中，且仅当其他一些条件成立时。</td>
+              </tr>
+              <tr>
+                <td>DOM</td>
+                <td>在更改或移除特定 DOM 节点或其子级的代码中。</td>
+              </tr>
+              <tr>
+                <td>XHR</td>
+                <td>当 XHR 网址包含字符串模式时。</td>
+              </tr>
+              <tr>
+                <td>事件侦听器</td>
+                <td>在触发 click 等事件后运行的代码中。</td>
+              </tr>
+              <tr>
+                <td>异常</td>
+                <td>在引发已捕获或未捕获异常的代码行中。</td>
+              </tr>
+              <tr>
+                <td>函数</td>
+                <td>任何时候调用特定函数时。</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2 id="-">代码行断点</h2>
+          <p>在知道需要调查的确切代码区域时，可以使用代码行断点。
+            DevTools <em>始终</em>会在执行此代码行之前暂停。</p>
+          <p>在 DevTools 中设置代码行断点：</p>
+          <ol>
+            <li>点击 <strong>Sources</strong> 标签。</li>
+            <li>打开包含您想要中断的代码行的文件。</li>
+            <li>转至代码行。</li>
+            <li>代码行的左侧是行号列。 点击行号列。 行号列顶部将显示一个蓝色图标。</li>
+          </ol>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/loc-breakpoint.png" alt=""></p>
+          <h3 id="-">代码中的代码行断点</h3>
+          <p>在代码中调用 <code>debugger</code> 可在该行暂停。 此操作相当于使用<a href="#loc">代码行断点</a>，只是此断点是在代码中设置，而不是在 DevTools 界面中设置。</p>
+          <pre><code>console.log(&#39;a&#39;);
+console.log(&#39;b&#39;);
+debugger;
+console.log(&#39;c&#39;);
+</code></pre>
+          <h3 id="-">条件代码行断点</h3>
+          <p>如果知道需要调查的确切代码区域，但只想在其他一些条件成立时进行暂停，则可使用条件代码行断点。</p>
+          <p>若要设置条件代码行断点：</p>
+          <ol>
+            <li>点击 <strong>Sources</strong> 标签。</li>
+            <li>打开包含您想要中断的代码行的文件。</li>
+            <li>转至代码行。</li>
+            <li>代码行的左侧是行号列。 右键点击行号列。</li>
+            <li>选择 <strong>Add conditional breakpoint</strong>。 代码行下方将显示一个对话框。</li>
+            <li>在对话框中输入条件。</li>
+            <li>按 <kbd>Enter</kbd> 键激活断点。 行号列顶部将显示一个橙色图标。</li>
+          </ol>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/conditional-loc-breakpoint.png" alt=""></p>
+          <h3 id="-">管理代码行断点</h3>
+          <p>使用 <strong>Breakpoints</strong> 窗格可以从单个位置停用或移除代码行断点。</p>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/breakpoints-pane.png" alt=""></p>
+          <p>显示两个代码行断点的 <b>Breakpoints</b> 窗格：一个代码行断点位于 <code>get-started.js</code> 第 15 行，另一个位于
+            第 32 行</p>
+          <ul>
+            <li>勾选条目旁的复选框可以停用相应的断点。</li>
+            <li>右键点击条目可以移除相应的断点。</li>
+            <li>右键点击 <strong>Breakpoints</strong> 窗格中的任意位置可以取消激活所有断点、停用所有断点，或移除所有断点。
+              停用所有断点相当于取消选中每个断点。
+              取消激活所有断点可让 DevTools 忽略所有代码行断点，但同时会继续保持其启用状态，以使这些断点的状态与取消激活之前相同。</li>
+          </ul>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/deactivated-breakpoints.png" alt="">
+            <b>Breakpoints</b> 窗格中取消激活的断点已停用且处于透明状态</p>
+          <h2 id="dom-">DOM 更改断点</h2>
+          <p>如果想要暂停更改 DOM
+            节点或其子级的代码，可以使用 DOM 更改断点。</p>
+          <p>若要设置 DOM 更改断点：</p>
+          <ol>
+            <li>点击 <strong>Elements</strong> 标签。</li>
+            <li>转至要设置断点的元素。</li>
+            <li>右键点击此元素。</li>
+            <li>将鼠标指针悬停在 <strong>Break on</strong> 上，然后选择 <strong>Subtree modifications</strong>、<strong>Attribute
+                modifications</strong> 或 <strong>Node removal</strong>。</li>
+          </ol>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/dom-change-breakpoint.png" alt=""></p>
+          <h3 id="dom-">DOM 更改断点的类型</h3>
+          <ul>
+            <li><strong>Subtree modifications</strong>： 在移除或添加当前所选节点的子级，或更改子级内容时触发这类断点。
+              在子级节点属性发生变化或对当前所选节点进行任何更改时不会触发这类断点。</li>
+          </ul>
+          <ul>
+            <li><strong>Attributes modifications</strong>：在当前所选节点上添加或移除属性，或属性值发生变化时触发这类断点。</li>
+          </ul>
+          <ul>
+            <li><strong>Node Removal</strong>：在移除当前选定的节点时会触发。</li>
+          </ul>
+          <h2 id="xhr-fetch-">XHR/Fetch 断点</h2>
+          <p>如果想在 XHR
+            的请求网址包含指定字符串时中断，可以使用 XHR 断点。 DevTools 会在
+            XHR 调用 <code>send()</code> 的代码行暂停。</p>
+          <p>注：此功能还可用于 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch</a> 请求。</p>
+          <p>例如，在您发现您的页面请求的是错误网址，并且您想要快速找到导致错误请求的 AJAX
+            或
+            Fetch 源代码时，这类断点很有用。</p>
+          <p>若要设置 XHR 断点：</p>
+          <ol>
+            <li>点击 <strong>Sources</strong> 标签。</li>
+            <li>展开 <strong>XHR Breakpoints</strong> 窗格。</li>
+            <li>点击 <strong>Add breakpoint</strong>。</li>
+            <li>输入要对其设置断点的字符串。 DevTools 会在 XHR 的请求网址的任意位置显示此字符串时暂停。</li>
+            <li>按 <kbd>Enter</kbd> 键以确认。</li>
+          </ol>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/xhr-breakpoint.png" alt=""></p>
+          <h2 id="-">事件侦听器断点</h2>
+          <p>如果想要暂停触发事件后运行的事件侦听器代码，可以使用事件侦听器断点。
+            您可以选择 <code>click</code> 等特定事件或所有鼠标事件等事件类别。</p>
+          <ol>
+            <li>点击 <strong>Sources</strong> 标签。</li>
+            <li>展开 <strong>Event Listener Breakpoints</strong> 窗格。 DevTools 会显示 <strong>Animation</strong> 等事件类别列表。</li>
+            <li>勾选这些类别之一以在触发该类别的任何事件时暂停，或者展开类别并勾选特定事件。</li>
+          </ol>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/event-listener-breakpoint.png" alt=""></p>
+          <h2 id="-">异常断点</h2>
+          <p>如果想要在引发已捕获或未捕获异常的代码行暂停，可以使用异常断点。</p>
+          <ol>
+            <li>点击 <strong>Sources</strong> 标签。</li>
+            <li>点击 <strong>Pause on exceptions</strong> <img src="https://developers.google.com/web/tools/chrome-devtools/images/resume-script-execution.png" alt="引发异常时暂停">
+              。 启用后，此按钮变为蓝色。</li>
+            <li>（可选）如果除未捕获异常以外，还想在引发已捕获异常时暂停，则勾选 <strong>Pause On Caught Exceptions</strong> 复选框。</li>
+          </ol>
+          <p><img src="https://developers.google.com/web/tools/chrome-devtools/javascript/imgs/uncaught-exception.png" alt=""></p>
+          <h2 id="-">函数断点</h2>
+          <p>如果想要在调用特定函数时暂停，可以调用 <code>debug(functionName)</code>，其中 <code>functionName</code> 是要调试的函数。
+            您可以将 <code>debug()</code> 插入您的代码（如 <code>console.log()</code> 语句），也可以从 DevTools 控制台中进行调用。
+            <code>debug()</code> 相当于在第一行函数中设置<a href="#loc">代码行断点</a>。</p>
+          <pre><code>function sum(a, b) {
+  let result = a + b; // DevTools pauses on this line.
+  return result;
+}
+debug(sum); // Pass the function object, not a string.
+sum();
+</code></pre>
+          <h3 id="-">确保目标函数在范围内</h3>
+          <p>如果想要调试的函数不在范围内，DevTools 会引发 <code>ReferenceError</code>。</p>
+          <pre><code>(function () {
+  function hey() {
+    console.log(&#39;hey&#39;);
+  }
+  function yo() {
+    console.log(&#39;yo&#39;);
+  }
+  debug(yo); // This works.
+  yo();
+})();
+debug(hey); // This doesn&#39;t work. hey() is out of scope.
+</code></pre>
+          <p>如果是从 DevTools 控制台中调用 <code>debug()</code>，则很难确保目标函数在范围内。
+            下面介绍一个策略：</p>
+          <ol>
+            <li>在函数在范围内时设置<a href="#loc">代码行断点</a>。</li>
+            <li>触发此断点。</li>
+            <li>当代码仍在代码行断点位置暂停时，即于 DevTools 控制台中调用 <code>debug()</code>。</li>
+          </ol>
+          <h1 id="-">额外的调试技巧</h1>
+          <p>我们在调试一些 hover 属性的时候，往往想要调整 hover 后显示的元素，但是每当我们移到观察此元素的时候就会消失。这使得调试非常不方便。下面就提供几种场景，分别来给出调试的方案。</p>
+          <p>demo: <a href="http://yifenghua.win/example/debugger/demo2.html">http://yifenghua.win/example/debugger/demo2.html</a></p>
+          <p><img src="https://s3.qiufengh.com/blog/2019-02-16-01.png" alt="2019-02-16-01.png"></p>
+          <h2 id="hover">Hover</h2>
+          <p>单纯的 hover 属性我们只需要找到触发的元素。在这里是我们 button。所以我们在 elements 中找到我们对应的 hover 元素。右键-&gt; force state -&gt; :hover</p>
+          <p><img src="https://s3.qiufengh.com/blog/Kapture2019-02-16-01.gif" alt="Kapture2019-02-16-01.gif"></p>
+          <h1 id="mouse-inner">Mouse inner</h1>
+          <p>如果是通过 mouse （鼠标事件来触发的）并且触发元素是写在触发元素内的情况。可以通过在当前触发元素。右键 -&gt; Break on -&gt; subtree modifications。 然后再次触发，选择跳过断点。就可以使得元素出现。</p>
+          <p><img src="https://s3.qiufengh.com/blog/Kapture2019-02-16-02.gif" alt="Kapture2019-02-16-02.gif"></p>
+          <h1 id="mouse-outer">Mouse outer</h1>
+          <p>如果是通过 mouse （鼠标事件来触发的）并且触发元素是写在触发元素外的情况。可以通过断点触发来阻断。（此方法也兼容 mouser inner 的情况）。当触发元素的时候按下 <code>F8 (Windwos)</code> / <code>command + \ (Mac)</code></p>
+          <p><img src="https://s3.qiufengh.com/blog/Kapture2019-02-16-03.gif" alt="Kapture2019-02-16-03.gif"></p>
+          <h1 id="-">参考文献</h1>
+          <p><a href="https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints?hl=zh-cn#loc">https://developers.google.com/web/tools/chrome-devtools/javascript/breakpoints?hl=zh-cn#loc</a></p>
+          <h1 id="-">更多请关注</h1>
+          <p>友情链接： <a href="https://huayifeng.top/">https://huayifeng.top/</a></p>
+          <p><img src="https://user-gold-cdn.xitu.io/2019/1/24/1688055012ff10bc?w=500&amp;h=500&amp;f=png&amp;s=19651" alt=""></p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 用vuejs仿网易云音乐（实现听歌以及搜索功能）</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            用vuejs仿网易云音乐（实现听歌以及搜索功能）
+          </h1>
+        </div>
+        <div class="timer">
+          2017-03-29
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> vue</span>
+        </div>
+        <div class="content markdown-body">
+          <p>####<strong>前言</strong>
+            前端时间学了vue，一开始看了vue1.0，后来实在觉得技术总得实践，就直接上手vue2.0。然后花了将近一周时间做了一个网易云音乐的小项目。一开始觉得项目比较小，没必要用vuex所以就没有使用，但是后来发现数据流传输有点麻烦，后续会使用vuex。</p>
+          <p>####<strong>技术栈</strong></p>
+          <ul>
+            <li>vue+vue-router（核心框架）</li>
+            <li><a href="https://github.com/ustbhuangyi/better-scroll">better-scroll</a>（使移动端滑动体验更加流畅）</li>
+            <li><a href="https://www.npmjs.com/package/vue-lazyload">vue-lazyload</a>（用户图片懒加载）</li>
+            <li><a href="https://www.npmjs.com/package/nprogress">nprogress</a>（用于加载过渡）</li>
+            <li><a href="https://www.npmjs.com/package/axios"> axios</a>（请求）</li>
+          </ul>
+          <p>####<strong>功能分析与设计</strong>
+            首先我先参考了现有的一些APP的设计与开发，然后决定做了歌单和搜索两个模块，本身主要以前端为主，后端代码并没有研究，这里要感谢这位同学写的<a href="https://github.com/zvenshy/venmusic">API</a>。
+            如果你没有API也没有关系，这并不影响我们的开发，你可以写如下形式的json数据进行模拟：
+            <img src="http://img.blog.csdn.net/20170329172932380" alt="这里写图片描述"></p>
+          <p><strong>vuejs</strong></p>
+          <p>路由结构如下</p>
+          <p><img src="http://img.blog.csdn.net/20170329173152290" alt="这里写图片描述"></p>
+          <p>以下是组件</p>
+          <p><img src="http://img.blog.csdn.net/20170329173309870" alt="这里写图片描述"></p>
+          <p>1.歌单部分：
+            数据主要由API提供，源码中有具体地址。需要了解audio标签，不熟悉的同学看<a href="http://www.cnblogs.com/tianma3798/p/6033108.html">audio</a></p>
+          <p>2.搜索部分：
+            通过绑定@keydown来绑定事件，实现实时查询。</p>
+          <p><strong>better-scroll</strong></p>
+          <p>使用：
+            1.一定要用一个空层来承载</p>
+          <pre><code>&lt;div ref=&quot;helloWrapper&quot;&gt;
+    &lt;div&gt;
+    //你的代码
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+          <p>2.在vue中使用前必须引入</p>
+          <pre><code>import BScroll from &#39;better-scroll&#39;;
+
+this.helloScroll = new BScroll(this.$refs.helloWrapper, {
+  click: true
+});
+</code></pre>
+          <p>一定要在数据渲染完成后使用better-scroll，</p>
+          <pre><code>this.$nextTick(() =&gt; {
+  //调用
+});
+</code></pre>
+          <p>最后上几张效果图
+            <img src="http://img.blog.csdn.net/20170329175225335?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="http://img.blog.csdn.net/20170329175246881?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="http://img.blog.csdn.net/20170329175301320?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>github项目地址：
+            <a href="https://github.com/hua1995116/musiccloudWebapp/">https://github.com/hua1995116/musiccloudWebapp/</a>
+            在线演示地址：
+            <a href="http://www.qiufengh.com/#/">http://www.qiufengh.com/#/</a>
+            需要改进的有很多，请大家可以多提提意见。后续我会不断改进，如果觉得还可以，请star，你们的star是我前进的动力。</p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

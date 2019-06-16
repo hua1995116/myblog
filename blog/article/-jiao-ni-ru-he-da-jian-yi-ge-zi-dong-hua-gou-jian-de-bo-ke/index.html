@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 教你如何搭建一个自动化构建的博客</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            教你如何搭建一个自动化构建的博客
+          </h1>
+        </div>
+        <div class="timer">
+          2017-11-03
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> nodejs</span>
+        </div>
+        <div class="content markdown-body">
+          <h1 id="-">前言</h1>
+          <p>记得在1年之前搭建了一个个人主页的博客，但是当时功力尚浅，每次写博客，都是自己手动写html，这样会变得非常的繁琐，现在很多人用主流的wordpress，hexo之类的快速搭建一个平台，那些工具确实方便，但是对于主题以及一些额外的排版，就显得非常的麻烦，本文致力于教你如何搭建一个个性化，并且自动化构建的博客。</p>
+          <h1 id="-">开始</h1>
+          <p>完成后的博客展示： <a href="http://yifenghua.win/">http://yifenghua.win/</a></p>
+          <p>github地址： <a href="https://github.com/hua1995116/myblog">https://github.com/hua1995116/myblog</a> （喜欢的👍一个哈）</p>
+          <p>本平台也是基于.md文件构建成html的自动化流程，因为现在主流的编写方式就是用.md文件来抒写，所有问题就归结为，如何让.md文件转化成.html文件。那问题就变得非常的简单了，现在市面上有很多md转成html的工具，markdown，marked，node-markdown等等。今天我就用marked来构建我们的自动化博客。</p>
+          <h1 id="go-on">Go on</h1>
+          <p><a href="https://github.com/chjj/marked">Marked</a>使用方法非常的简单。</p>
+          <pre><code class="lang-javascript">
+var marked = require(&#39;marked&#39;);
+console.log(marked(&#39;I am using __markdown__.&#39;));
+// Outputs: &lt;p&gt;I am using &lt;strong&gt;markdown&lt;/strong&gt;.&lt;/p&gt;
+</code></pre>
+          <p>假设我们的git.md是这样的：</p>
+          <pre><code class="lang-git">st = status
+co = checkout
+cob = checkout -b
+br = branch
+bra = branch -a
+ci = commit
+cim = commit -m
+cia = commit --amend
+re = reset
+rb = rebase
+rbi = rebase -i
+rbim = rebase -i origin/master
+rbid = rebase -i origin/devlop
+rbc =erebase --continue
+rba = rebase --abort
+fe = fetch
+psom = push origin master
+puom = pull origin master
+</code></pre>
+          <p>如果是想要输出文件的形式：</p>
+          <pre><code class="lang-javascript">
+const fs = require(&#39;fs&#39;)  
+const marked = require(&#39;marked&#39;) 
+fs.readFile(&#39;./notes/git.md&#39;, &#39;utf8&#39;, (err,markContent)=&gt;{  
+  if(err){  
+    throw err  
+  }else{   
+    fs.writeFile(&#39;./git.html&#39;,marked(markContent.toString()), err=&gt;{  
+      if(err){  
+        throw err  
+      }else{  
+        console.log(&quot;success&quot;)  
+      }  
+    }) 
+  }  
+})   
+</code></pre>
+          <p>既然我们已经知道了md文件如何转成html，但是我们发现，这样生成的文件是没有样式的，所以我们需要去找一个样式的库，我现在用的是<a href="https://github.com/sindresorhus/github-markdown-css">github-markdown.css</a> 还有一个代码高亮的库，<a href="https://github.com/PrismJS/prism">prism</a> 。引用prism.css和prism.js ，就可以发现我们打开的html，就有了样式，还有代码高亮的操作。</p>
+          <p>因为我们到，github-markdown-css，prism分别取下载对应的css和js，然后引入。</p>
+          <p>经过上述操作后，我们的文件应该是这样的:</p>
+          <pre><code class="lang-Html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/github-markdown.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/prism.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;pre&gt;&lt;code&gt;
+st = status
+co = checkout
+cob = checkout -b
+br = branch
+bra = branch -a
+ci = commit
+cim = commit -m
+cia = commit --amend
+re = reset
+rb = rebase
+rbi = rebase -i
+rbim = rebase -i origin/master
+rbid = rebase -i origin/devlop
+rbc =erebase --continue
+rba = rebase --abort
+fe = fetch
+psom = push origin master
+puom = pull origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/prism.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          <p>但是这一步是我们手动写上的。</p>
+          <h1 id="next">Next</h1>
+          <p>因为我的需要一个模板机制，来帮我们手动生成一个文件。
+            Tempale.html</p>
+          <pre><code class="lang-Html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0&quot;&gt;
+    &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;
+    &lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/github-markdown.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/prism.css&quot;&gt;
+    &lt;!-- &lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;./css/shCoreEclipse.css&quot;/&gt; --&gt;
+&lt;/head&gt;
+&lt;body scroll=&quot;no&quot;&gt;
+    &lt;div class=&quot;markdown-body&quot;&gt;
+        @markdown
+    &lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;../js/prism.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          <p>再来重新配置我们的运行文件。</p>
+          <pre><code class="lang-javascript">
+const fs = require(&#39;fs&#39;)  
+const marked = require(&#39;marked&#39;) 
+fs.readFile(&#39;./template1.html&#39;, &#39;utf8&#39;, (err, template)=&gt;{  
+  if(err){  
+    throw err  
+  }else{  
+    fs.readFile(&#39;./notes/git.md&#39;, &#39;utf8&#39;, (err,markContent)=&gt;{  
+    if(err){  
+      throw err  
+    }else{   
+      template = template.replace(&#39;@markdown&#39;, marked(markContent.toString()))
+      fs.writeFile(&#39;./git.html&#39;,  template, err=&gt;{  
+        if(err){  
+          throw err  
+        }else{  
+          console.log(&quot;success&quot;)  
+        }  
+      })
+    }  
+  })
+  }
+})
+</code></pre>
+          <p>可以看到一个生成后的文件，已经完整了。</p>
+          <h1 id="-">扩展</h1>
+          <p>分页：再此基础上我又对其进行了扩展，增加了一个分页的功能。</p>
+          <p>文件目录：.md 文件的目录（待开发）</p>
+          <h1 id="-">使用</h1>
+          <pre><code class="lang-Git">git clone https://github.com/hua1995116/myblog
+</code></pre>
+          <p>将需要写的.md文件放到notes目录下，</p>
+          <pre><code>
+// 安装依赖
+npm install
+// 编译
+node index.js
+// 本地查看
+node http.js
+</code></pre>
+          <p>其他具体的样式你可以自行配置，和普通写html，css无差异。</p>
+          <p>编译后的html代码在html目录下，将其放到你的站点下，或者github-pages上即可。</p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

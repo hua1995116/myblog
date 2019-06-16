@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> js实现表格排序</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            js实现表格排序
+          </h1>
+        </div>
+        <div class="timer">
+          2017-03-31
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js</span>
+        </div>
+        <div class="content markdown-body">
+          <p>用js实现表格排序。
+            <img src="http://img.blog.csdn.net/20170331195515648" alt="这里写图片描述">
+            第一点击以降序排列，第二次点击以升序排列
+            html代码</p>
+          <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;table border=&quot;1&quot;&gt;
+        &lt;tr&gt;
+            &lt;th&gt;学号&lt;/th&gt;
+            &lt;th&gt;名字&lt;/th&gt;
+            &lt;th id=&quot;sort&quot;&gt;成绩&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1002&lt;/td&gt;
+            &lt;td&gt;小铭&lt;/td&gt;
+            &lt;td&gt;34&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1003&lt;/td&gt;
+            &lt;td&gt;小红&lt;/td&gt;
+            &lt;td&gt;64&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1004&lt;/td&gt;
+            &lt;td&gt;小黄&lt;/td&gt;
+            &lt;td&gt;24&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1005&lt;/td&gt;
+            &lt;td&gt;小米&lt;/td&gt;
+            &lt;td&gt;53&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1006&lt;/td&gt;
+            &lt;td&gt;小蒋&lt;/td&gt;
+            &lt;td&gt;78&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1007&lt;/td&gt;
+            &lt;td&gt;小捷&lt;/td&gt;
+            &lt;td&gt;97&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1004&lt;/td&gt;
+            &lt;td&gt;小邓&lt;/td&gt;
+            &lt;td&gt;65&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;    
+</code></pre>
+          <p>js代码</p>
+          <pre><code class="lang-javascript">&lt;script&gt;
+    var sort = document.getElementById(&#39;sort&#39;);
+    var up = true
+    sort.onclick = function(){
+        var table = document.getElementsByTagName(&#39;table&#39;)[0];
+        var tr = table.getElementsByTagName(&#39;tr&#39;);
+        var array = [];
+        for (var i = 1;i &lt; tr.length;i++) {
+            array.push(tr[i]);
+        }
+        if (up) {
+            SortUp (array);
+            up = false;
+        } else {
+            SortDown (array);
+            up = true;
+        }
+
+        for (var i = 0; i &lt; array.length; i++){
+            table.appendChild(array[i]);
+        }
+    }
+    function SortUp(array){
+        for (var i = 0;i &lt; array.length;i++) {
+            for (var j = i + 1;j &lt; array.length;j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (array[i].getElementsByTagName(&#39;td&#39;)[2].innerText &lt;= array[j].getElementsByTagName(&#39;td&#39;)[2].innerText) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+    function SortDown(array){
+        for (var i = 0;i &lt; array.length;i++) {
+            for (var j = i + 1;j &lt; array.length;j++) {
+                if (array[j] === undefined) {
+                    continue;
+                }
+                if (array[i].getElementsByTagName(&#39;td&#39;)[2].innerText &gt;= array[j].getElementsByTagName(&#39;td&#39;)[2].innerText) {
+                    var temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

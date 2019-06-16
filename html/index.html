@@ -16,23 +16,23 @@
 <header>
   <nav class="nav">
     <ul class="title clear">
-      <a href="../index.html">
-        秋风
+      <a href="/index.html">
+        Home
       </a>
-      <a href="./index.html">
-        Blog
-      </a>
-      <a href="./tag.html">
+      <a href="/blog/tag">
         Tags
       </a>
-      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
+      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
         Juejin
       </a>
-      <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
+      <a href="http://blog.csdn.net/blueblueskyhua/article/">
         CSDN
       </a>
-      <a href="https://github.com/hua1995116/" class="big-media">
+      <a href="https://github.com/hua1995116/">
         GitHub
+      </a>
+      <a href="/blog" class="cta">
+        Blog
       </a>
     </ul>
   </nav>
@@ -52,36 +52,31 @@
   </div>
 </div>
 <div id="page">
-  <div index='0' class="page-item">上一页</div>
-  <div index='1' class="page-item">下一页</div>
+  <div index='@prev' class="page-item">上一页</div>
+  <div index='@next' class="page-item">下一页</div>
 </div>
 <div class="blog-bottom">
   <!-- 本站总访问量<span id="busuanzi_value_site_pv"></span>次 -->
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 </div>
+<footer id="footer">
+  <p class="small">© Copyright 2019 qiufenghua</p>
+</footer>
 <script>
-  function handlePages(data) {
+  handlePages();
+  function handlePages() {
     var page = document.getElementById('page');
-    var length = Object.keys(data).length;
 
     page.addEventListener('click', function(e) {
       var targer = e.target || e.srcElement;
-      if (targer.getAttribute('index') === '0') {
-        if (index === 0) {
-          alert('最前啦');
-        } else {
-          index--;
-          var listname = 'list' + index;
-          handleHhtml(content, data[listname]);
-        }
+      var index = targer.getAttribute('index');
+    
+      if (index === '0') {
+        
+      } else if (index === '-1'){
+        
       } else {
-        if (index === length - 1) {
-          alert('最后啦');
-        } else {
-          index++;
-          var listname = 'list' + index;
-          handleHhtml(content, data[listname]);
-        }
+        location.href = '/blog/page/' + index;
       }
     })
   }

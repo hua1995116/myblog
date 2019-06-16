@@ -146,9 +146,9 @@ function handlePromise(filename) {
             const pinyinResult = pinyin(title, {
               style: pinyin.STYLE_NORMAL
             });
-            const pinyinTitle = pinyinResult.map(item => item[0]).filter(item => item!== ' ').join('-');
+            const pinyinTitle = pinyinResult.map(item => item[0]).filter(item => item!== ' ').join('-').replace(/\s/g, '');
 
-            const articleDir = `./blog/article/${pinyinTitle.replace(/\s/g, '')}`;
+            const articleDir = `./blog/article/${pinyinTitle}`;
             fsExtra.mkdirp(articleDir);
             fs.writeFile(`${articleDir}/index.html`, beautify_html(template, {indent_size: 2}), err => {
               if (err) {
@@ -191,25 +191,45 @@ function handleToJson(fileName, title, tag, description, date) {
 
 
 
-function genPage(pageData, tagData) {
+function genPage(pageData) {
   const pagelist = Object.keys(pageData);
-  console.log(pagelist);
+
+  const context = handleHhtml(pageData[pagelist[0]]);
+  const pageTemplate = fs.readFileSync('./html/index.html').toString();
+  const [prev, next] = handlePageSize(1, pagelist.length);
+  const pageItem = pageTemplate.replace('@context', context).replace('@prev', prev).replace('@next', next);
+  const pageDir = `./blog`
+  fs.writeFileSync(`${pageDir}/index.html`, pageItem);
+
   for(let i = 0; i < pagelist.length; i++) {
     const context = handleHhtml(pageData[pagelist[i]]);
-    const tags = handletag(tagData);
+    // const tags = handletag(tagData);
     const pageTemplate = fs.readFileSync('./html/index.html').toString();
-    const pageItem = pageTemplate.replace('@context', context).replace('@tags', tags);
+    const [prev, next] = handlePageSize(i + 1, pagelist.length);
+    const pageItem = pageTemplate.replace('@context', context).replace('@prev', prev).replace('@next', next);
     const pageDir = `./blog/page/${i + 1}`
     fsExtra.mkdirpSync(pageDir);
     fs.writeFileSync(`${pageDir}/index.html`, pageItem);
   }
 
-  function handletag(taglist) {
-    var html = '';
-    for(var i in taglist) {
-      html += '<div class="person-tag-list">'+i+'</div>';
+  // function handletag(taglist) {
+  //   var html = '';
+  //   for(var i in taglist) {
+  //     html += '<div class="person-tag-list">'+i+'</div>';
+  //   }
+  //   return html;
+  // }
+
+  function handlePageSize(current, total) {
+    let prev = -1;
+    let next = 0;
+    if(current !== 1) {
+      prev = current - 1;
     }
-    return html;
+    if(total - current > 0) {
+      next = current + 1;
+    } 
+    return [prev, next];
   }
 
   function handleHhtml(data) {

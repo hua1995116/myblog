@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 手把手教你多页面递归爬虫--基于Node.Js</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            手把手教你多页面递归爬虫--基于Node.Js
+          </h1>
+        </div>
+        <div class="timer">
+          2017-05-29
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> nodejs</span>
+        </div>
+        <div class="content markdown-body">
+          <h2 id="-">前言</h2>
+          <p>前端时间再回顾了一下node.js，于是顺势做了一个爬虫来加深自己对node的理解。
+            主要用的到是request，cheerio，async三个模块
+            <strong>request</strong>
+            用于请求地址和快速下载图片流。
+            <a href="https://github.com/request/request">https://github.com/request/request</a>
+            <strong>cheerio</strong>
+            为服务器特别定制的，快速、灵活、实施的jQuery核心实现.
+            便于解析html代码。
+            <a href="https://www.npmjs.com/package/cheerio">https://www.npmjs.com/package/cheerio</a>
+            <strong>async</strong>
+            异步调用，防止堵塞。
+            <a href="http://caolan.github.io/async/">http://caolan.github.io/async/</a></p>
+          <p>##核心思路</p>
+          <ul>
+            <li>用request 发送一个请求。获取html代码，取得其中的img标签和a标签。</li>
+            <li>通过获取的a表情进行递归调用。不断获取img地址和a地址，继续递归</li>
+            <li>获取img地址通过request(photo).pipe(fs.createWriteStream(dir + &quot;/&quot; + filename));进行快速下载。</li>
+          </ul>
+          <pre><code class="lang-javascript">function requestall(url) {
+  request({
+    uri: url,
+    headers: setting.header
+  }, function (error, response, body) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(response.statusCode);
+      if (!error &amp;&amp; response.statusCode == 200) {
+        var $ = cheerio.load(body);
+        var photos = [];
+        $(&#39;img&#39;).each(function () {
+          // 判断地址是否存在
+          if ($(this).attr(&#39;src&#39;)) {
+            var src = $(this).attr(&#39;src&#39;);
+            var end = src.substr(-4, 4).toLowerCase();
+            if (end == &#39;.jpg&#39; || end == &#39;.png&#39; || end == &#39;.jpeg&#39;) {
+              if (IsURL(src)) {
+                photos.push(src);
+              }
+            }
+          }
+        });
+        downloadImg(photos, dir, setting.download_v);
+        // 递归爬虫
+        $(&#39;a&#39;).each(function () {
+          var murl = $(this).attr(&#39;href&#39;);
+          if (IsURL(murl)) {
+            setTimeout(function () {
+              fetchre(murl);
+            }, timeout);
+            timeout += setting.ajax_timeout;
+          } else {
+            setTimeout(function () {
+              fetchre(&quot;http://www.ivsky.com/&quot; + murl);
+            }, timeout);
+            timeout += setting.ajax_timeout;
+          }
+        })
+      }
+    }
+  });
+}
+</code></pre>
+          <p>##防坑
+            1.在request通过图片地址下载时，绑定error事件防止爬虫异常的中断。
+            2.通过async的mapLimit限制并发。
+            3.加入请求报头，防止ip被屏蔽。
+            4.获取一些图片和超链接地址，可能是相对路径（待考虑解决是否有通过方法）。</p>
+          <pre><code class="lang-javascript">function downloadImg(photos, dir, asyncNum) {
+  console.log(&quot;即将异步并发下载图片，当前并发数为:&quot; + asyncNum);
+  async.mapLimit(photos, asyncNum, function (photo, callback) {
+    var filename = (new Date().getTime()) + photo.substr(-4, 4);
+    if (filename) {
+      console.log(&#39;正在下载&#39; + photo);
+      // 默认
+      // fs.createWriteStream(dir + &quot;/&quot; + filename)
+      // 防止pipe错误
+      request(photo)
+        .on(&#39;error&#39;, function (err) {
+          console.log(err);
+        })
+        .pipe(fs.createWriteStream(dir + &quot;/&quot; + filename));
+      console.log(&#39;下载完成&#39;);
+      callback(null, filename);
+    }
+  }, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(&quot; all right ! &quot;);
+      console.log(result);
+    }
+  })
+}
+</code></pre>
+          <p>测试：
+            <img src="http://img.blog.csdn.net/20170529171507349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>可以感觉到速度还是比较快的。
+            <img src="http://img.blog.csdn.net/20170529171523631?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>完整地址。<a href="https://github.com/hua1995116/node-crawler/">https://github.com/hua1995116/node-crawler/</a></p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

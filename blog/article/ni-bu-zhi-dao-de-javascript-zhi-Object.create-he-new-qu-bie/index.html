@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 你不知道的javascript之Object.create 和new区别</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          Juejin
+        </a>
+        <a href="http://blog.csdn.net/blueblueskyhua/article/">
+          CSDN
+        </a>
+        <a href="https://github.com/hua1995116/">
+          GitHub
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            你不知道的javascript之Object.create 和new区别
+          </h1>
+        </div>
+        <div class="timer">
+          2017-06-12
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> js</span>
+        </div>
+        <div class="content markdown-body">
+          <p>博客原文地址：<a href="http://blog.csdn.net/blueblueskyhua/article/details/73135938">http://blog.csdn.net/blueblueskyhua/article/details/73135938</a></p>
+          <p>前几天有碰到原型的问题。之前以为自己对原型还是有所了解，但是细细研究，发现自己对原型的理解还是太年轻了。</p>
+          <p><img src="http://img.blog.csdn.net/20170612203247451?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>##Object.create 和new
+            创建对象的方式，我以我碰到的两种创建方式，Object.create 和new来说明</p>
+          <pre><code class="lang-javascript">var Base = function () {}
+var o1 = new Base();
+var o2 = Object.create(Base);
+</code></pre>
+          <p>那这样到底有什么不一样呢？
+            <img src="http://img.blog.csdn.net/20170612202802403?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>我先来一段Object.create的实现方式</p>
+          <pre><code class="lang-javascript">Object.create =  function (o) {
+    var F = function () {};
+    F.prototype = o;
+    return new F();
+};
+</code></pre>
+          <p>可以看出来。Object.create是内部定义一个对象，并且让F.prototype对象 赋值为引进的对象/函数 o，并return出一个新的对象。</p>
+          <p>再看看var o1 = new Base()的时候new做了什么。</p>
+          <pre><code class="lang-javascript">JavaScript 实际上执行的是：
+var o1 = new Object();
+o1.[[Prototype]] = Base.prototype;
+Base.call(o1);
+</code></pre>
+          <p>new做法是新建一个obj对象o1，并且让o1的<code>__proto__</code>指向了Base.prototype对象。并且使用call 进行强转作用环境。从而实现了实例的创建。</p>
+          <p>我们来看看两个对象打印情况。
+            <img src="http://img.blog.csdn.net/20170612191345084?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            看似是一样的。</p>
+          <p>我们对原来的代码进行改进一下。</p>
+          <pre><code class="lang-javascript">var Base = function () {
+    this.a = 2
+}
+var o1 = new Base();
+var o2 = Object.create(Base);
+console.log(o1.a);
+console.log(o2.a);
+</code></pre>
+          <p><img src="http://img.blog.csdn.net/20170612191540441?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>可以看到Object.create 失去了原来对象的属性的访问。
+            那再看看prototype呢？（一开始没理解prototype和<code>__proto__</code> 的关系。造成对这两种方式的创建理解非常费解）。
+            再一次对代码进行改进。</p>
+          <pre><code class="lang-javascript">var Base = function () {
+    this.a = 2
+}
+Base.prototype.a = 3;
+var o1 = new Base();
+var o2 = Object.create(Base);
+console.log(o1.a);
+console.log(o2.a);
+</code></pre>
+          <p>我一开始以为输出的值是2,3。。。以为prototype还是存在的。。结果发现真的发错特错。我们看运行的结果。
+            <img src="http://img.blog.csdn.net/20170612191540441?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            依旧是如此。</p>
+          <p><img src="http://img.blog.csdn.net/20170612203125153?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p>那我们就以图说话。</p>
+          <p><img src="http://img.blog.csdn.net/20170612193823050?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="http://img.blog.csdn.net/20170612193858113?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            （F在创建后被销毁）</p>
+          <p>看完上图，我们就知道了，为什么通过Object.create构造的连Base原型上的属性都访问不到，因为他压根就没有指向他的prototype。这也就说明了<code>__proto__</code> 和 <code>prototype</code> 的区别。所以上面在prototype定义的a，只是Base的prototype对象上的一个属性。</p>
+          <p>再来看看就是：</p>
+          <ol>
+            <li>new关键字必须是以function定义的。</li>
+            <li>Object.create 则 function和object都可以进行构建。</li>
+          </ol>
+          <p>##instanceof 和 isPrototypeOf </p>
+          <p>写了创建一个对象实例，并且说了通过原型链来完成这一个个对象之间的联系，但是你怎么知道就一定含有呢？所以我们需要一个判断机制。</p>
+          <p><img src="http://img.blog.csdn.net/20170612203202951?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <pre><code class="lang-javascript">function Foo(){
+    //...
+}
+Foo.prototype.ff = 2;
+var a  = new Foo();
+a instanceof Foo; //true
+</code></pre>
+          <p>instanceof 说的是在a的整条[[Prototype]] 是否含有Foo.prototype对象。 但是这个方法只能实现对象(a)和函数(带.prototype引用的Foo),如果你想判断两个对象（a 和 b）是否通过[[Prototype]]链关联。只用instanceof就无法实现。</p>
+          <p>所以这里用到了isPrototypeOf。</p>
+          <pre><code class="lang-javascript">var a = {};
+var b = Object.ceate(a);
+</code></pre>
+          <p>b.isPrototypeOf(a);//在a的[[Prototype]]是否出现过b来判断。</p>
+          <p>来看看isPrototypeOf实现方式。</p>
+          <pre><code class="lang-javascript">function isRelatedTo(o1,o2){
+    function F(){}
+    F.prototype = o2;
+    return o1 instanceof F;
+}
+</code></pre>
+          <p>上述函数通过了构建一个辅助函数F，构建了一个prototype对象。从而达到instanceof比较的条件。
+            console.log(a.isPrototypeOf(b) === isRelatedTo(b,a));// true</p>
+          <p>##constructor
+            我们先来看看下面的代码。</p>
+          <pre><code class="lang-javascript">function Foo(){
+}
+console.log(Foo.prototype.constructor === Foo);//true
+var a = new Foo();
+console.log(a.constructor === Foo);//true
+</code></pre>
+          <p>看起来a.constructor === Foo 为真意味着a的确有一个.constructor指向Foo的.constructor属性，但事实并不是这样的。</p>
+          <pre><code class="lang-javascript">function Foo(){
+}
+Foo.prototype = {}
+var a1 = new Foo();
+console.log(a1.constructor === Foo);//false
+console.log(a1.constructor === Object);//true
+</code></pre>
+          <p>可以看到a1并没有.constructor属性。那是为什么呢。？因为a1没有.constructor属性，他会委托[[prototype]]链上的Foo.prototype。但是新建的Foo.prototype也没有.constructor,所以继续往上找，一直到了顶端的Object.prototype。
+            你可以手动地进行修正.constructor的指向。
+            所以可以看出.constructor是一个非常不可靠，并且不安全的引用。在开发中尽量避免使用这些引用，。</p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>
