@@ -72,7 +72,7 @@ body {
 
 #footer {
   box-shadow: inset 0 1px 0 #eee;
-  padding: 40px 0 0 0;
+  padding: 40px 0 10px 0;
   text-align: center;
 }
 
@@ -243,7 +243,7 @@ a.cta {
 
 /*描述*/
 
-.content {
+#content .list .content {
   line-height: 1.5rem;
   color: #333;
   letter-spacing: 1.5px;
@@ -415,12 +415,21 @@ a.cta {
     margin: 0;
   }
   .detail-content {
+    width: 100%;
     margin: 0 auto;
   }
 }
 
 .markdown-body {
   font-size: medium !important;
+}
+
+.markdown-body iframe {
+  width: 100%;
+}
+
+.markdown-body li {
+  list-style: circle;
 }
 
 div.markdown-body h1 {
