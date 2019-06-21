@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> web上的原生图片懒加载(译)
+  </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          <img src="https://s3.qiufengh.com/blog/juejin.png" alt="">
+        </a>
+        <a href="https://github.com/hua1995116/">
+          <img src="https://s3.qiufengh.com/blog/GitHub.png" alt="">
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            web上的原生图片懒加载(译)
+
+          </h1>
+        </div>
+        <div class="timer">
+          2019-06-15
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> html
+          </span>
+        </div>
+        <div class="content markdown-body">
+          <p>原文链接: <a href="https://addyosmani.com/blog/">https://addyosmani.com/blog/</a></p>
+          <p>在这篇文章中，我们将看一下新的<a href="https://github.com/scott-little/lazyload">加载</a>属性，它将原生的<code>&lt;img&gt;</code>和<code>&lt;iframe&gt;</code>延迟加载到网页上！ 对于好奇的人来说，这里有一个实际的预览：</p>
+          <pre><code class="lang-html">&lt;img src=&quot;celebration.jpg&quot; loading=&quot;lazy&quot; alt=&quot;...&quot; /&gt;
+&lt;iframe src=&quot;video-player.html&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+</code></pre>
+          <p>我们希望在 ~ <a href="https://chromestatus.com/feature/5645767347798016">Chrome 75</a> 能够正式使用以及正在深入研究我们即将发布的功能,让我们深入了解 loading 的工作原理。</p>
+          <h2 id="-">引言</h2>
+          <p>网页通常包含大量图像，这些图像会导致数据使用，页面膨胀以及页面加载的速度。许多这些图像都在屏幕外，需要用户滚动才能查看它们。</p>
+          <p>在以前，为了限制屏幕外图像对页面加载时间的影响，开发人员需要使用JavaScript库（如 <a href="https://github.com/aFarkas/lazysizes">LazySizes</a>）来推迟获取这些图像，直到用户在它们附近滚动。</p>
+          <p><img src="https://s3.qiufengh.com//blog/without-lazyload@2x.png" alt="without-lazyload@2x.png"></p>
+          <p>一个页面加载211张图片, 没有延迟加载的版本需要获取10MB的图像数据。 延迟加载版本（使用LazySizes）预先加载250KB - 当用户滚动体验时，将获取其他图像。 看 <a href="https://webpagetest.org/video/compare.php?tests=190406_2K_30b9b9cd6b48735a41bce2daee27b7f5,190406_6R_4ce0ac65b7e11d2e132e4ea8d887edd9">WPT</a></p>
+          <p>如果浏览器可以避免为您加载这些屏幕外图像怎么样？这将有助于更快地加载视图端口中的内容，减少整体网络数据使用和低端设备，减少内存使用。很好，我很高兴地分享，很快就可以使用图片和iframe的新加载属性。</p>
+          <h3 id="loading-">loading 属性</h3>
+          <p><code>loading</code>属性允许浏览器推迟加载屏幕外图像和iframe，直到用户在它们附近滚动。 loading支持三个值：</p>
+          <ul>
+            <li>lazy: 是延迟加载的一个很好的选择。</li>
+            <li>eager: 不适合延迟加载。马上加载。</li>
+            <li>auto: 浏览器将确定是否懒加载。</li>
+          </ul>
+          <p>不指定属性将与设置load = auto具有相同的影响。</p>
+          <p><img src="https://s3.qiufengh.com//blog/loading-attribute@2x.png" alt="loading-attribute@2x.png"></p>
+          <p><code>&lt;img&gt;</code>和<code>&lt;iframe&gt;</code>的加载属性正在作为<a href="https://github.com/whatwg/html/pull/3752">HTML标准</a>的一部分进行处理。</p>
+          <h2 id="example">Example</h2>
+          <p>loading属性适用于<code>&lt;img&gt;</code>（包括srcset和<code>&lt;picture&gt;</code>内部）以及<code>&lt;iframe&gt;</code>：</p>
+          <pre><code class="lang-html">&lt;!-- Lazy-load an offscreen image when the user scrolls near it --&gt;
+&lt;img src=&quot;unicorn.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot;/&gt;
+
+&lt;!-- Load an image right away instead of lazy-loading --&gt;
+&lt;img src=&quot;unicorn.jpg&quot; loading=&quot;eager&quot; alt=&quot;..&quot;/&gt;
+
+&lt;!-- Browser decides whether or not to lazy-load the image --&gt;
+&lt;img src=&quot;unicorn.jpg&quot; loading=&quot;auto&quot; alt=&quot;..&quot;/&gt;
+
+&lt;!-- Lazy-load images in &lt;picture&gt;. &lt;img&gt; is the one driving image 
+loading so &lt;picture&gt; and srcset fall off of that --&gt;
+&lt;picture&gt;
+  &lt;source media=&quot;(min-width: 40em)&quot; srcset=&quot;big.jpg 1x, big-hd.jpg 2x&quot;&gt;
+  &lt;source srcset=&quot;small.jpg 1x, small-hd.jpg 2x&quot;&gt;
+  &lt;img src=&quot;fallback.jpg&quot; loading=&quot;lazy&quot;&gt;
+&lt;/picture&gt;
+
+&lt;!-- Lazy-load an image that has srcset specified --&gt;
+&lt;img src=&quot;small.jpg&quot;
+     srcset=&quot;large.jpg 1024w, medium.jpg 640w, small.jpg 320w&quot;
+     sizes=&quot;(min-width: 36em) 33.3vw, 100vw&quot;
+     alt=&quot;A rad wolf&quot; loading=&quot;lazy&quot;&gt;
+
+&lt;!-- Lazy-load an offscreen iframe when the user scrolls near it --&gt;
+&lt;iframe src=&quot;video-player.html&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+
+</code></pre>
+          <p>“当用户滚动到附近时”的确切启发式方法留给浏览器。一般来说，我们希望浏览器在进入视口之前会开始提取延迟img和iframe内容。这将增加img或iframe在用户滚动到它们时完成加载的更改。</p>
+          <p>注意：我建议我们将其命名为loading属性，因为它的命名与解码属性更接近。 以前的提议，例如lazyload属性，并不是因为我们需要支持多个值（lazy, eager 和 auto）。</p>
+          <h2 id="-">功能兼容性测试</h2>
+          <p>我们一直在考虑能够为 lazy-loading 提取和应用JavaScript库的重要性（对于跨浏览器支持）。 可以按如下方式检测对加载的支持：</p>
+          <pre><code class="lang-html">&lt;script&gt;
+if (&#39;loading&#39; in HTMLImageElement.prototype) { 
+    // Browser supports `loading`..
+} else {
+   // Fetch and apply a polyfill/JavaScript library
+   // for lazy-loading instead.
+}
+&lt;/script&gt;
+</code></pre>
+          <p>注意：您还可以使用 loading 作为渐进增强。 支持该属性的浏览器可以使用load = lazy获取新的延迟加载行为，而不支持该属性的浏览器仍然会加载图像。</p>
+          <h3 id="-lazy-loading">跨浏览器图像 lazy-loading</h3>
+          <p>如果对延迟加载图像的跨浏览器支持很重要，那么如果在标记中使用<code>&lt;img src = unicorn.jpg loading = lazy /&gt;</code>，那么仅对功能检测和延迟加载库是不够的。</p>
+          <p>标记需要使用类似<code>&lt;img data-src = unicorn.jpg /&gt;</code>（而不是src，srcset或<code>&lt;source&gt;</code>）的东西，以避免在不支持新属性的浏览器中触发直接加载。 如果支持加载，可以使用JavaScript将这些属性更改为正确的属性，否则使用加载库。 你可以将其视为混合延迟加载。</p>
+          <h3 id="-">下面是一个示例，展示了它可能的样子。</h3>
+          <ul>
+            <li>视口内/上方图像是常规的<code>&lt;img&gt;</code>标签。data-src会破坏预加载扫描程序，因此我们希望避免它出现在视口中的所有内容。</li>
+            <li>我们在图像上使用data-src以避免在不受支持的浏览器中出现直接的loading。 如果支持加载，我们将data-src转化为src</li>
+            <li>如果不支持加载，我们加载回退（LazySizes）并启动它。在这里，我们使用class = lazyload作为指示我们想要延迟加载的LazySizes图像的方法。</li>
+          </ul>
+          <pre><code class="lang-html">&lt;!-- Let&#39;s load this in-viewport image normally --&gt;
+&lt;img src=&quot;hero.jpg&quot; alt=&quot;..&quot;/&gt;
+
+&lt;!-- Let&#39;s lazy-load the rest of these images --&gt;
+&lt;img data-src=&quot;unicorn.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot; class=&quot;lazyload&quot;/&gt;
+&lt;img data-src=&quot;cats.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot; class=&quot;lazyload&quot;/&gt;
+&lt;img data-src=&quot;dogs.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot; class=&quot;lazyload&quot;/&gt;
+
+&lt;script&gt;
+  if (&#39;loading&#39; in HTMLImageElement.prototype) {
+      const images = document.querySelectorAll(&quot;img.lazyload&quot;);
+      images.forEach(img =&gt; {
+          img.src = img.dataset.src;
+      });
+  } else {
+      // Dynamically import the LazySizes library
+    let script = document.createElement(&quot;script&quot;);
+    script.async = true;
+    script.src =
+      &quot;https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.8/lazysizes.min.js&quot;;
+    document.body.appendChild(script);
+  }
+&lt;/script&gt;
+</code></pre>
+          <p>以上是上述的替代方法，它依赖于<a href="https://developers.google.com/web/updates/2017/11/dynamic-import">动态导入</a>来执行相同的降级库fetching：</p>
+          <pre><code class="lang-html">&lt;!-- Let&#39;s load this in-viewport image normally --&gt;
+&lt;img src=&quot;hero.jpg&quot; alt=&quot;..&quot;/&gt;
+
+&lt;!-- Let&#39;s lazy-load the rest of these images --&gt;
+&lt;img data-src=&quot;unicorn.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot; class=&quot;lazyload&quot;/&gt;
+&lt;img data-src=&quot;cats.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot; class=&quot;lazyload&quot;/&gt;
+&lt;img data-src=&quot;dogs.jpg&quot; loading=&quot;lazy&quot; alt=&quot;..&quot; class=&quot;lazyload&quot;/&gt;
+
+&lt;script&gt;
+(async () =&gt; {
+    if (&#39;loading&#39; in HTMLImageElement.prototype) {
+        const images = document.querySelectorAll(&quot;img.lazyload&quot;);
+        images.forEach(img =&gt; {
+            img.src = img.dataset.src;
+        });
+    } else {
+        // Dynamically import the LazySizes library
+        const lazySizesLib = await import(&#39;/lazysizes.min.js&#39;);
+        // Initiate LazySizes (reads data-src &amp; class=lazyload)
+        lazySizes.init(); // lazySizes works off a global.
+    }
+})();
+&lt;/script&gt;
+</code></pre>
+          <p>Andrea Verlicchi有一篇很好的文章，也看到 <a href="https://www.smashingmagazine.com/2019/05/hybrid-lazy-loading-progressive-migration-native/">hybrid lazy-loading</a> 值得一读。</p>
+          <h2 id="demo">Demo</h2>
+          <p><a href="https://mathiasbynens.be/demo/img-loading-lazy">A loading=lazy demo featuring exactly 100 kitten pics</a> 是可用的。 看看这个！</p>
+          <iframe width="640" height="320" src="https://www.youtube.com/embed/ZBvvCdhLKdw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+          <h2 id="chrome-">Chrome 实现细节</h2>
+          <p>我们强烈建议等待loading属性处于稳定版本你才可以将它使用于生产环境。 早期测试人员可能会发现以下注释很有帮助</p>
+          <h3 id="-">尝试</h3>
+          <p>转到chrome：// flags并打开“启用延迟帧加载”和“启用延迟图像加载”标志，然后重新启动Chrome。</p>
+          <h3 id="-">配置</h3>
+          <p>Chrome的延迟加载实现不仅基于当前滚动位置的接近程度，还基于连接速度。 对于不同连接速度，延迟帧和图像加载距离视口阈值是硬编码的，但可以从命令行覆盖。 这是一个覆盖图像的延迟加载设置的示例：</p>
+          <pre><code class="lang-shell">canary --user-data-dir=&quot;$(mktemp -d)&quot; --enable-features=LazyImageLoading --blink-settings=lazyImageLoadingDistanceThresholdPxUnknown=5000,lazyImageLoadingDistanceThresholdPxOffline=8000,lazyImageLoadingDistanceThresholdPxSlow2G=8000,lazyImageLoadingDistanceThresholdPx2G=6000,lazyImageLoadingDistanceThresholdPx3G=4000,lazyImageLoadingDistanceThresholdPx4G=3000 &#39;https://mathiasbynens.be/demo/img-loading-lazy&#39;
+</code></pre>
+          <p>以上命令对应于（当前）默认配置。 仅当滚动位置在图像的400像素内时，才将所有值更改为400以开始延迟加载。 下面我们还可以看到1像素的变化（本文前面的视频使用）：</p>
+          <pre><code>canary --user-data-dir=&quot;$(mktemp -d)&quot; --enable-features=LazyImageLoading --blink-settings=lazyImageLoadingDistanceThresholdPxUnknown=1,lazyImageLoadingDistanceThresholdPxOffline=1,lazyImageLoadingDistanceThresholdPxSlow2G=1,lazyImageLoadingDistanceThresholdPx2G=1,lazyImageLoadingDistanceThresholdPx3G=1,lazyImageLoadingDistanceThresholdPx4G=1 &#39;https://mathiasbynens.be/demo/img-loading-lazy&#39;
+</code></pre>
+          <p>随着实施在未来几周内稳定，我们的默认配置很可能会发生变化。</p>
+          <h3 id="devtools">DevTools</h3>
+          <p>在Chrome中加载的实现细节是它在页面加载时获取前2KB的图像。 如果服务器支持范围请求，则前2KB可能包含图像尺寸。 这使我们能够生成/显示具有相同尺寸的占位符。 前2KB也可能包括像图标这样的资产的整个图像。</p>
+          <p><img src="https://s3.qiufengh.com//blog/lazy-load-devtools.png" alt="lazy-load-devtools.png"></p>
+          <p>当用户即将看到它时，Chrome会抓取其余的图像字节。Chrome DevTools的一个警告是，这可能导致（1）在DevTools网络面板中“出现”双重提取和（2）资源计时对每个图像有2个请求。</p>
+          <h3 id="-">确定服务器上的加载支持</h3>
+          <p>在理想的情况下，您不需要依赖客户机上的JavaScript特性检测来决定是否需要加载降级库——您可以在提供包含JavaScript延迟加载库的HTML之前处理这个问题。客户机提示可以启用这样的检查。</p>
+          <p>正在考虑传递 loading 首选项的提示，但目前处于早期讨论阶段。</p>
+          <h2 id="-">总结</h2>
+          <p>给<code>&lt;img loading&gt;</code>一个建议，让我们知道你的想法。 我对人们如何找到跨浏览器的故事以及是否有任何我们错过的边缘情况特别感兴趣。 我们希望今年夏天在Chrome 76上发布loading属性。</p>
+          <h2 id="-">参考文献</h2>
+          <ul>
+            <li><a href="https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/jxiJvQc-gVg/wurng4zZBQAJ">https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/jxiJvQc-gVg/wurng4zZBQAJ</a></li>
+            <li><a href="https://github.com/whatwg/html/pull/3752">https://github.com/whatwg/html/pull/3752</a></li>
+            <li><a href="https://github.com/scott-little/lazyload">https://github.com/scott-little/lazyload</a></li>
+            <li><a href="https://mathiasbynens.be/demo/img-loading-lazy">https://mathiasbynens.be/demo/img-loading-lazy</a></li>
+          </ul>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>
