@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>秋风的博客</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+</head>
+<body scroll="no">
+<header>
+  <nav class="nav">
+    <ul class="title clear">
+      <a href="/index.html">
+        Home
+      </a>
+      <a href="/blog/tag">
+        Tags
+      </a>
+      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+        <img src="https://s3.qiufengh.com/blog/juejin.png" alt="">
+      </a>
+      <a href="https://github.com/hua1995116/">
+        <img src="https://s3.qiufengh.com/blog/GitHub.png" alt="">
+      </a>
+      <a href="/blog" class="cta">
+        Blog
+      </a>
+    </ul>
+  </nav>
+</header>
+<div class="body-content clear">
+  <div id="content">
+    <section id="wrapper">
+        <header id="header">
+            <a href="https://github.com/hua1995116/">
+                <img id="avatar" class="2x" src="http://cdn.lschief.com/hua1995116.jpg">
+            </a>
+            <h1>Qiufeng Hua</h1>
+            <h2>FontEnd Engineering at MeiTuan, focus on <span class="highlight">Node, React, Vue</span></h2>
+        </header>
+    </section>
+    <div class="list" data-scroll-reveal="enter bottom"><div class="header"><a href="/blog/article/ni-bu-zhi-dao-de-javascript-zhi-han-shu-zuo-yong-yu-he-kuai-zuo-yong-yu-（-yi-）"><h1> 你不知道的javascript之函数作用域和块作用域（一）</h1></a></div><div class="timer">2016-12-06</div><div class="type clear"><span class="span_button"> js</span></div><div class="content"> </div></div>
+  </div>
+</div>
+<div id="page">
+  <div index='6' class="page-item">上一页</div>
+  <div index='0' class="page-item">下一页</div>
+</div>
+<div class="blog-bottom">
+  <!-- 本站总访问量<span id="busuanzi_value_site_pv"></span>次 -->
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+</div>
+<footer id="footer">
+  <p class="small">© Copyright 2019 qiufenghua</p>
+</footer>
+<script>
+  handlePages();
+  function handlePages() {
+    var page = document.getElementById('page');
+
+    page.addEventListener('click', function(e) {
+      var targer = e.target || e.srcElement;
+      var index = targer.getAttribute('index');
+    
+      if (index === '0') {
+        
+      } else if (index === '-1'){
+        
+      } else {
+        location.href = '/blog/page/' + index;
+      }
+    })
+  }
+</script>
+<script>
+  // NProgress.set(0.4);
+  NProgress.start();
+  window.onload = function() {
+    NProgress.done();
+  }
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</body>
+</html>
