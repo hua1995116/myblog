@@ -9,168 +9,60 @@
   <title>秋风的博客|归档</title>
   <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
   <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
-  <link rel="stylesheet" type="text/css" href="../css/style.css">
-  <link rel="stylesheet" type="text/css" href="../css/blog_index.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
 </head>
 <body scroll="no">
 <header>
   <nav class="nav">
     <ul class="title clear">
-      <a href="../index.html">
-        秋风
+      <a href="/index.html">
+        Home
       </a>
-      <a href="./index.html">
-        博客
+      <a href="/blog/tags">
+        Tags
       </a>
-      <a href="./tag.html">
-            归档
+      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+        <img src="https://s3.qiufengh.com/blog/juejin.png" alt="">
       </a>
-      <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421" class="big-media">
-        <img src="http://cdn.lschief.com/%E6%8E%98%E9%87%91.png" alt="">
+      <a href="https://github.com/hua1995116/">
+        <img src="https://s3.qiufengh.com/blog/GitHub.png" alt="">
       </a>
-      <a href="http://blog.csdn.net/blueblueskyhua/article/" class="big-media">
-        <img src="http://cdn.lschief.com/CSDN.png" alt="">
-      </a>
-      <a href="https://github.com/hua1995116/" class="big-media">
-        <img src="http://cdn.lschief.com/github.png" alt="">
+      <a href="/blog" class="cta">
+        Blog
       </a>
     </ul>
   </nav>
 </header>
-<section id="tag"></section>
 <div class="body-content clear">
-  <section id="content" class="person-left-content"></section>
-  <section class="person-right-content">
-    <div class="person-title">
-      <div class="person-title-img"></div>
-      <div class="person-title-name">蓝色的秋风</div>
-      <!-- <div class="person-title-me"><a href="">about me</a></div> -->
-      <div class="person-title-desc">2年前端开发经验，对前沿知识保持充分对的好奇。</div>
-      <div class="person-title-tag">
-          <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
-            <img src="http://cdn.lschief.com/c-juejin.png" alt="">
-          </a>
-          <a href="http://blog.csdn.net/blueblueskyhua/article/">
-            <img src="http://cdn.lschief.com/c-CSDN.png" alt="">
-          </a>
-          <a href="https://github.com/hua1995116/">
-            <img src="http://cdn.lschief.com/c-github.png" alt="">
-          </a>
+  <div id="content">
+    <section id="wrapper">
+        <header id="header">
+            <a href="https://github.com/hua1995116/">
+                <img id="avatar" class="2x" src="http://cdn.lschief.com/hua1995116.jpg">
+            </a>
+            <h1>Qiufeng Hua</h1>
+            <h2>FontEnd Engineering at MeiTuan, focus on <span class="highlight">Node, React, Vue</span></h2>
+        </header>
+    </section>
+    <section id="tag">
+      <div class="tag-title">
+        Tag - @tag-count
       </div>
-    </div>
-    <div class="person-tag person-title clear">
-    </div>
-  </section>
+      <div class="tag-list">
+        @tag-context
+      </div>
+    </section>
+  </div>
 </div>
-<!-- <div id="page">
-  <div index='0' class="page-item">上一页</div>
-  <div index='1' class="page-item">下一页</div>
-</div> -->
-<script src="../js/scrollReveal.js"></script>
-<script src="../js/promise.js"></script>
-<script src="../js/axios.js"></script>
-<script>
-  var data;
-  var index = 0;
-  var taglist;
-  var content = document.getElementById('content');
-  var tag = document.getElementById('tag');
 
-  axios.get('../json/tagdata.json')
-    .then(function (response) {
-      data = response.data;
-      taglist = Object.keys(data);
-
-      handletag(data);
-
-      handleHhtml(content, data[taglist[0]]); 
-
-      hanldeTagList(tag, taglist);
-      // handlePages(data);
-
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-  function handletag(taglist) {
-    var personTag = document.querySelector('.person-tag');
-    var html = '';
-    for(var i in taglist) {
-      html += '<div class="person-tag-list">'+i+'</div>';
-    }
-    personTag.innerHTML = html;
-  }  
-
-  function hanldeTagList(tag, taglist) {
-    var html = '';
-    for(var i = 0; i < taglist.length; i++) {
-      html += '<div class="span_button" type="'+taglist[i]+'">'+taglist[i]+'('+data[taglist[i]].length+')'+'</div>';
-    }
-    tag.innerHTML = html;
-    tag.addEventListener('click', function(e) {
-      var target = e.target || e.srcElement;
-      if(target.className === 'span_button') {
-        var tagtype = target.getAttribute('type');
-        handleHhtml(content, data[tagtype]);
-      }
-    })
-  }
-
-  function handleHhtml(content, data) {
-    var html = '';
-    for(var i = 0; i < data.length; i ++) {
-      html += '<div class="list" data-scroll-reveal="enter bottom">'+
-                '<div class="header"><a href="'+data[i].fileName+'"><h1>'+data[i].title+'</h1></a></div>'+
-                '<div class="type clear">'+
-                  handleTag(data[i].tag)+
-                '</div>'+
-                '<div class="content">'+data[i].description+'</div>'+
-                '<div class="timer">'+data[i].date+'</div>'+
-              '</div>';
-    }
-    content.innerHTML = html;
-    setTimeout(function() {
-      new scrollReveal({
-        reset: true
-      });
-    },0);
-  }
-
-  function handleTag(tag) {
-    var html = '';
-    tag = tag.split(',')
-    for(var i = 0; i < tag.length; i++) {
-      html += '<span class="span_button">'+tag[i]+'</span>'
-    }
-    return html;
-  }
-
-  // function handlePages(data) {
-  //   var page = document.getElementById('page');
-  //   var length = Object.keys(data).length;
-
-  //   page.addEventListener('click', function(e) {
-  //     var targer = e.target || e.srcElement;
-  //     if (targer.getAttribute('index') === '0') {
-  //       if (index === 0) {
-  //         alert('最前啦');
-  //       } else {
-  //         index--;
-  //         var listname = 'list' + index;
-  //         handleHhtml(content, data[listname]);
-  //       }
-  //     } else {
-  //       if (index === length - 1) {
-  //         alert('最后啦');
-  //       } else {
-  //         index++;
-  //         var listname = 'list' + index;
-  //         handleHhtml(content, data[listname]);
-  //       }
-  //     }
-  //   })
-  // }
+<div class="blog-bottom">
+  <!-- 本站总访问量<span id="busuanzi_value_site_pv"></span>次 -->
+  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+</div>
+<footer id="footer">
+  <p class="small">© Copyright 2019 qiufenghua</p>
+</footer>
 </script>
 <script>
   NProgress.start();
@@ -185,6 +77,6 @@
     s.parentNode.insertBefore(hm, s);
   })();
 </script>
-
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>

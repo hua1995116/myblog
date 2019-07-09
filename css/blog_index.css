@@ -359,9 +359,25 @@ a.cta {
   margin: 20px auto;
 }
 
-#tag .span_button {
+.tag-title {
+  height: 80px;
+  line-height: 80px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.tag-list a {
+  display: inline-block;
+  margin: 0 .4rem;
+  text-decoration: none;
   cursor: pointer;
 }
+
+.tag-list {
+  line-height: 2;
+  text-align: center;
+}
+
 /*小分辨率显示*/
 /* .big-media{
   display: none !important;
@@ -387,7 +403,6 @@ a.cta {
 .detail-content h1:hover {
   color: #c3b3b3;
 }
-
 
 @media only screen and (max-width: 641px) {
   .list {
