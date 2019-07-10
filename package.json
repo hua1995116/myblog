@@ -19,7 +19,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "js-beautify": "^1.7.4",
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

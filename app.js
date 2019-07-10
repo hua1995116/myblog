@@ -4,6 +4,7 @@ const fsExtra = require('fs-extra');
 const marked = require('marked');
 const beautify_html = require('js-beautify').html;
 const pinyin = require("pinyin");
+const moment = require('moment');
 const { getColorForString, ColorConverter } = require('./color');
 
 const json = {};
@@ -74,6 +75,7 @@ function genTagPage(tagjson) {
   const tagLength = keys.length;
   keys.forEach((key, index) => {
     const item = tagjson[key];
+    singleTag(key, item);
     const length = item.length;
     const percent = +(length / sum).toFixed(2) * 3;
     const fontSize = handleText(percent);
@@ -85,6 +87,16 @@ function genTagPage(tagjson) {
   });
   const tagTemplate = fs.readFileSync('./html/tag.html').toString();
   fs.writeFileSync('./blog/tags/index.html', tagTemplate.replace('@tag-count', tagLength).replace('@tag-context', html));
+}
+
+function singleTag(key, tagItem) {
+  fsExtra.mkdirpSync(`./blog/tags/${key}`);
+  let html = '';
+  tagItem.forEach(item => {
+    html += `<div class="article-item"><time class="article-item__time">${moment(item.time).format('YYYY-MM-DD')}</time><a class="article-item__title" href="/blog/article/${item.fileName}">${item.title}</a></div>`
+  });
+  const singltTemplate = fs.readFileSync('./html/singleTag.html').toString();
+  fs.writeFileSync(`./blog/tags/${key}/index.html`, singltTemplate.replace('@tag-type', key).replace('@tag-context', html));
 }
 
 function handleText(value) {
