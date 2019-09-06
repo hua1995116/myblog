@@ -603,3 +603,22 @@ pre[class*="language-"] {
   box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
   z-index: 3;
 }
+
+.wechat-container {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wechat-container p {
+  text-align: center;
+}
+
+.wechat-container img {
+  width: 100%;
+  max-width: 300px;
+}
