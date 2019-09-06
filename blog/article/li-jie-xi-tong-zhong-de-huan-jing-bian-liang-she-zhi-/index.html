@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title> 理解系统中的环境变量设置
+  </title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          <img src="https://s3.qiufengh.com/blog/juejin.png" alt="">
+        </a>
+        <a href="https://github.com/hua1995116/">
+          <img src="https://s3.qiufengh.com/blog/GitHub.png" alt="">
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            理解系统中的环境变量设置
+
+          </h1>
+        </div>
+        <div class="timer">
+          2019-08-20
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> linux
+          </span>
+        </div>
+        <div class="content markdown-body">
+          <h2 id="-">文件权限</h2>
+          <p><img src="https://s3.qiufengh.com/blog/3369258-c196788e7b51224d.webp" alt="3369258-c196788e7b51224d.webp"></p>
+          <table>
+            <thead>
+              <tr>
+                <th>权限</th>
+                <th>二进制</th>
+                <th>八进制</th>
+                <th>描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>---</td>
+                <td>000</td>
+                <td>0</td>
+                <td>无权限</td>
+              </tr>
+              <tr>
+                <td>--x</td>
+                <td>001</td>
+                <td>1</td>
+                <td>只有执行权限</td>
+              </tr>
+              <tr>
+                <td>-w-</td>
+                <td>010</td>
+                <td>2</td>
+                <td>只有写入权限</td>
+              </tr>
+              <tr>
+                <td>-wx</td>
+                <td>011</td>
+                <td>3</td>
+                <td>写和执行权限</td>
+              </tr>
+              <tr>
+                <td>r--</td>
+                <td>100</td>
+                <td>4</td>
+                <td>读权限</td>
+              </tr>
+              <tr>
+                <td>r-x</td>
+                <td>101</td>
+                <td>5</td>
+                <td>读取和执行的权限</td>
+              </tr>
+              <tr>
+                <td>rw-</td>
+                <td>110</td>
+                <td>6</td>
+                <td>读取的写入的权限</td>
+              </tr>
+              <tr>
+                <td>rwx</td>
+                <td>111</td>
+                <td>7</td>
+                <td>所有权限</td>
+              </tr>
+            </tbody>
+          </table>
+          <h2 id="-">环境变量</h2>
+          <h3 id="-etc-profile">/etc/profile</h3>
+          <p>用于登录设置的全系统环境和启动程序</p>
+          <h3 id="-etc-bashrc">/etc/bashrc</h3>
+          <p>系统范围的函数和别名</p>
+          <h3 id="-etc-profile-d-">/etc/profile.d/</h3>
+          <p>最好在/etc/profile.d/中创建一个custom.Shell脚本，以便对环境进行自定义更改，因为这将避免在将来的更新中合并。</p>
+          <h3 id="-bash_profile">~/.bash_profile</h3>
+          <p>用户特定环境和启动程序</p>
+          <h3 id="-bashrc">~/.bashrc</h3>
+          <p>用户特定别名和函数</p>
+          <p>系统启动时加载 /etc/profile -&gt; 内部加载 /etc/profile.d/ 路径下的*.sh脚本；</p>
+          <p>用户登录时加载 ~/.bash_profile -&gt; 内部加载 ~/.bashrc -&gt; 内部加载 /etc/bashrc -&gt; 内部加载 /etc/profile.d/ 路径下的*.sh脚本</p>
+          <p>用户退出时加载 ~/.bash_logout</p>
+          <h2 id="-">参考</h2>
+          <p><a href="https://www.jianshu.com/p/8566a74e77be">https://www.jianshu.com/p/8566a74e77be</a>
+            <a href="https://blog.csdn.net/doctorone/article/details/88586033">https://blog.csdn.net/doctorone/article/details/88586033</a>
+            <a href="https://juejin.im/entry/5b6bd5265188251b1a7b647b">https://juejin.im/entry/5b6bd5265188251b1a7b647b</a>
+            <a href="https://juejin.im/post/5b1e69dcf265da6e0d7a347e">https://juejin.im/post/5b1e69dcf265da6e0d7a347e</a></p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>
