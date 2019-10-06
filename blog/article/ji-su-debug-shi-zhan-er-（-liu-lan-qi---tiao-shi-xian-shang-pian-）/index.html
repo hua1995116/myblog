@@ -28,10 +28,10 @@
           Tags
         </a>
         <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
-          <img src="https://s3.qiufengh.com/blog/juejin.png" alt="">
+          <span class="juejin blog-icon"></span>
         </a>
         <a href="https://github.com/hua1995116/">
-          <img src="https://s3.qiufengh.com/blog/GitHub.png" alt="">
+          <span class="github blog-icon"></span>
         </a>
         <a href="/blog" class="cta">
           Blog
@@ -238,6 +238,14 @@ card.onclick = function() {
   </footer>
   <script type="text/javascript" src="/js/prism.js"></script>
   <script src="/js/axios.js"></script>
+  <script src="/js/zooming.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new Zooming({
+        // options...
+      }).listen('img')
+    })
+  </script>
   <script>
     NProgress.start();
     window.onload = function() {

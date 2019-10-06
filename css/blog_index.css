@@ -175,10 +175,22 @@ p.small {
   border-bottom: 3px solid transparent;
 }
 
-.title img {
+.title .blog-icon {
+  display: inline-block;
   margin-top: 10px;
   width: 24px;
   height: 24px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.title .blog-icon.juejin {
+  background-image: url("https://s3.qiufengh.com/blog/juejin.png");
+}
+
+.title .blog-icon.github {
+  background-image: url("https://s3.qiufengh.com/blog/GitHub.png");
 }
 
 .title {
