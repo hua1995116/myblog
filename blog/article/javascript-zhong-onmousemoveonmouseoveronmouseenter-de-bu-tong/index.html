@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="description" content="javascript中onmousemove、onmouseover、onmouseenter 的不同">
+  <title>javascript中onmousemove、onmouseover、onmouseenter 的不同</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          <span class="juejin blog-icon"></span>
+        </a>
+        <a href="https://github.com/hua1995116/">
+          <span class="github blog-icon"></span>
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            javascript中onmousemove、onmouseover、onmouseenter 的不同
+          </h1>
+        </div>
+        <div class="timer">
+          2017-01-26
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> html</span><span class="span_button"> css</span>
+        </div>
+        <div class="content markdown-body">
+          <p>在比较onmousemove、onmouseover、onmouseenter 的不同之前，首先我们先看看各种onmouse事件的作用：</p>
+          <ul>
+            <li>onmousedown 当元素上按下鼠标按钮时出发</li>
+            <li>onmousemove 当鼠标指针移动到水元素上时触发</li>
+            <li>onmouseover 当鼠标指针移动元素上时触发</li>
+            <li>onmouseout 当鼠标指针移出指定的对象时发生。</li>
+            <li>onmouseup 当在元素上释放鼠标按钮时触发</li>
+            <li>onmouseenter 事件在鼠标指针移动到元素上时触发。(不冒泡)</li>
+            <li>onmouseleave 事件在鼠标移除元素时触发。(不冒泡)</li>
+          </ul>
+          <p>要知道onmouseenter 和onmouseleave事件是不冒泡的
+            以下例子可以知道onmousemove、onmouseover、onmouseenter的不同之处，以及各个onmouse事件执行先后顺序，在onmouseover、onmouseenter中，over还可以通过子元素的触发。</p>
+          <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+    &lt;style&gt;
+        .bg{
+            width: 200px;
+            height: 200px;
+            background: #ddd;
+            margin-top: 20px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo1&quot; onmousemove=&quot;mymouseMove()&quot; onmousedown=&quot;mymouseDown()&quot; onmouseup=&quot;mymouseUp()&quot; onmouseover=&quot;mymouseOver()&quot; onmouseout=&quot;mymouseOut()&quot; onmouseenter=&quot;mymouseEnter()&quot; onmouseleave=&quot;mymouseLeave()&quot;&gt; 
+
+    &lt;/div&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo2&quot; &gt;
+         &lt;p&gt;onmouseover: &lt;br&gt; &lt;span id=&quot;demo22&quot;&gt;鼠标移动到我这!&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo3&quot; &gt;
+        &lt;p&gt;onmouseenter: &lt;br&gt; &lt;span id=&quot;demo33&quot;&gt;鼠标移动到我这!&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;bg&quot; id=&quot;demo4&quot; &gt;
+         &lt;p&gt;onmousemove: &lt;br&gt; &lt;span id=&quot;demo44&quot;&gt;鼠标移动到我这!&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;script&gt;
+    var x = 0;
+    var y = 0;
+    var z = 0;
+    function mymouseDown(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;down&#39;;
+        console.log(&#39;down&#39;);
+    }
+    function mymouseMove(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;move&#39;;
+        console.log(&#39;move&#39;);
+    }
+    function mymouseUp(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;up&#39;;
+        console.log(&#39;up&#39;);
+    }
+    function mymouseOver(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;over&#39;;
+        console.log(&#39;over&#39;);
+    }
+    function mymouseOut(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;out&#39;;
+        console.log(&#39;out&#39;);
+    }
+    function mymouseEnter(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;enter&#39;;
+        console.log(&#39;enter&#39;);
+    }
+    function mymouseLeave(){
+        document.getElementById(&#39;demo1&#39;).innerHTML = &#39;leave&#39;;
+        console.log(&#39;leave&#39;);
+    }
+
+    document.getElementById(&#39;demo2&#39;).onmouseover = function(){
+        document.getElementById(&quot;demo22&quot;).innerHTML = x+=1;
+    }
+    document.getElementById(&#39;demo3&#39;).onmouseenter = function(){
+        document.getElementById(&quot;demo33&quot;).innerHTML = y+=1;
+    }
+    document.getElementById(&#39;demo4&#39;).onmousemove = function(){
+        document.getElementById(&quot;demo44&quot;).innerHTML = z+=1;
+    }
+&lt;/script&gt;
+&lt;/html&gt;
+</code></pre>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+        <div class="wechat-container">
+          <p>欢迎关注我的公众号，秋风的笔记。</p>
+          <img src="https://s3.qiufengh.com/blog/1688055012ff10bc.jpg" alt="">
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script src="/js/zooming.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new Zooming({
+        // options...
+      }).listen('img')
+    })
+  </script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

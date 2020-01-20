@@ -18,6 +18,13 @@ const filePath = path.resolve('./notes');
 // 调用文件遍历方法
 fileDisplay(filePath);
 
+
+function filterTitle(title) {
+  title = title.replace('（', '(').replace('）',')').replace(/\s/g, '');
+  title = title.replace(/[^\w-()]/g, '');
+  return title;
+}
+
 /**
  * 文件遍历方法
  * @param filePath 需要遍历的文件路径
@@ -163,9 +170,9 @@ function handlePromise(filename) {
             let fileName, tag, description, date, title;
 
             fileName = filename.split('.')[0];
-            title = lines[0] && lines[0].replace('name:', '');
+            title = lines[0] && lines[0].replace('name:', '').replace(/\n/, '').replace('/\r/', '').trim();;
             tag = lines[1] && lines[1].split(':')[1];
-            description = lines[2] && lines[2].replace('description:', '');
+            description = lines[2] && lines[2].replace('description:', '').replace(/\n/, '').replace('/\r/', '').trim();
             date = fileName;
 
             const tagintoHTML = handleTagLoop(tag);
@@ -180,6 +187,9 @@ function handlePromise(filename) {
             template = template.replace(/\@markname/g, title);
             template = template.replace('@marktag', tagintoHTML);
             template = template.replace('@marktime', date);
+            // console.log(JSON.stringify(title), '==');
+            
+            template = template.replace('@description', (description ? description : title));
 
             // template = template.replace('<pre>', '<pre class="brush: js;">')
             // 将新生成的字符串template重新写入到文件中
@@ -187,12 +197,13 @@ function handlePromise(filename) {
             const pinyinResult = pinyin(title, {
               style: pinyin.STYLE_NORMAL
             });
-            const pinyinTitle = pinyinResult.map(item => item[0]).filter(item => item!== ' ').join('-').replace(/\s/g, '');
+            const pinyinTitle = filterTitle(pinyinResult.map(item => item[0]).filter(item => item!== ' ').join('-'));
 
             const articleDir = `./blog/article/${pinyinTitle}`;
             fsExtra.mkdirp(articleDir);
             fs.writeFile(`${articleDir}/index.html`, beautify_html(template, {indent_size: 2}), err => {
               if (err) {
+                console.log(err);
                 throw err;
               } else {
                 // console.log(`${title} success`);

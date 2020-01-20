@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="description" content="消息未读之点不完的小红点(Node+Websocket)">
+  <title>消息未读之点不完的小红点(Node+Websocket)</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          <span class="juejin blog-icon"></span>
+        </a>
+        <a href="https://github.com/hua1995116/">
+          <span class="github blog-icon"></span>
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            消息未读之点不完的小红点(Node+Websocket)
+          </h1>
+        </div>
+        <div class="timer">
+          2018-11-09
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> websocket
+          </span>
+        </div>
+        <div class="content markdown-body">
+          <h1 id="-">前言</h1>
+          <p><a href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a> </p>
+          <p>这个项目本来是我学生时代为了找工作的一个练手项目，但是没想到受到了很多的关注，star也快要破K了，这也激励着我不断去完善他，一方面是得对得起关注学习的人，另一方面也是想让自己能过通过慢慢完善一个项目来让自己提高。</p>
+          <p><img src="https://s3.qiufengh.com/blog/1568533450654.jpg" alt=""></p>
+          <p>今天给大家带来的是基于Websocket+Node+Redis未读消息功能，可能更加偏向于实战方向，需要对Websocket和Node有一些了解，当然不了解也可以看看效果，效果链接（ <a href="https://www.qiufengh.com/">https://www.qiufengh.com/</a> ）说不定会激起你学习的动力~</p>
+          <p>下面我通过自己思考的方式来进行讲解，代码可能讲的不多，但是核心逻辑都进行了讲解，上面也有github地址，有兴趣的可以进行详细地查看。自己的idea或多或少会有一些不成熟，但是我还是厚着脸皮出来抛头露脸，如果有什么建议还请大家多多提出，能让我更加完善这个作品。</p>
+          <h1 id="-">设计</h1>
+          <p>首先对于消息未读，大家都很熟悉，就是各种聊天的时候，出现的红点点，且是强迫症者必须清理的一个小点点，如👇所示。我会带大家实现一个这样的功能。
+            <img src="https://s3.qiufengh.com/blog/1568533450630.jpg" alt=""></p>
+          <p>由于一对一的方式更加简单，我现在只考虑多对多的情况，也就是在一个房间（也可以称为群组，后面都以房间称呼）中的未读消息，那么设计这样的一个功能，首相我将它分成了3种用户。</p>
+          <ul>
+            <li>离线用户</li>
+            <li>在线用户</li>
+            <li>在线用户且进入群组的用户</li>
+          </ul>
+          <h3 id="-">离线用户</h3>
+          <p>这种场景就相当于我们退出微信，但是别人在房间里发的消息，当我们再次打开的时候依然能够看到房间增长的未读消息。</p>
+          <h3 id="-">在线用户</h3>
+          <p>这种场景就是相当我们停留在聊天列表页面，当他人在房间中发送消息，我们能够实时的看到未读消息的条数在增长。</p>
+          <p>场景示例。
+            <img src="https://user-gold-cdn.xitu.io/2018/11/19/16729eb68b18a543?w=2000&h=2000&f=png&s=231925" style="width:500px;text-align: center"></p>
+          <h3 id="-">在线用户且在房间的用户</h3>
+          <p>这种场景其实就比较普通了，当别人发送新的消息，我们就能实时看到，此时是不需要标记未读消息的。</p>
+          <p>场景示例。
+            <img src="https://user-gold-cdn.xitu.io/2018/11/19/16729ebe4cc2ff41?w=2000&h=2000&f=png&s=500000" style="width:500px;text-align: center"></p>
+          <h1 id="-">流程图</h1>
+          <p>主要流程可以简化为三个部分，分别为用户，推送功能，消息队列。</p>
+          <p>用户可以是消息提供者也可以是消息接受者。以下就是这个过程。
+            <img src="https://s3.qiufengh.com/blog/1568533450629.png" alt="image"></p>
+          <p>当然在这个过程中涉及比较复杂的消息的存储，如何推送，获取，同步等问题，下面就是对这个过程进行详细的描述</p>
+          <p><img src="https://s3.qiufengh.com/blog/1568533450696.png" alt="image"></p>
+          <p><strong>图上的流程解释</strong></p>
+          <p>A. 存储在Node缓存中的房间用户列表（此处信息也可以存在Redis中）</p>
+          <p>B. 存储在Redis中的未读消息列表</p>
+          <p>C. 存储在MongoDB中的未读消息列表</p>
+          <ol>
+            <li>用户1进入首页。</li>
+            <li>用户1进入房间，重置用户在房间1的未读消息，触发更新模块去更新B未读消息列表。</li>
+            <li>用户1向向房间B中发送了一条消息。</li>
+            <li>后端需要去获取房间用户列表，判断用户是否在房间？</li>
+            <li>是，因为在房间中的用户已经读取了最新消息，不需要进行计数。</li>
+            <li>否，若用户不在房间中，更新其的未读消息计数</li>
+            <li>从缓存中获取用户的消息进行分发。</li>
+            <li>用户2登录我们的项目，从离线用户变成了在线用户。</li>
+            <li>用户2登录时，触发查询模块，去获取其当前在各个房间未读消息情况。</li>
+            <li>查询模块去查询Redis中的未读消息，若Redis中没有数据，会继续向数据库中查询，若没有则返回0给用户。</li>
+            <li>Redis缓存将会每分钟和数据库同步一次，保证数据的持久化。</li>
+          </ol>
+          <h1 id="-">环境</h1>
+          <ul>
+            <li>
+              <p>Node: 8.5.0 +</p>
+            </li>
+            <li>
+              <p>Npm: 5.3.0 +</p>
+            </li>
+            <li>
+              <p>MongoDB</p>
+            </li>
+            <li>
+              <p>Redis</p>
+            </li>
+          </ul>
+          <h2 id="-redis-">为什么是redis ？</h2>
+          <h3 id="-">介绍</h3>
+          <p>Redis 是互联网技术领域使用最为广泛的存储中间件，它是「Remote Dictionary Service」的首字母缩写，是一个高性能的key-value数据库。具有性能极高，丰富的数据类型，原子，丰富的特性等优势。</p>
+          <p>redis 具有以下5种数据结构</p>
+          <ul>
+            <li>String——字符串</li>
+            <li>Hash——字典</li>
+            <li>List——列表</li>
+            <li>Set——集合</li>
+            <li>Sorted Set——有序集合</li>
+          </ul>
+          <p>想要深入了解这5种存储结构可以查看<a href="http://www.runoob.com/w3cnote/redis-use-scene.html">http://www.runoob.com/w3cnote/redis-use-scene.html</a></p>
+          <h3 id="-">安装</h3>
+          <p><strong>windows</strong></p>
+          <blockquote>
+            <p><a href="http://www.cnblogs.com/jaign/articles/7920588.html">http://www.cnblogs.com/jaign/articles/7920588.html</a></p>
+          </blockquote>
+          <p><strong>mac</strong></p>
+          <blockquote>
+            <p>brew install redis</p>
+          </blockquote>
+          <p><strong>ubuntu</strong></p>
+          <blockquote>
+            <p>apt-get install redis</p>
+          </blockquote>
+          <p><strong>redhat</strong></p>
+          <blockquote>
+            <p>yum install redis</p>
+          </blockquote>
+          <p><strong>centos</strong></p>
+          <blockquote>
+            <p><a href="https://www.cnblogs.com/zuidongfeng/p/8032505.html">https://www.cnblogs.com/zuidongfeng/p/8032505.html</a></p>
+          </blockquote>
+          <p><strong>运行客户端</strong></p>
+          <blockquote>
+            <p>redis-cli</p>
+          </blockquote>
+          <h3 id="-">可视化工具安装</h3>
+          <p><strong>windows</strong></p>
+          <blockquote>
+            <p><a href="https://pan.baidu.com/s/1kU8sY3P">https://pan.baidu.com/s/1kU8sY3P</a></p>
+          </blockquote>
+          <p><strong>mac</strong></p>
+          <blockquote>
+            <p><a href="https://pan.baidu.com/s/10vpdhw7YfDD7G4yZCGtqQg">https://pan.baidu.com/s/10vpdhw7YfDD7G4yZCGtqQg</a></p>
+          </blockquote>
+          <p><strong>源码编译</strong></p>
+          <blockquote>
+            <p><a href="http://docs.redisdesktop.com/en/latest/install/#build-from-source">http://docs.redisdesktop.com/en/latest/install/#build-from-source</a></p>
+          </blockquote>
+          <h3 id="-">项目中的数据结构</h3>
+          <p>在本项目中我们用String 来存储用户的未读消息记录，利用其incr命令来进行自增操作。利用Hash结构 来存储我们websocket连接时用户的socket-id。</p>
+          <p>上面说了计数利用Redis的Stirng数据结构,
+            在Redis 我们的计数key-value是这样的。</p>
+          <p>username-roomid - number</p>
+          <p>例子: hua1995116-room1 - 1</p>
+          <p>我们的Socket-id则为Hash结构。</p>
+          <ul>
+            <li>socketId<ul>
+                <li>username - socketid</li>
+              </ul>
+            </li>
+          </ul>
+          <p>例子:</p>
+          <ul>
+            <li>socketId<ul>
+                <li>hua1995116 - En4ilYqDpk-P5_tzAAAG</li>
+              </ul>
+            </li>
+          </ul>
+          <h1 id="mongodb">MongoDB</h1>
+          <p>本项目一开始就使用了MongoDB，Node天然搭配的MongoDB的优势，这里就不再进行讲解，Node操作MongoDB的模块叫做mongoose，具体的参数方法，可以查看官方文档。</p>
+          <p><a href="https://mongoosejs.com/docs/4.x/index.html">https://mongoosejs.com/docs/4.x/index.html</a></p>
+          <p>MongoDB下载地址</p>
+          <p><a href="https://www.mongodb.com/download-center/community">https://www.mongodb.com/download-center/community</a></p>
+          <p>可视化下载地址</p>
+          <p><a href="https://github.com/mrvautin/adminMongo">https://github.com/mrvautin/adminMongo</a></p>
+          <h1 id="websocket-node-">websocket + node 实现</h1>
+          <p>下面我们通过一开始的3种用户的场景来具体说明实现的代码。</p>
+          <h3 id="-">离线用户变成在线用户</h3>
+          <p><img src="https://s3.qiufengh.com/blog/1568533450632.png" alt="image"></p>
+          <p>客户端在登录时会发送一个login事件，以下是后端逻辑。</p>
+          <pre><code class="lang-Javascript">// 建立连接
+socket.on(&#39;login&#39;,async (user) =&gt; {
+    console.log(&#39;socket login!&#39;);
+    const {name} = user;
+    if (!name) {
+      return;
+    }
+    socket.name = name;
+    const roomInfo = {};
+    // 初始化socketId
+    await updatehCache(&#39;socketId&#39;, name, socket.id);
+
+    for(let i = 0; i &lt; roomList.length; i++) {
+      const roomid = roomList[i];
+      const key = `${name}-${roomid}`;
+      // 循环所有房间
+      const res = await findOne({username: key});
+      const count = await getCacheById(key);
+
+      if(res) {
+        // 数据库查数据， 若缓存中没有数据，更新缓存
+        if(+count === 0) {
+          updateCache(key, res.roomInfo);
+        }
+        roomInfo[roomid] = res.roomInfo;
+      } else {
+        roomInfo[roomid] = +count;
+      }
+    }
+    // 通知自己有多少条未读消息
+    socket.emit(&#39;count&#39;, roomInfo);
+
+});
+</code></pre>
+          <p>用户从离线变成在线状态，建立socket连接时候，会发送一个login事件, 服务端就会去查询当前用户的未读消息情况，从MongoDB和Redis分别查询，若Redis中没有数据，则像数据库查询。</p>
+          <h3 id="-">在线用户进入房间</h3>
+          <p><img src="https://s3.qiufengh.com/blog/1568533451348.png" alt="image"></p>
+          <p>客户端在加入房间说话会发送一个room事件，以下是后端逻辑</p>
+          <pre><code class="lang-Javascript">// 加入房间
+socket.on(&#39;room&#39;, async (user) =&gt; {
+    console.log(&#39;socket add room!&#39;);
+    const {name, roomid} = user;
+    if (!name || !roomid) {
+      return;
+    }
+    socket.name = name;
+    socket.roomid = roomid;
+
+    if (!users[roomid]) {
+      users[roomid] = {};
+    }
+    // 初始化user
+    users[roomid][name] = Object.assign({}, {
+      socketid: socket.id
+    }, user); 
+
+    // 初始化user
+    const key = `${name}-${roomid}`;
+    await updatehCache(&#39;socketId&#39;, name, socket.id);
+
+    // 进入房间默认置空，表示全部已读
+    await resetCacheById(key);
+    // 进行会话
+    socket.join(roomid);
+
+    const onlineUsers = {};
+    for(let item in users[roomid]) {
+      onlineUsers[item] = {};
+      onlineUsers[item].src = users[roomid][item].src;
+    }
+    io.to(roomid).emit(&#39;room&#39;, onlineUsers);
+    global.logger.info(`${name} 加入了 ${roomid}`);
+});
+</code></pre>
+          <p>服务端接收到客户端发送的room事件，来重置该用户房间内的未读消息，并且该用户加入房间列表。</p>
+          <h3 id="-">在房间中的用户发送消息</h3>
+          <p><img src="https://s3.qiufengh.com/blog/1568533450721.png" alt="image"></p>
+          <p>客户端在加入房间说话会发送一个message事件，以下是后端逻辑</p>
+          <pre><code class="lang-Javascript">socket.on(&#39;message&#39;, async (msgObj) =&gt; {
+    console.log(&#39;socket message!&#39;); 
+    //向所有客户端广播发布的消息
+    const {username, src, msg, img, roomid, time} = msgObj;
+    if(!msg &amp;&amp; !img) {
+      return;
+    }
+    ... // 此处为向数据库存入消息
+    const usersList = await gethAllCache(&#39;socketId&#39;);// 所有用户列表
+    usersList.map(async item =&gt; {
+      if(!users[roomid][item]) {  // 判断是否在房间内
+        const key = `${item}-${roomid}`
+        await inrcCache(key);
+        const socketid = await gethCacheById(&#39;socketId&#39;, item);
+        const count = await getCacheById(key);
+        const roomInfo = {};
+        roomInfo[roomid] = count;
+        socket.to(socketid).emit(&#39;count&#39;, roomInfo);
+    }
+}) 
+</code></pre>
+          <p>此步骤略微复杂，主要是房间中的用户发送消息，需要经过判断，哪部分用户需要计数，哪部分用户不需要计数，从图中可以看出，不在房间内的用户都需要计数。</p>
+          <p>接下来还需要推送，那么哪些用户需要实时地推送呢，对的，就是那些在线用户并且不在房间内的用户。因此在这里也需要一个判断。</p>
+          <p>这样就完美了，能够精确地给用户增加计数，并且精确地推送给需要的用户。</p>
+          <h1 id="-">后记</h1>
+          <p>在线演示: <a href="https://www.qiufengh.com/">https://www.qiufengh.com/</a></p>
+          <p>github地址: <a href="https://github.com/hua1995116/webchat">https://github.com/hua1995116/webchat</a></p>
+          <p>如果有什么建议或者疑问可以加入微信群进行探讨。</p>
+          <p style="text-align:center">
+            <img src="https://user-gold-cdn.xitu.io/2018/11/19/16729ed23f9be3a2?w=674&h=896&f=jpeg&s=64232" style="width:300px">
+          </p>
+
+          <h1 id="-">更多请关注</h1>
+          <p><img src="https://s3.qiufengh.com/blog/1568533450717.png" alt=""></p>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+        <div class="wechat-container">
+          <p>欢迎关注我的公众号，秋风的笔记。</p>
+          <img src="https://s3.qiufengh.com/blog/1688055012ff10bc.jpg" alt="">
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script src="/js/zooming.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new Zooming({
+        // options...
+      }).listen('img')
+    })
+  </script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>

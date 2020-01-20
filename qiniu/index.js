@@ -10,7 +10,7 @@ const files = fs.readdirSync(root);
 files.map(item => {
   const current = path.join(root, item);
   const context = fs.readFileSync(current).toString();
-  const reg = /(\((https:\/\/user\-gold\-cdn\.xitu\.io\/.+)\))/g;
+  const reg = /(\((http:\/\/img\.blog\.csdn\.net\/.+)\))/g;
   let data = context.match(reg);
   if(data) {
     filesMap[current] = data.map(item => {

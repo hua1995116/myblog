@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="description" content="近年来，JavaScript的规模已经大大增加。这篇博客文章探讨了仍然缺失的内容。">
+  <title>未来的 JavaScript 应该是什么样的？现在还缺少什么？</title>
+  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
+  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
+  <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+</head>
+
+<body scroll="no">
+  <header>
+    <nav class="nav">
+      <ul class="title clear">
+        <a href="/index.html">
+          Home
+        </a>
+        <a href="/blog/tag">
+          Tags
+        </a>
+        <a href="https://juejin.im/user/5964cb3a6fb9a06bb0194421">
+          <span class="juejin blog-icon"></span>
+        </a>
+        <a href="https://github.com/hua1995116/">
+          <span class="github blog-icon"></span>
+        </a>
+        <a href="/blog" class="cta">
+          Blog
+        </a>
+      </ul>
+    </nav>
+  </header>
+  <div class="body-content clear">
+    <section>
+      <div class="detail-content">
+        <div class="header">
+          <h1>
+            未来的 JavaScript 应该是什么样的？现在还缺少什么？
+          </h1>
+        </div>
+        <div class="timer">
+          2019-02-09
+        </div>
+        <div class="readers">
+          阅读量<span id="busuanzi_value_page_pv"></span>
+        </div>
+        <div class="type clear">
+          <span class="span_button"> JavaScript
+          </span>
+        </div>
+        <div class="content markdown-body">
+          <blockquote>
+            <p>原文链接: <a href="http://2ality.com/2019/01/future-js.html">http://2ality.com/2019/01/future-js.html</a>
+              作者：Axel Rauschmayer ; 著有《JavaScript for impatient programmers》、《Speaking JavaScript</p>
+          </blockquote>
+          <p>近年来，JavaScript的规模已经大大增加。这篇博客文章探讨了仍然缺失的内容。</p>
+          <p>说明：</p>
+          <ol>
+            <li>我只列出了我发现最重要的缺失功能。 许多其他的功能也很有用，但也会带来因为增加太多而引起的风险。</li>
+            <li>我的选择列举这些功能是主观的。</li>
+            <li>本博客文章中提及的几乎所有内容都在TC39的预测上。 也就是说，它还可以作为未来可能的JavaScript 发展的预览。</li>
+          </ol>
+          <p>有关前两个问题的更多想法，请参阅<a href="http://2ality.com/2019/01/future-js.html#language-design">语言设计部分</a> (<a href="http://2ality.com/2019/01/future-js.html#language-design)。">http://2ality.com/2019/01/future-js.html#language-design)。</a></p>
+          <h1 id="values">Values</h1>
+          <h2 id="-">按值比较对象</h2>
+          <p> 目前，JavaScript只比较原始值，例如字符串值（通过查看其内容）</p>
+          <pre><code class="lang-shell"> &gt; &#39;abc&#39; === &#39;abc&#39;
+true
+</code></pre>
+          <p>相比之下，对象通过引用进行比较（对象仅严格等于自身）：</p>
+          <pre><code class="lang-shell">&gt; {x: 1, y: 4} === {x: 1, y: 4}
+false
+</code></pre>
+          <p>如果有一种方法可以创建按值进行比较的对象，那将是很好的：</p>
+          <pre><code>&gt; #{x: 1, y: 4} === #{x: 1, y: 4}
+true
+</code></pre>
+          <p>另一种可能性是引入一种新的类(具体细节待定)</p>
+          <pre><code class="lang-javascript">@[ValueType]
+class Point {
+  // ···
+}
+</code></pre>
+          <p>提示：将类标记为值类型，是基于装饰器的草案。</p>
+          <h2 id="-">将对象放入数据结构</h2>
+          <p>当对象通过引用进行比较时，将它们放入（non-weak）ECMAScript 数据结构（如Maps）中是没有意义的：</p>
+          <pre><code class="lang-javascript">const m = new Map();
+m.set({x: 1, y: 4}, 1);
+m.set({x: 1, y: 4}, 2);
+assert.equal(m.size, 2);
+</code></pre>
+          <p>可以通过自定义值类型修复此问题。 或者可以自定义Set属性和Map键的管理。 例如:</p>
+          <ul>
+            <li>通过哈希表映射: 需要一个用于检查等式的操作和另一个用于创建哈希码的操作。如果使用哈希码，则希望对象是不可变的。 否则，破坏数据结构就太容易了。</li>
+            <li>通过排序树映射: 需要一个比较两个值的操作，以管理它存储的值。</li>
+          </ul>
+          <p>Hash Map 意思是会给每个对象分配一个哈希值，来代表唯一性。但是对于这个传入的对象，需要是不可变的，否则的话，容易破坏数据结构。</p>
+          <p>Tree Map 或者需要比较两个对象的值操作以此来管理储存的值。</p>
+          <p><a href="https://yikun.github.io/2015/04/06/Java-TreeMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/">https://yikun.github.io/2015/04/06/Java-TreeMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/</a></p>
+          <p><a href="https://juejin.im/entry/57bfab077db2a20068ebf9d2">https://juejin.im/entry/57bfab077db2a20068ebf9d2</a></p>
+          <p><a href="https://blog.csdn.net/github_26672553/article/details/77185003">https://blog.csdn.net/github_26672553/article/details/77185003</a></p>
+          <p><a href="https://286.iteye.com/blog/2189266">https://286.iteye.com/blog/2189266</a></p>
+          <p><a href="https://www.cnblogs.com/skywang12345/p/3310928.html">https://www.cnblogs.com/skywang12345/p/3310928.html</a></p>
+          <h2 id="-">大型整数</h2>
+          <p>JavaScript数字总是64位（双精度），它为整数提供53位加号。这意味着超过53位，你不能再代表每个数字了：</p>
+          <pre><code class="lang-node">&gt; 2 ** 53
+9007199254740992
+&gt; (2 ** 53) + 1  // can’t be represented
+9007199254740992
+&gt; (2 ** 53) + 2
+9007199254740994
+</code></pre>
+          <p>在某些情况下，这是一个相当大的限制。 现在有一个关于 <code>BigInts 的提案</code>[1]，即实数整数，其精度随着需要的增长而增长：</p>
+          <p>[1]提案地址：<a href="http://2ality.com/2017/03/es-integer.html">http://2ality.com/2017/03/es-integer.html</a></p>
+          <pre><code class="lang-node">&gt; 2n ** 53n
+9007199254740992n
+&gt; (2n ** 53n) + 1n
+9007199254740993n
+</code></pre>
+          <p>BigInts 还支持强制转换，它可以给你提供固定位数的值：</p>
+          <pre><code class="lang-javascript">const int64a = BigInt.asUintN(64, 12345n);
+const int64b = BigInt.asUintN(64, 67890n);
+const result = BigInt.asUintN(64, int64a * int64b);
+</code></pre>
+          <h2 id="-">十进制计算</h2>
+          <p>JavaScript的数字是基于IEEE 754标准的64位浮点数（双精度数）。鉴于它们的表示形式是base-2，在处理小数分数时可能会出现舍入误差：</p>
+          <pre><code>&gt; 0.1 + 0.2
+0.30000000000000004
+</code></pre>
+          <p>这在科学计算和金融技术（金融科技）中尤其成问题。目前有一项关于10进制数的建议处于 stage0。它们可能最终被这样使用（注意十进制数的后缀m）</p>
+          <p>提案地址：<a href="https://github.com/tc39/proposals/blob/master/stage-0-proposals.md">https://github.com/tc39/proposals/blob/master/stage-0-proposals.md</a></p>
+          <h2 id="-">对值进行分类</h2>
+
+          <!-- <div class="view-cnt">（111 人已阅）</div> -->
+        </div>
+        <div class="my-pay">
+          <div class="my-pay-btn">赞赏</div>
+          <div class="my-pay-type clear">
+            <div class="my-pay-alipay my-pay-div"></div>
+            <div class="my-pay-weixin my-pay-div"></div>
+          </div>
+        </div>
+        <div class="wechat-container">
+          <p>欢迎关注我的公众号，秋风的笔记。</p>
+          <img src="https://s3.qiufengh.com/blog/1688055012ff10bc.jpg" alt="">
+        </div>
+      </div>
+
+      <div id="container"></div>
+    </section>
+
+  </div>
+  <div class="blog-bottom">
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  </div>
+  <footer id="footer">
+    <p class="small">© Copyright 2019 qiufenghua</p>
+  </footer>
+  <script type="text/javascript" src="/js/prism.js"></script>
+  <script src="/js/axios.js"></script>
+  <script src="/js/zooming.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new Zooming({
+        // options...
+      }).listen('img')
+    })
+  </script>
+  <script>
+    NProgress.start();
+    window.onload = function() {
+      NProgress.done();
+    }
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f12dade0d0c1d020a5c06231f05b9f65";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+      var myPayBtn = document.querySelector('.my-pay-btn');
+      var myPayType = document.querySelector('.my-pay-type');
+      var btnShow = true;
+      myPayBtn.addEventListener('click', function() {
+        if (btnShow) {
+          myPayType.style.display = 'block';
+          btnShow = false;
+        } else {
+          myPayType.style.display = 'none';
+          btnShow = true;
+        }
+      });
+    })();
+  </script>
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+    var gitment = new Gitment({
+      id: location.href, // 可选。默认为 location.href
+      owner: 'hua1995116',
+      repo: 'myblog',
+      oauth: {
+        client_id: '814dc8bc817d0a663020',
+        client_secret: 'ae232061068d5844c3665b55e34d7d5edb220113',
+      },
+    })
+    gitment.render('container')
+  </script>
+</body>
+
+</html>
