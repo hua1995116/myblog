@@ -6,11 +6,22 @@
         content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title>秋风的博客</title>
-  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
-  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
+  <title>秋风的博客|归档</title>
+  <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
+  <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css'/>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
+  <!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+  <script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1650125,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
 </head>
 <body scroll="no">
 <header>
@@ -45,13 +56,17 @@
             <h2>FontEnd Engineering at MeiTuan, focus on <span class="highlight">Node, React, Vue</span></h2>
         </header>
     </section>
-    @context
+    <section id="tag">
+      <div class="tag-title">
+        Tag - @tag-count
+      </div>
+      <div class="tag-list">
+        @tag-context
+      </div>
+    </section>
   </div>
 </div>
-<div id="page">
-  <div index='@prev' class="page-item">上一页</div>
-  <div index='@next' class="page-item">下一页</div>
-</div>
+
 <div class="blog-bottom">
   <!-- 本站总访问量<span id="busuanzi_value_site_pv"></span>次 -->
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -59,27 +74,8 @@
 <footer id="footer">
   <p class="small">© Copyright 2019 qiufenghua</p>
 </footer>
-<script>
-  handlePages();
-  function handlePages() {
-    var page = document.getElementById('page');
-
-    page.addEventListener('click', function(e) {
-      var targer = e.target || e.srcElement;
-      var index = targer.getAttribute('index');
-    
-      if (index === '0') {
-        
-      } else if (index === '-1'){
-        
-      } else {
-        location.href = '/blog/page/' + index;
-      }
-    })
-  }
 </script>
 <script>
-  // NProgress.set(0.4);
   NProgress.start();
   window.onload = function() {
     NProgress.done();
@@ -102,6 +98,5 @@
 
   gtag('config', 'UA-112201282-3');
 </script>
-
 </body>
 </html>

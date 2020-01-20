@@ -8,13 +8,30 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="description" content="在我们日常开发中有许多情况下没有 debug 就会让我们的开发变得非常的低效，甚至对一些流程的理解变得非常困难。本教程适用于，正在开发 node 应用， webpack 插件，babel 插件，想要读懂别人写的一些 webpack 插件，babel 插件 或者是想要对 vue 源码想要更加深入的了解。本教程都非常适用。相信你看完教程后，便会对那些看似复杂的东西不再惧怕，即使他们充满未知，但是能有一个方法去更好地了解他们。">
   <title>急速 debug 实战三（Node - webpack插件,babel插件,vue源码篇）</title>
-  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
-  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
+  <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css' />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="/css/prism.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+  <script>
+    (function(h, o, t, j, a, r) {
+      h.hj = h.hj || function() {
+        (h.hj.q = h.hj.q || []).push(arguments)
+      };
+      h._hjSettings = {
+        hjid: 1650125,
+        hjsv: 6
+      };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script');
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body scroll="no">
@@ -298,7 +315,6 @@ npm run dev
 
     gtag('config', 'UA-112201282-3');
   </script>
-
 </body>
 
 </html>

@@ -8,13 +8,30 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="description" content="随着我们使用内部构建系统的频率增高，没有色彩的日志已经无法满足我们日益增长的效率需求。在浏览器上输出的日志无法像终端一样，通过各种彩色的标记日志，进行快速地定位。因此本文就如何将日志信息在浏览器的输出日志效果和终端一致而展开。">
   <title>让浏览器添上终端的彩</title>
-  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
-  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
+  <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css' />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="/css/prism.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+  <script>
+    (function(h, o, t, j, a, r) {
+      h.hj = h.hj || function() {
+        (h.hj.q = h.hj.q || []).push(arguments)
+      };
+      h._hjSettings = {
+        hjid: 1650125,
+        hjsv: 6
+      };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script');
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body scroll="no">
@@ -266,7 +283,6 @@ cmd.on(&#39;close&#39;, (code) =&gt; {
 
     gtag('config', 'UA-112201282-3');
   </script>
-
 </body>
 
 </html>

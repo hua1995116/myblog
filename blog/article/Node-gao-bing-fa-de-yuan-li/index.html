@@ -8,13 +8,30 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="description" content="node的优点：I/O密集型处理是node的强项，因为node的I/O请求都是异步的（如：sql查询请求、文件流操作操作请求、http请求...）">
   <title>Node 高并发的原理</title>
-  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
-  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
+  <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css' />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="/css/prism.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+  <script>
+    (function(h, o, t, j, a, r) {
+      h.hj = h.hj || function() {
+        (h.hj.q = h.hj.q || []).push(arguments)
+      };
+      h._hjSettings = {
+        hjid: 1650125,
+        hjsv: 6
+      };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script');
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body scroll="no">
@@ -163,7 +180,6 @@
 
     gtag('config', 'UA-112201282-3');
   </script>
-
 </body>
 
 </html>

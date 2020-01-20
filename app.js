@@ -92,7 +92,7 @@ function genTagPage(tagjson) {
     const color = result.toHex();
     html += `<a href="/blog/tags/${key}" style="font-size: ${fontSize}px; color: #${color}">${key}</a>`;
   });
-  const tagTemplate = fs.readFileSync('./html/tag.html').toString();
+  const tagTemplate = fs.readFileSync('./template/html/tag.html').toString();
   fs.writeFileSync('./blog/tags/index.html', tagTemplate.replace('@tag-count', tagLength).replace('@tag-context', html));
 }
 
@@ -102,7 +102,7 @@ function singleTag(key, tagItem) {
   tagItem.forEach(item => {
     html += `<div class="article-item"><time class="article-item__time">${moment(item.time).format('YYYY-MM-DD')}</time><a class="article-item__title" href="/blog/article/${item.fileName}">${item.title}</a></div>`
   });
-  const singltTemplate = fs.readFileSync('./html/singleTag.html').toString();
+  const singltTemplate = fs.readFileSync('./template/html/singleTag.html').toString();
   fs.writeFileSync(`./blog/tags/${key}/index.html`, singltTemplate.replace('@tag-type', key).replace('@tag-context', html));
 }
 
@@ -157,7 +157,7 @@ function handlePagesJson() {
  */
 function handlePromise(filename) {
   return new Promise((resolve, reject) => {
-    fs.readFile('./template.html', 'utf8', (err, template) => {
+    fs.readFile('./template/template.html', 'utf8', (err, template) => {
       if (err) {
         throw err;
       } else {
@@ -247,7 +247,7 @@ function genPage(pageData) {
   const pagelist = Object.keys(pageData);
 
   const context = handleHhtml(pageData[pagelist[0]]);
-  const pageTemplate = fs.readFileSync('./html/index.html').toString();
+  const pageTemplate = fs.readFileSync('./template/html/index.html').toString();
   const [prev, next] = handlePageSize(1, pagelist.length);
   const pageItem = pageTemplate.replace('@context', context).replace('@prev', prev).replace('@next', next);
   const pageDir = `./blog`
@@ -256,7 +256,7 @@ function genPage(pageData) {
   for(let i = 0; i < pagelist.length; i++) {
     const context = handleHhtml(pageData[pagelist[i]]);
     // const tags = handletag(tagData);
-    const pageTemplate = fs.readFileSync('./html/index.html').toString();
+    const pageTemplate = fs.readFileSync('./template/html/index.html').toString();
     const [prev, next] = handlePageSize(i + 1, pagelist.length);
     const pageItem = pageTemplate.replace('@context', context).replace('@prev', prev).replace('@next', next);
     const pageDir = `./blog/page/${i + 1}`

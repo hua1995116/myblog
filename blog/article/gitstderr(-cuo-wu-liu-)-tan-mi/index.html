@@ -8,13 +8,30 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="description" content="最近在维护内部发布系统的时候，遇到了一个问题，觉得非常的神奇。在使用git checkout的时候，发布系统会报错，导致发布版本失败，可能我这样描述，大家无法理解我所表达的。如果你已经步入，或正想要步入工程化的项目，仔细看哦，下面的坑你可能也会遇到，由于无法展示发布系统代码，我将写一个小例子来给大家进行演示。">
   <title>git stderr(错误流)探秘</title>
-  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
-  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
+  <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css' />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="/css/prism.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+  <script>
+    (function(h, o, t, j, a, r) {
+      h.hj = h.hj || function() {
+        (h.hj.q = h.hj.q || []).push(arguments)
+      };
+      h._hjSettings = {
+        hjid: 1650125,
+        hjsv: 6
+      };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script');
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body scroll="no">
@@ -268,7 +285,6 @@ git checkout -q dev
 
     gtag('config', 'UA-112201282-3');
   </script>
-
 </body>
 
 </html>

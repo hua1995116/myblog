@@ -8,13 +8,30 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="description" content="首先我们为什么要做前端系统呢，先看下面这张表，可以很显然的看出，前端的性能对于产品的价值提升还是蛮有帮助的，但是这些信息如果我们能实时的采集到，并且实施以监控，让整个产品在产品线上一直保持高效的运作，这才是我们的目的。">
   <title>教你如何打造出一个前端可视化监控系统</title>
-  <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
-  <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css' />
+  <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
+  <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css' />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/github-markdown.css">
   <link rel="stylesheet" type="text/css" href="/css/prism.css">
   <link rel="stylesheet" type="text/css" href="/css/blog_index.css">
   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+  <script>
+    (function(h, o, t, j, a, r) {
+      h.hj = h.hj || function() {
+        (h.hj.q = h.hj.q || []).push(arguments)
+      };
+      h._hjSettings = {
+        hjid: 1650125,
+        hjsv: 6
+      };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script');
+      r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body scroll="no">
@@ -406,7 +423,6 @@ app.use(performance({
 
     gtag('config', 'UA-112201282-3');
   </script>
-
 </body>
 
 </html>
