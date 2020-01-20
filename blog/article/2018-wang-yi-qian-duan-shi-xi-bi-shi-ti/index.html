@@ -59,9 +59,9 @@
         <div class="content markdown-body">
           <p>前端时间做了网易前端实习的笔试题，偶像想起，总结一下，前面的选择题，我就不一一细说了，主要考察的是对于前端的基础，以及计算机基础，这次主要讲下算法题。所有算法我均用js所写，不同语言思路均相同。
             （以下都是我对题目的简述）
-            <strong>1.小易学了集合，已知集合有三个性质：确定性、互异性、无序性，现有以下算式</strong><img src="http://img.blog.csdn.net/20170407135353386" alt="这里写图片描述">
+            <strong>1.小易学了集合，已知集合有三个性质：确定性、互异性、无序性，现有以下算式</strong><img src="https://s3.qiufengh.com/blog/1579506284518.png" alt="这里写图片描述">
             <strong>输入x,y,z,w确定集合内元素的个数。</strong>
-            <img src="http://img.blog.csdn.net/20170407135628244" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506284561.png" alt="这里写图片描述">
             <strong>input:1,2,3,4</strong>
             <strong>output:4</strong></p>
           <p>首先拿到这题，可以看到集合的特性，其中最重要的就是这个确定性，说的就是不能重复，我就想到了数组去重，按着这个思路下去，我便找到了解题的思路。上代码，算法实现都是在node环境下。例如，将以下代码保存为array.js ,执行node array.js。输入四个数字，遇到换行为结束。</p>
@@ -188,7 +188,7 @@ process.stdin.on(&#39;end&#39;, function () {
 </code></pre>
           <p><strong>除了以上算法题目最后还有一题js的demo题</strong>
             有以下表格。点击成绩能够使表格按成绩从高到底排序。
-            <img src="http://img.blog.csdn.net/20170331195515648" alt="这里写图片描述"></p>
+            <img src="https://s3.qiufengh.com/blog/1579506284511.png" alt="这里写图片描述"></p>
           <p>此题的方法就查看我之前的一篇博客
             <a href="http://blog.csdn.net/blueblueskyhua/article/details/68929578">http://blog.csdn.net/blueblueskyhua/article/details/68929578</a></p>
 
@@ -266,6 +266,19 @@ process.stdin.on(&#39;end&#39;, function () {
     })
     gitment.render('container')
   </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112201282-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-112201282-3');
+  </script>
+
 </body>
 
 </html>

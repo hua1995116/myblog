@@ -60,9 +60,9 @@
           <p>前段时间有做过一个关于节点操作的排序问题，
             <a href="http://blog.csdn.net/blueblueskyhua/article/details/68929578">http://blog.csdn.net/blueblueskyhua/article/details/68929578</a>
             今天就node类型，进行详细的讲解。首先看下他的兼容性。
-            <img src="http://img.blog.csdn.net/20170422160634057" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506284759.png" alt="这里写图片描述">
             node共有12类型。
-            <img src="http://img.blog.csdn.net/20170422155335302" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506284764.png" alt="这里写图片描述">
             类型详情可以参考<a href="http://www.w3school.com.cn/jsref/prop_node_nodetype.asp">http://www.w3school.com.cn/jsref/prop_node_nodetype.asp</a>
             <strong>1.nodeValue和nodeName</strong>
             其中最常用的就是1和3，那今天我们就1和3来展开讲解，了解节点的属性主要有nodeValue和nodeName两个属性。分别获取节点类型和节点的名字。
@@ -89,7 +89,7 @@ var length = node.childNodes.length;
 </code></pre>
           <p>通过转化成数组，可以进行一些常见的操作，例如表单排序，删除等操作。
             下面用一张图讲解一些关于node的父子兄弟节点的关系。</p>
-          <p><img src="http://img.blog.csdn.net/20170422170708276" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506286331.jpg" alt="这里写图片描述"></p>
           <p><strong>3.操作节点</strong>
             appendChild，用于向childeNodes的尾部追加一个节点。</p>
           <pre><code class="lang-html">&lt;ul id=&quot;ul&quot;&gt;
@@ -105,9 +105,9 @@ var length = node.childNodes.length;
 &lt;/script&gt;
 </code></pre>
           <p>追加前
-            <img src="http://img.blog.csdn.net/20170422171619623" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506284398.png" alt="这里写图片描述">
             追加后
-            <img src="http://img.blog.csdn.net/20170422171647680" alt="这里写图片描述"></p>
+            <img src="https://s3.qiufengh.com/blog/1579506284907.png" alt="这里写图片描述"></p>
           <p>insertBefore，接受两个参数：要插入的节点和参照的节点。</p>
           <pre><code class="lang-javascript">//插入后成为最后一个节点
 returnedNode = someNode.insertBefore(newNode, null);
@@ -206,6 +206,19 @@ var returnedNode = someNode.replaceChild(newNode, someNode.firstChild);
     })
     gitment.render('container')
   </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112201282-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-112201282-3');
+  </script>
+
 </body>
 
 </html>

@@ -59,7 +59,7 @@
         <div class="content markdown-body">
           <h1 id="-">前言</h1>
           <p>今天看到了阿里云上有这个<a href="https://promotion.aliyun.com/ntms/campus2017.html?utm_medium=text&amp;utm_source=baidu&amp;utm_campaign=xsj&amp;utm_content=se_466551">活动</a></p>
-          <p><img src="http://img.blog.csdn.net/20170930135523397?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+          <p><img src="https://s3.qiufengh.com/blog/1579506286911.jpg" alt="这里写图片描述">
             我就顺势买了一台阿里云的服务器，之前买了一台windows server的，这次就试试这个linux的。其实发现只要你对linux熟悉，配置还是比较容易的。我选择的是CentOS 7.3 64位的。</p>
           <h1 id="-">配置环境</h1>
           <p>为了方便，我在服务器上装的是node环境
@@ -67,9 +67,9 @@
           <p>这里我就不展开讲了。
             当我把环境配置好后，通过服务器给定的外网+端口，进行访问，结果发现并不能同。后来我也进行了ping。发现还是不同，后来查了一些资料。发现是防火墙的原因。
             点击你所购买的服务器的详情。可以看到有一个本实例安全组。
-            <img src="http://img.blog.csdn.net/20170930140323673?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506286278.jpg" alt="这里写图片描述">
             点击快速创建规则。
-            <img src="http://img.blog.csdn.net/20170930140424176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506288006.jpg" alt="这里写图片描述">
             在这里应该要配上基本的ssh，http80，当然你可以自定义宽口。
             配上这两个，并且你的服务内容也是在对应开放端口，这样就可以通过外网访问到你的网站内容了。</p>
           <h1 id="-ssh-">用ssh 登录服务器</h1>
@@ -201,6 +201,19 @@ IdentitiesOnly yes  只接受SSH key 登录
     })
     gitment.render('container')
   </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112201282-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-112201282-3');
+  </script>
+
 </body>
 
 </html>

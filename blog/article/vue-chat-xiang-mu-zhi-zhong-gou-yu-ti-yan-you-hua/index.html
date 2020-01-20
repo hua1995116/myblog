@@ -72,9 +72,9 @@
           <h1 id="-">代码结构</h1>
           <p><strong>1.梳理项目目录结构</strong></p>
           <p>原目录：
-            <img src="http://img.blog.csdn.net/20171004214519486?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506284481.jpg" alt="这里写图片描述">
             新目录
-            <img src="http://img.blog.csdn.net/20171004214547851?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">
+            <img src="https://s3.qiufengh.com/blog/1579506287135.jpg" alt="这里写图片描述">
             主要是多了一个api目录，view目录和一个Basetransition.vue文件。
             api的作用为对axios的统一处理
             view使得页面和组件分离，因为一般写都是混在一起，会导致不太清楚
@@ -83,7 +83,7 @@
           <p>这里不细说，具体看每个页面，主要是对一些可以在单页内使用的data，去除了vuex。使得每个页面具有其通用性，去除了耦合性。</p>
           <p><strong>3.将公共工具utils抽取出来</strong></p>
           <p>里面有三个工具，
-            <img src="http://img.blog.csdn.net/20171004215142986?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+            <img src="https://s3.qiufengh.com/blog/1579506286295.jpg" alt="这里写图片描述"></p>
           <p>分别为处理时间，localStoragec存储，处理url的query参数
             <strong>4.页面与组件分离</strong></p>
           <p>刚才讲了，将components 分离出来，分离成真正的组件以及页面。</p>
@@ -163,7 +163,7 @@ export default instance
           <p>切换的顺序，主要参考了这位大哥的思路，
             <a href="https://github.com/zhengguorong/pageAinimate">https://github.com/zhengguorong/pageAinimate</a>并且在他的基础上，我再进行了优化，让我们的项目页面切换变成了牛逼哄哄的样子。
             <strong>“顺畅的不像话“，看起来分不清楚是app还是h5</strong></p>
-          <p><img src="http://img.blog.csdn.net/20171005164309491?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506286226.gif" alt="这里写图片描述"></p>
           <p>可以看我的Basetransition.vue页面。</p>
           <p>script </p>
           <pre><code class="lang-javascript">  export default {
@@ -208,9 +208,9 @@ export default instance
           <p>2.首页加载速度性能提升（移除首页所有不必要的请求）</p>
           <p>在我们本来的项目中，首页有载入许多图片，现在移除了所有不必要的图片。</p>
           <p>3.加入loading, 优化处理</p>
-          <p><img src="http://img.blog.csdn.net/20171005164044558?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506287156.gif" alt="这里写图片描述"></p>
           <p>4.加入静态组件，仿苹果弹窗(Alert, confirm)</p>
-          <p><img src="http://img.blog.csdn.net/20171005164102567?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506286222.gif" alt="这里写图片描述"></p>
           <p>5.加入用户缓存机制，不必每次刷新重新登录了</p>
           <p>我们可以使用utils下的localStorage.js，setItem这个函数，
             setItem(key, value, duration)，参数分别为，属性名，属性值，缓存时长。</p>
@@ -219,11 +219,11 @@ export default instance
           <h1 id="-">对比</h1>
           <p>因为服务器比较渣，所以还是能体谅这个速度，我们主要看前后对比时间。
             重构前：
-            <img src="http://img.blog.csdn.net/20171005164707947?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-          <p><img src="http://img.blog.csdn.net/20171005164824106?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+            <img src="https://s3.qiufengh.com/blog/1579506286303.jpg" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506284422.jpg" alt="这里写图片描述"></p>
           <p>重构后：
             <img src="http://img.blog.csdn.net/20171005164633707?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-          <p><img src="http://img.blog.csdn.net/20171005164842594?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506286899.jpg" alt="这里写图片描述"></p>
           <p>比较之下还是有很大的改善的。剩下的自己慢慢体会吧。</p>
 
           <!-- <div class="view-cnt">（111 人已阅）</div> -->
@@ -300,6 +300,19 @@ export default instance
     })
     gitment.render('container')
   </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112201282-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-112201282-3');
+  </script>
+
 </body>
 
 </html>

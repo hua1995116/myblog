@@ -70,12 +70,12 @@
           <p>####<strong>功能分析与设计</strong>
             首先我先参考了现有的一些APP的设计与开发，然后决定做了歌单和搜索两个模块，本身主要以前端为主，后端代码并没有研究，这里要感谢这位同学写的<a href="https://github.com/zvenshy/venmusic">API</a>。
             如果你没有API也没有关系，这并不影响我们的开发，你可以写如下形式的json数据进行模拟：
-            <img src="http://img.blog.csdn.net/20170329172932380" alt="这里写图片描述"></p>
+            <img src="https://s3.qiufengh.com/blog/1579506284320.png" alt="这里写图片描述"></p>
           <p><strong>vuejs</strong></p>
           <p>路由结构如下</p>
-          <p><img src="http://img.blog.csdn.net/20170329173152290" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506284503.png" alt="这里写图片描述"></p>
           <p>以下是组件</p>
-          <p><img src="http://img.blog.csdn.net/20170329173309870" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506284409.png" alt="这里写图片描述"></p>
           <p>1.歌单部分：
             数据主要由API提供，源码中有具体地址。需要了解audio标签，不熟悉的同学看<a href="http://www.cnblogs.com/tianma3798/p/6033108.html">audio</a></p>
           <p>2.搜索部分：
@@ -102,9 +102,9 @@ this.helloScroll = new BScroll(this.$refs.helloWrapper, {
 });
 </code></pre>
           <p>最后上几张效果图
-            <img src="http://img.blog.csdn.net/20170329175225335?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-          <p><img src="http://img.blog.csdn.net/20170329175246881?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-          <p><img src="http://img.blog.csdn.net/20170329175301320?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmx1ZWJsdWVza3lodWE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+            <img src="https://s3.qiufengh.com/blog/1579506285676.gif" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506284321.gif" alt="这里写图片描述"></p>
+          <p><img src="https://s3.qiufengh.com/blog/1579506285018.gif" alt="这里写图片描述"></p>
           <p>github项目地址：
             <a href="https://github.com/hua1995116/musiccloudWebapp/">https://github.com/hua1995116/musiccloudWebapp/</a>
             在线演示地址：
@@ -185,6 +185,19 @@ this.helloScroll = new BScroll(this.$refs.helloWrapper, {
     })
     gitment.render('container')
   </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112201282-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-112201282-3');
+  </script>
+
 </body>
 
 </html>
