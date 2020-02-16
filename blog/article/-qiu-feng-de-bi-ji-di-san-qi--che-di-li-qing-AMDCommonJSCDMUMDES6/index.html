@@ -83,6 +83,7 @@
             <li>模块演进的产物 —— Tree Shaking</li>
             <li>Tree Shaking 应该注意什么</li>
           </ol>
+          <p>本文所有例子都存放于 <a href="https://github.com/hua1995116/packaging-example">https://github.com/hua1995116/packaging-example</a></p>
           <h2 id="-">引言</h2>
           <p>今天在使用 rollup 打包的时候遇到了一个问题</p>
           <pre><code class="lang-bash">Error: &#39;Map&#39; is not exported by node_modules/immutable/dist/immutable.js
@@ -109,7 +110,7 @@
           </blockquote>
           <h2 id="commonjs">CommonJS</h2>
           <p><a href="http://wiki.commonjs.org/wiki/CommonJS">CommonJS规范</a></p>
-          <p><code>CommonJS</code> 主要运行于服务器端，该规范指出，一个单独的文件就是一个模块。 Node.js为主要实践者，它有四个重要的环境变量为模块化的实现提供支持：module、exports、require、global。require 命令用于输入其他模块提供的功能，module.exports命令用于规范模块的对外接口，输出的是一个值的拷贝，输出之后就不能改变了，会缓存起来。</p>
+          <p><code>CommonJS</code> 主要运行于服务器端，该规范指出，一个单独的文件就是一个模块。 Node.js为主要实践者，它有四个重要的环境变量为模块化的实现提供支持：<code>module</code>、<code>exports</code>、<code>require</code>、<code>global</code>。<code>require</code> 命令用于输入其他模块提供的功能，<code>module.exports</code>命令用于规范模块的对外接口，输出的是一个值的拷贝，输出之后就不能改变了，会缓存起来。</p>
           <pre><code class="lang-javascript">// 模块 a.js
 const name = &#39;qiufeng&#39;
 
@@ -127,11 +128,12 @@ const { name, github } = require(&#39;./a&#39;);
 console.log(name, github, path.basename(github));
 // 输出 qiufeng https://github.com/hua1995116 hua1995116
 </code></pre>
+          <p>代码地址: <a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/CommonJS">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/CommonJS</a></p>
           <p><code>CommonJS</code> 采用同步加载模块，而加载的文件资源大多数在本地服务器，所以执行速度或时间没问题。但是在浏览器端，限于网络原因，更合理的方案是使用异步加载。</p>
           <h2 id="amd">AMD</h2>
           <p><a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD规范</a></p>
           <p>AMD是&quot;Asynchronous Module Definition&quot;的缩写，意思就是&quot;异步模块定义&quot;。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。其中 RequireJS 是最佳实践者。</p>
-          <p>模块功能主要的几个命令：define、require、return和define.amd。define是全局函数，用来定义模块,<code>define(id?, dependencies?, factory)</code>。require命令用于输入其他模块提供的功能，return命令用于规范模块的对外接口，define.amd属性是一个对象，此属性的存在来表明函数遵循AMD规范。</p>
+          <p>模块功能主要的几个命令：<code>define</code>、<code>require</code>、<code>return</code>和<code>define.amd</code>。<code>define</code>是全局函数，用来定义模块,<code>define(id?, dependencies?, factory)</code>。require命令用于输入其他模块提供的功能，return命令用于规范模块的对外接口，define.amd属性是一个对象，此属性的存在来表明函数遵循AMD规范。</p>
           <pre><code class="lang-javascript">// model1.js
 define(function () {
     console.log(&#39;model1 entry&#39;);
@@ -171,11 +173,13 @@ define(function (require) {
 // model1
 // model2
 </code></pre>
+          <p>代码地址: <a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/AMD">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/AMD</a></p>
           <p>在这里，我们使用define来定义模块，return来输出接口， require来加载模块，这是AMD官方推荐用法。</p>
           <h2 id="cmd">CMD</h2>
           <p><a href="https://github.com/cmdjs/specification/blob/master/draft/module.md">CMD规范</a></p>
           <p>CMD(Common Module Definition - 通用模块定义)规范主要是Sea.js推广中形成的，一个文件就是一个模块，可以像Node.js一般书写模块代码。主要在浏览器中运行，当然也可以在Node.js中运行。</p>
           <p>它与AMD很类似，不同点在于：AMD 推崇依赖前置、提前执行，CMD推崇依赖就近、延迟执行。</p>
+          <p>不懂 <code>依赖就近、延迟执行</code> 的可以比较下面和上面的例子。</p>
           <pre><code class="lang-javascript">// model1.js
 define(function (require, exports, module) {
     console.log(&#39;model1 entry&#39;);
@@ -211,6 +215,7 @@ define(function(require, exports, module) {
 // model2 entry
 // model2
 </code></pre>
+          <p><a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/CMD">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/CMD</a></p>
           <p>总结: 对比和 AMD 的写法就可以看出 AMD 和 CMD 的区别。虽然现在 CMD 已经凉了。但是 CMD 更加接近于 CommonJS 的写法，但是 AMD 更加接近于浏览器的异步的执行方式。</p>
           <h2 id="umd">UMD</h2>
           <p><a href="https://github.com/umdjs/umd">UMD文档</a></p>
@@ -239,17 +244,18 @@ define(function(require, exports, module) {
 &lt;/script&gt;
 </code></pre>
           <ol>
-            <li>判断define为函数，并且是否存在define.amd，来判断是否为AMD规范,</li>
-            <li>判断module是否为一个对象，并且是否存在module.exports来判断是否为CommonJS规范</li>
+            <li>判断<code>define为</code>函数，并且是否存在<code>define.amd</code>，来判断是否为AMD规范,</li>
+            <li>判断<code>module</code>是否为一个对象，并且是否存在<code>module.exports</code>来判断是否为<code>CommonJS</code>规范</li>
             <li>如果以上两种都没有，设定为原始的代码规范。</li>
           </ol>
+          <p>代码地址：<a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/UMD">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/UMD</a></p>
           <h2 id="es-modules">ES Modules</h2>
           <p><a href="http://es6.ruanyifeng.com/#docs/module-loader">ES Modules 文档</a></p>
           <p>ES modules（ESM）是 JavaScript 官方的标准化模块系统。</p>
           <ol>
             <li>它因为是标准，所以未来很多浏览器会支持，可以很方便的在浏览器中使用。(浏览器默认加载不能省略.js)</li>
             <li>它同时兼容在node环境下运行。</li>
-            <li>模块的导入导出，通过import和export来确定。
+            <li>模块的导入导出，通过<code>import</code>和<code>export</code>来确定。
               可以和Commonjs模块混合使用。</li>
             <li>ES modules 输出的是值的引用，输出接口动态绑定，而 CommonJS 输出的是值的拷贝</li>
             <li>ES modules 模块编译时执行，而 CommonJS 模块总是在运行时加载</li>
@@ -272,6 +278,7 @@ export function github() {
 </code></pre>
           <pre><code class="lang-html">&lt;script src=&quot;./index.js&quot; type=&quot;module&quot;&gt;&lt;/script&gt;
 </code></pre>
+          <p>代码地址: <a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/ES-Modules">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/ES-Modules</a></p>
           <p>详细可以查看 <a href="https://juejin.im/entry/5a879e28f265da4e82635152">深入理解 ES6 模块机制</a></p>
           <h3 id="commonjs-">CommonJS 的值拷贝</h3>
           <pre><code class="lang-javascript">// a.js
@@ -299,7 +306,7 @@ module.exports = {
           <p>CommonJS 主要有执行主要有以下两个特点</p>
           <ol>
             <li>CommonJS 模块中 require 引入模块的位置不同会对输出结果产生影响，并且会生成值的拷贝</li>
-            <li>CommonJS 模块重复引入的模块并不会重复执行，再次获取模块只会获得之前获取到的模块的拷贝</li>
+            <li>CommonJS 模块重复引入的模块并不会重复执行，再次获取模块只会获得之前获取到的模块的缓存</li>
           </ol>
           <h3 id="es-modules-">ES modules 的值的引用</h3>
           <pre><code class="lang-javascript">// a.js
@@ -372,13 +379,26 @@ export let foo = 1;
 import * as a from &#39;./a.js&#39;;
 console.log(a);
 
-// 运行 index.html 执行结果:
-// {bar: 1,
-// bar2: () =&gt; { console.log(&#39;bar2&#39;); },
-// bar3: ƒ bar3()}
-// a.js
+// 运行 node --experimental-modules a.js 执行结果:
+// [Module] {
+//  bar: &lt;uninitialized&gt;,
+//  bar2: &lt;uninitialized&gt;,
+//  bar3: [Function: bar3]
+}
 </code></pre>
-          <p>此处需要注意，在 <code>深入理解 ES6 模块机制</code> 中结果有所不一致，是由于它只通过 babel-node 去执行，通过转化为 <code>CommonJS</code> 的代码去执行，从而丢失了这个 <code>export</code> 提升的特性。而在浏览器中则是能获取到所</p>
+          <p>代码地址：<a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/CommonJS-vs-ESModules">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/CommonJS-vs-ESModules</a></p>
+          <p>从上述例子中可以看出，a 模块引用了 b 模块，b 模块也引用了 a 模块，export 声明优先于其他内容。由于变量和函数的提升不一样，此处不做过多介绍。</p>
+          <p><strong>此处有一个小插曲</strong>，我一开始用浏览器进行执行的结果为:</p>
+          <pre><code class="lang-bash">{
+  bar: 1
+  bar2: () =&gt; { console.log(&#39;bar2&#39;); }
+  bar3: ƒ bar3()
+}
+a.js
+</code></pre>
+          <p>让我一度觉得是不是 export 有什么特殊的声明提升？因为我发现<code>深入理解 ES6 模块机制</code>一文中是使用的 <code>babel-node</code>, 是否是因为环境不一样导致的。因此我使用了 node <code>v12.16.0</code>,进行测试 <code>node --experimental-modules a.js</code>, 发现结果与 <code>深入理解 ES6 模块机制</code> 中结果一致，后来想到 <code>console.log</code> 的显示问题，<code>console.log</code> 常常会有一些异步的显示。后来我经过测试发现确实是 <code>console.log</code> 搞的鬼 </p>
+          <p><code>console.log(a);</code> -&gt; <code>console.log(JSON.stringify(a))</code> </p>
+          <p>会出现一个 <code>Uncaught ReferenceError: bar is not defined</code> 的错误，是因为 <code>bar</code> 未初始化导致。后续也会将这个 <code>console</code> 的表现形式报告给 <code>chromium</code>。</p>
           <h2 id="tree-shaking">Tree shaking</h2>
           <p>介绍完了，各个模块的标准后，为什么又将这个 Tree shaking 呢？因为模块化的一次又一次地变更，让我们的模块系统变得越来越好，而 Tree shaking 就是得益 ES modules 的发展的产物。</p>
           <p>这个概念是Rollup提出来的。Rollup推荐使用ES2015 Modules来编写模块代码，这样就可以使用Tree-shaking来对代码做静态分析消除无用的代码，可以查看Rollup网站上的REPL示例，代码打包前后之前的差异，就会清晰的明白Tree-shaking的作用。</p>
@@ -394,15 +414,16 @@ const array = [1,2,3,1,2,3]
 
 console.log(utils.arrayUnique(array));
 </code></pre>
+          <p>代码地址：<a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/Tree-Shaking">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/Tree-Shaking</a></p>
           <p><code>Tree shaking</code> 和 没有<code>Tree shaking</code> 打包对比。</p>
           <p><img src="https://s3.qiufengh.com/blog/1581857899385.jpg" alt="1581857899385.jpg"></p>
-          <p>没有 tree-shaking 的情况下，会将 utils 中的所有文件都进行打包，使得体积暴增。</p>
-          <p>ES Modules 之所以能 tree-shaking 主要为以下四个原因（摘自尤雨溪在知乎的回答）:</p>
+          <p>没有 Tree-shaking 的情况下，会将 utils 中的所有文件都进行打包，使得体积暴增。</p>
+          <p>ES Modules 之所以能 Tree-shaking 主要为以下四个原因（摘自尤雨溪在知乎的回答）:</p>
           <ol>
-            <li>import只能作为模块顶层的语句出现，不能出现在 function 里面或是 if 里面。</li>
-            <li>import 的模块名只能是字符串常量。</li>
-            <li>不管 import 的语句出现的位置在哪里，在模块初始化的时候所有的 import 都必须已经导入完成。</li>
-            <li>import binding 是 immutable 的，类似 const。比如说你不能 import { a } from ‘./a’ 然后给 a 赋值个其他什么东西。</li>
+            <li><code>import</code> 只能作为模块顶层的语句出现，不能出现在 function 里面或是 if 里面。</li>
+            <li><code>import</code> 的模块名只能是字符串常量。</li>
+            <li>不管 <code>import</code> 的语句出现的位置在哪里，在模块初始化的时候所有的 <code>import</code> 都必须已经导入完成。</li>
+            <li><code>import binding</code> 是 <code>immutable</code> 的，类似 const。比如说你不能 import { a } from ‘./a’ 然后给 a 赋值个其他什么东西。</li>
           </ol>
           <h2 id="tree-shaking-">tree shaking 应该注意什么</h2>
           <h3 id="-">副作用</h3>
@@ -432,42 +453,23 @@ console.log(42);
           <p>指定没有副作用下的打包输出。<code>npx rollup index.js --file bundle-no-effect.js --no-treeshake.moduleSideEffects</code></p>
           <pre><code class="lang-javascript">console.log(42);
 </code></pre>
+          <p>代码地址： <a href="https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/Tree-Shaking-Effect">https://github.com/hua1995116/packaging-example/tree/master/modules-introduction/Tree-Shaking-Effect</a></p>
           <p>当然以上只是副作用的一种，详情其他几种看查看 <a href="https://rollupjs.org/guide/en/">https://rollupjs.org/guide/en/</a></p>
           <h2 id="-">结语</h2>
           <p>CommonJS 同步加载， AMD 异步加载， UMD = CommonJS + AMD , ES Module 是标准规范, 取代 UMD，是大势所趋。 Tree-shaking 牢记副作用。</p>
           <h2 id="-">参考</h2>
-          <p>关于 webpack 和 rollup 区别</p>
           <p><a href="https://github.com/rollup/rollup/issues/3011#issuecomment-516084596">https://github.com/rollup/rollup/issues/3011#issuecomment-516084596</a></p>
-          <p>rollup-commonjs
-            <a href="https://github.com/rollup/plugins/tree/master/packages/commonjs">https://github.com/rollup/plugins/tree/master/packages/commonjs</a></p>
-          <p>es6 模块是怎么进行静态分析的</p>
+          <p><a href="https://github.com/rollup/plugins/tree/master/packages/commonjs">https://github.com/rollup/plugins/tree/master/packages/commonjs</a></p>
           <p><a href="https://www.zhihu.com/question/63240671">https://www.zhihu.com/question/63240671</a></p>
-          <p>umd，amd 的介绍
-            <a href="https://www.yuque.com/baichuan/notes/emputh">https://www.yuque.com/baichuan/notes/emputh</a></p>
-          <p>require shaking 的局限性
-            <a href="https://github.com/indutny/webpack-common-shake#limitations">https://github.com/indutny/webpack-common-shake#limitations</a></p>
-          <p>commonjs 和 es modules 的区别
-            <a href="http://xbhong.top/2018/03/12/commonjs/">http://xbhong.top/2018/03/12/commonjs/</a></p>
-          <p>AMD 和 CMD 最大的区别
-            <a href="https://www.douban.com/note/283566440/">https://www.douban.com/note/283566440/</a></p>
-          <p>tree shaking 应用
-            <a href="https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/">https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/</a></p>
+          <p><a href="https://www.yuque.com/baichuan/notes/emputh">https://www.yuque.com/baichuan/notes/emputh</a></p>
+          <p><a href="https://github.com/indutny/webpack-common-shake#limitations">https://github.com/indutny/webpack-common-shake#limitations</a></p>
+          <p><a href="http://xbhong.top/2018/03/12/commonjs/">http://xbhong.top/2018/03/12/commonjs/</a></p>
+          <p><a href="https://www.douban.com/note/283566440/">https://www.douban.com/note/283566440/</a></p>
+          <p><a href="https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/">https://blog.fundebug.com/2018/08/15/reduce-js-payload-with-tree-shaking/</a></p>
           <p><a href="http://huangxuan.me/js-module-7day/#/13">http://huangxuan.me/js-module-7day/#/13</a></p>
-          <p>什么是rollup
-            <a href="https://www.jianshu.com/p/6c26fb7541f1">https://www.jianshu.com/p/6c26fb7541f1</a></p>
-          <p>计划</p>
-          <ol>
-            <li>分析 commonjs - plugin</li>
-            <li>分析 rollup 如何工作</li>
-            <li>snowpack 入门，提高10倍打包速度。</li>
-          </ol>
-          <p>介绍使用对象</p>
-          <p>介绍 使用入门配置示例</p>
-          <p>局限性</p>
-          <ol>
-            <li>依托于 ES Modules, 对于一些包含陈旧的 CommonJS 包，需要额外地处理</li>
-            <li>无法做到 Tree shaking</li>
-          </ol>
+          <p><a href="https://www.jianshu.com/p/6c26fb7541f1">https://www.jianshu.com/p/6c26fb7541f1</a></p>
+          <h2 id="-">关注</h2>
+          <p><img src="https://s3.qiufengh.com/blog/gongzhonghao.png" alt="gongzhonghao.png"></p>
 
           <!-- <div class="view-cnt">（111 人已阅）</div> -->
         </div>
