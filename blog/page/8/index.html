@@ -6,7 +6,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <title>秋风的博客|归档</title>
+  <title>秋风的博客</title>
   <script src='https://s3.qiufengh.com/blog/nprogress@0.2.0.js'></script>
   <link rel='stylesheet' href='https://s3.qiufengh.com/blog/nprogress@0.2.0.css'/>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -56,17 +56,13 @@
             <h2>FontEnd Engineering at MeiTuan, focus on <span class="highlight">Node, React, Vue</span></h2>
         </header>
     </section>
-    <section id="tag">
-      <div class="tag-article-title">
-        Tag - vue
-      </div>
-      <div class="tag-article-sort">
-        <div class="article-item"><time class="article-item__time">2017-03-20</time><a class="article-item__title" href="/blog/article/vue-lazyload-ji-chu-shi-li-(-ji-yu-vue20-he-vue-router20)">vue-lazyload基础实例（基于vue2.0和vue-router2.0）</a></div><div class="article-item"><time class="article-item__time">2017-03-18</time><a class="article-item__title" href="/blog/article/Vue-router20-ji-chu--miao-hui-">Vue-router2.0基础，秒会。</a></div><div class="article-item"><time class="article-item__time">2017-03-29</time><a class="article-item__title" href="/blog/article/yong-vuejs-fang-wang-yi-yun-yin-le-(-shi-xian-ting-ge-yi-ji-sou-suo-gong-neng-)">用vuejs仿网易云音乐（实现听歌以及搜索功能）</a></div><div class="article-item"><time class="article-item__time">2017-04-26</time><a class="article-item__title" href="/blog/article/vuewebsocketexpressmongodb-shi-zhan-xiang-mu-(-shi-shi-liao-tian-)-yi-">vue+websocket+express+mongodb实战项目（实时聊天）（一）</a></div><div class="article-item"><time class="article-item__time">2017-06-13</time><a class="article-item__title" href="/blog/article/axios-shang-chuan-formdata-shi-bai-yi-ji-nodejs-jie-shou-formdata-shi-bai">axios上传formdata失败以及nodejs接受formdata失败</a></div><div class="article-item"><time class="article-item__time">2017-06-14</time><a class="article-item__title" href="/blog/article/vuewebsocketexpressmongodb-shi-zhan-xiang-mu-(-shi-shi-liao-tian-)-er-">vue+websocket+express+mongodb实战项目（实时聊天）（二）</a></div><div class="article-item"><time class="article-item__time">2017-07-12</time><a class="article-item__title" href="/blog/article/vue-mixins-yi-xie-chang-yong-fang-fa">vue-mixins一些常用方法</a></div><div class="article-item"><time class="article-item__time">2017-09-18</time><a class="article-item__title" href="/blog/article/vue-fu-zi-zu-jian--ji-cheng-zu-jian-de-sheng-ming-zhou-qi-yi-ji-ying-yong">vue父子组件&继承组件的生命周期以及应用</a></div><div class="article-item"><time class="article-item__time">2017-11-02</time><a class="article-item__title" href="/blog/article/vue-chat-xiang-mu-zhi-zhong-gou-yu-ti-yan-you-hua">vue-chat项目之重构与体验优化</a></div>
-      </div>
-    </section>
+    <div class="list" data-scroll-reveal="enter bottom"><div class="header"><a href="/blog/article/ni-bu-zhi-dao-de-javascript-zhi-han-shu-zuo-yong-yu-he-kuai-zuo-yong-yu-(-yi-)"><h1>你不知道的javascript之函数作用域和块作用域（一）</h1></a></div><div class="timer">2016-12-06</div><div class="type clear"><span class="span_button"> js</span></div><div class="content"></div></div>
   </div>
 </div>
-
+<div id="page">
+  <div index='7' class="page-item">上一页</div>
+  <div index='0' class="page-item">下一页</div>
+</div>
 <div class="blog-bottom">
   <!-- 本站总访问量<span id="busuanzi_value_site_pv"></span>次 -->
   <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -74,8 +70,27 @@
 <footer id="footer">
   <p class="small">© Copyright 2019 qiufenghua</p>
 </footer>
+<script>
+  handlePages();
+  function handlePages() {
+    var page = document.getElementById('page');
+
+    page.addEventListener('click', function(e) {
+      var targer = e.target || e.srcElement;
+      var index = targer.getAttribute('index');
+    
+      if (index === '0') {
+        
+      } else if (index === '-1'){
+        
+      } else {
+        location.href = '/blog/page/' + index;
+      }
+    })
+  }
 </script>
 <script>
+  // NProgress.set(0.4);
   NProgress.start();
   window.onload = function() {
     NProgress.done();
@@ -97,6 +112,17 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-112201282-3');
+</script>
+<!-- Hotjar Tracking Code for https://blog.qiufengh.com -->
+<script>
+  (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:1650125,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
 </body>
 </html>
