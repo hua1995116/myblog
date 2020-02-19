@@ -194,6 +194,7 @@ import &#39;./photo.png&#39;;
     ]
 }
 </code></pre>
+          <p>将 <code>src/index</code> 修改成 <code>src/index.tsx</code> 并加入声明。</p>
           <pre><code class="lang-typescript">import React, { useState } from &quot;react&quot;;
 import ReactDOM from &quot;react-dom&quot;;
 import styled, { ThemeProvider } from &#39;styled-components&#39;;
@@ -236,7 +237,7 @@ window.addEventListener(&quot;load&quot;, () =&gt;
 );
 
 </code></pre>
-          <p>修改 <code>启动命令</code></p>
+          <p>修改 <code>启动命令</code>，让 <code>babel</code> 包含对 后缀 <code>tsx</code> 的转义。</p>
           <pre><code class="lang-json">{
   &quot;start&quot;: &quot;babel src/ --out-dir dist --watch --extensions \&quot;.ts,.tsx,.js,.jsx\&quot; &amp; servor --reload&quot;
 }
